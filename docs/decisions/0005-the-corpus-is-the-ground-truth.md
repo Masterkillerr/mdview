@@ -37,7 +37,7 @@ that adds a fifty-second is noticed.
 * The 51 deviations are a list of decisions, not a list of bugs: a heading
   under a list item, an HTML block that ends early, a link reference that is
   not matched. Each one is in
-  [the audit](../../../dev/AUDIT.md).
+  [the audit](../../dev/AUDIT.md).
 * The fixtures add the reader's own extensions — GFM tables, task items,
   frontmatter chips, the safety rules — because the corpus says nothing about
   them.
