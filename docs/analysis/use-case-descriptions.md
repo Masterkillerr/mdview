@@ -312,7 +312,7 @@ flow and the specification cannot drift apart.
 
 * F-22 — a workbook and a CSV are the same engine; the only difference is the zip.
 
-![activity read a spreadsheet](../model/img/svg/per-story/US-15/activity-read-a-spreadsheet.svg)
+![activity read a spreadsheet](../model/img/svg/per-use-case/UC-08/activity-read-a-spreadsheet.svg)
 
 ---
 
@@ -380,7 +380,7 @@ flow and the specification cannot drift apart.
 
 * F-24 — the search says which answer it gave: the folders walked just now, or the index.
 
-![activity find a note](../model/img/svg/per-story/US-17/activity-find-a-note.svg)
+![activity find a note](../model/img/svg/per-use-case/UC-10/activity-find-a-note.svg)
 
 ---
 
