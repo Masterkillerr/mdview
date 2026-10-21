@@ -1,0 +1,35 @@
+@startuml
+' US-09 - A file with no engine opens as its own text.
+' Activity - the kind, the bytes, and the two ways a file can be.
+' Sources: ../../../analysis/stories.md (US-09)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the file is open in a tab;
+
+partition "the reader" {
+  :the kind is decided by the name;
+  if (the reader has an engine for it?) then (yes)
+    :that engine opens it;
+  else (no)
+    :the bytes are read;
+    if (the bytes are text?) then (yes)
+      :the text is shown, with the name, the size,\nthe line count and the folder;
+      if (the file is past four megabytes?) then (yes)
+        :it is not read into the page;
+      else (no)
+      endif
+    else (no)
+      :the reader says it is not text, and offers the file;
+    endif
+  endif
+}
+
+stop
+@enduml

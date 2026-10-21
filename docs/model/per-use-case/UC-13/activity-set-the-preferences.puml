@@ -1,0 +1,34 @@
+@startuml
+' UC-13 - Set the reader's preferences.  The goal, whole.
+' Activity - the choice, the browser's storage, and every page that follows.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-13)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the reader picks a choice: the desk, the width,\nthe face, the dictionary's language, the voice;
+
+partition "the page" {
+  :the choice is applied at once;
+}
+
+partition "the browser's storage" {
+  :the choice is written down, under the reader's own key (F-27);
+}
+
+partition "every page of the reader" {
+  :the choice is read when the page opens,\nand the page follows it;
+}
+
+if (the browser refuses to keep the choice?) then (yes)
+  :the choice applies to the page, and is not kept,\nand the reader is not troubled;
+else (no)
+endif
+
+stop
+@enduml

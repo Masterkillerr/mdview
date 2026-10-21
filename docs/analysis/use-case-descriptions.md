@@ -44,6 +44,8 @@ flow and the specification cannot drift apart.
 * F-1 — the extension sends the file to the reader and does not render it itself.
 * F-2 — the workspace reveals the file in the tree: the folders on the way to it are opened, and the file is shown where it lives.
 
+![activity open a local file](../model/img/svg/per-use-case/UC-01/activity-open-a-local-file.svg)
+
 ---
 
 ## UC-02 — Read a note
@@ -83,6 +85,8 @@ flow and the specification cannot drift apart.
 * F-4 — the place is a page and a fraction of a page, kept in the browser and nowhere else (S-6).
 * S-4 — a note cannot run script.
 
+![activity read a note](../model/img/svg/per-use-case/UC-02/activity-read-a-note.svg)
+
 ---
 
 ## UC-03 — Browse the folders
@@ -121,6 +125,8 @@ flow and the specification cannot drift apart.
 * F-7 — the filters are controls, not a language; the folders are never filtered out, because they are the way to the files.
 * F-8 — a refusal is readable and names the folder.
 
+![activity browse the folders](../model/img/svg/per-use-case/UC-03/activity-browse-the-folders.svg)
+
 ---
 
 ## UC-04 — Open a file in a tab
@@ -156,6 +162,8 @@ flow and the specification cannot drift apart.
 
 * F-9 — every tab is one of the reader's own pages; the workspace does not draw a document itself.
 * F-10 — the window's state is kept in the browser, and nowhere else.
+
+![activity open a file in a tab](../model/img/svg/per-use-case/UC-04/activity-open-a-file-in-a-tab.svg)
 
 ---
 
@@ -193,6 +201,8 @@ flow and the specification cannot drift apart.
 * F-12 — only the three hosts the extension declares are ever asked (S-2).
 * F-13 — the card is a card on the page, not a window of its own, wherever the page allows it.
 * F-14 — where a card cannot live, a tab takes its place.
+
+![activity look a word up](../model/img/svg/per-use-case/UC-05/activity-look-a-word-up.svg)
 
 ---
 
@@ -233,6 +243,8 @@ flow and the specification cannot drift apart.
 * F-17 — the tools are in the window's own bar, not in the reader's bar, so that they are there in a frame too.
 * F-18 — a drag that starts on a word is a selection, not a move.
 
+![activity read a pdf](../model/img/svg/per-use-case/UC-06/activity-read-a-pdf.svg)
+
 ---
 
 ## UC-07 — Look at a picture
@@ -267,6 +279,8 @@ flow and the specification cannot drift apart.
 * F-20 — the zoom is about the pointer, and the steps are sizes a reader would ask for.
 * F-21 — a picture bigger than the window is moved with the hand.
 
+![activity look at a picture](../model/img/svg/per-use-case/UC-07/activity-look-at-a-picture.svg)
+
 ---
 
 ## UC-08 — Read a spreadsheet
@@ -297,6 +311,8 @@ flow and the specification cannot drift apart.
 **Business rules**
 
 * F-22 — a workbook and a CSV are the same engine; the only difference is the zip.
+
+![activity read a spreadsheet](../model/img/svg/per-story/US-15/activity-read-a-spreadsheet.svg)
 
 ---
 
@@ -331,6 +347,8 @@ flow and the specification cannot drift apart.
 * F-23 — the library keeps notes, pictures and spreadsheets; the other kinds are not in it, and the refusal names them.
 * S-1 — a write needs the reader's own origin and the reader's own token.
 
+![activity organise the library](../model/img/svg/per-use-case/UC-09/activity-organise-the-library.svg)
+
 ---
 
 ## UC-10 — Find a note
@@ -361,6 +379,8 @@ flow and the specification cannot drift apart.
 **Business rules**
 
 * F-24 — the search says which answer it gave: the folders walked just now, or the index.
+
+![activity find a note](../model/img/svg/per-story/US-17/activity-find-a-note.svg)
 
 ---
 
@@ -396,6 +416,8 @@ flow and the specification cannot drift apart.
 
 * F-25 — a folder the reader already shows by that name is refused; a folder inside another one is not.
 
+![activity add a folder](../model/img/svg/per-use-case/UC-11/activity-add-a-folder.svg)
+
 ---
 
 ## UC-12 — Open a file from outside the reader's folders
@@ -427,6 +449,8 @@ flow and the specification cannot drift apart.
 
 * F-26 — a file outside the reader's folders is never silently refused and never silently shown: the page says where it is and offers the choice.
 
+![activity open a file outside](../model/img/svg/per-use-case/UC-12/activity-open-a-file-outside.svg)
+
 ---
 
 ## UC-13 — Set the reader's preferences
@@ -457,3 +481,5 @@ flow and the specification cannot drift apart.
 **Business rules**
 
 * F-27 — the choices live in the browser and nowhere else; the reader keeps nothing about the person who reads.
+
+![activity set the preferences](../model/img/svg/per-use-case/UC-13/activity-set-the-preferences.svg)

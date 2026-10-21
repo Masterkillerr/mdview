@@ -1,0 +1,41 @@
+@startuml
+' UC-11 - Add a folder to the reader.  The goal, whole.
+' Activity - the path, the checks, the roots, and the tree moving there.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-11)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the reader types a path, or picks a folder in the tree;
+
+partition "the reader" {
+  if (the folder is a folder?) then (yes)
+    if (it is not there yet?) then (yes)
+      :it is made;
+    else (no)
+    endif
+    if (the reader already shows it by that name?) then (yes)
+      :refused, and the reason is named (F-25);
+    else (no)
+      if (it holds one of the reader's own?) then (yes)
+        :refused, and the reason is named (F-25);
+      else (no)
+        :it is added to the reader's own, and the list is saved;
+      endif
+    endif
+  else (no)
+    :refused, and the reason is named;
+  endif
+}
+
+partition "the workspace" {
+  :the tree is moved to the folder that was added;
+}
+
+stop
+@enduml

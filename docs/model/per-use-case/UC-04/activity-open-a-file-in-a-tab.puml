@@ -1,0 +1,46 @@
+@startuml
+' UC-04 - Open a file in a tab.  The goal, whole.
+' Activity - the tab, the frame, the page, and the tab bar.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-04)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the workspace is open;
+
+partition "the workspace" {
+  if (the reader clicks a file in the tree?) then (yes)
+    :a tab is opened for it, with the mark of\nits kind and its name;
+  else (no)
+    if (the reader drops a file, or picks one?) then (yes)
+      :the file is kept for two hours, outside the\nreader's folders, and opened in a tab (F-9);
+    else (no)
+      if (a note links to it?) then (yes)
+        :the window above is asked to open it in a tab;
+      else (no)
+        :nothing happens;
+      endif
+    endif
+  endif
+  :the file's own page is asked for;
+}
+
+partition "the reader" {
+  :the page is served, without the bar that\ngoes back to the library;
+}
+
+partition "the browser" {
+  :the page is shown in the tab's frame;
+  if (another file is opened?) then (yes)
+    :a second tab; the first keeps its place;
+  else (no)
+  endif
+}
+
+stop
+@enduml

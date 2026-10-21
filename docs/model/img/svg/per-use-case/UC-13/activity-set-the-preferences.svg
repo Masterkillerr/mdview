@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="635px" preserveAspectRatio="none" style="width:398px;height:635px;" version="1.1" viewBox="0 0 398 635" width="398px" zoomAndPan="magnify"><defs/><g><ellipse cx="198.5" cy="20" fill="#000000" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><rect fill="#FEFECE" height="52.6882" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="272" x="62.5" y="50"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="252" x="72.5" y="72.8281">the reader picks a choice: the desk, the width,</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="247" x="72.5" y="89.1722">the face, the dictionary's language, the voice</text><rect fill="#FFFFFF" height="87.412" style="stroke: #000000; stroke-width: 2.0;" width="197" x="100" y="114.2902"/><path d="M170,115.2902 L170,126.3581 L160,136.3581 L100,136.3581 " fill="none" style="stroke: #000000; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="60" x="103" y="130.2561">the page</text><rect fill="#FEFECE" height="36.3441" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="177" x="110" y="153.3581"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="157" x="120" y="176.1862">the choice is applied at once</text><rect fill="#FFFFFF" height="87.412" style="stroke: #000000; stroke-width: 2.0;" width="377" x="10" y="213.3042"/><path d="M166,214.3042 L166,225.3721 L156,235.3721 L10,235.3721 " fill="none" style="stroke: #000000; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="146" x="13" y="229.2702">the browser's storage</text><rect fill="#FEFECE" height="36.3441" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="357" x="20" y="252.3721"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="337" x="30" y="275.2002">the choice is written down, under the reader's own key (F-27)</text><rect fill="#FFFFFF" height="103.7561" style="stroke: #000000; stroke-width: 2.0;" width="263" x="67" y="312.3182"/><path d="M243,313.3182 L243,324.3862 L233,334.3862 L67,334.3862 " fill="none" style="stroke: #000000; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="166" x="70" y="328.2842">every page of the reader</text><rect fill="#FEFECE" height="52.6882" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="243" x="77" y="351.3862"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="223" x="87" y="374.2142">the choice is read when the page opens,</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="125" x="87" y="390.5584">and the page follows it</text><rect fill="#FEFECE" height="52.6882" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="276" x="60.5" y="485.5653"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="256" x="70.5" y="508.3934">the choice applies to the page, and is not kept,</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="166" x="70.5" y="524.7375">and the reader is not troubled</text><polygon fill="#FEFECE" points="94.5,436.0744,302.5,436.0744,314.5,448.0744,302.5,460.0744,94.5,460.0744,82.5,448.0744,94.5,436.0744" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="17" x="202.5" y="471.8333">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="208" x="94.5" y="452.3424">the browser refuses to keep the choice?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="14" x="314.5" y="444.8514">no</text><polygon fill="#FEFECE" points="198.5,558.2536,210.5,570.2536,198.5,582.2536,186.5,570.2536,198.5,558.2536" style="stroke: #A80036; stroke-width: 1.5;"/><ellipse cx="198.5" cy="613.2536" fill="#FFFFFF" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/><ellipse cx="198.5" cy="613.2536" fill="#000000" rx="6" ry="6" style="stroke: #7F7F7F; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="198.5" x2="198.5" y1="30" y2="50"/><polygon fill="#333333" points="194.5,40,198.5,50,202.5,40,198.5,44" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="198.5" x2="198.5" y1="102.6882" y2="153.3581"/><polygon fill="#333333" points="194.5,143.3581,198.5,153.3581,202.5,143.3581,198.5,147.3581" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="198.5" x2="198.5" y1="189.7022" y2="252.3721"/><polygon fill="#333333" points="194.5,242.3721,198.5,252.3721,202.5,242.3721,198.5,246.3721" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="198.5" x2="198.5" y1="288.7163" y2="351.3862"/><polygon fill="#333333" points="194.5,341.3862,198.5,351.3862,202.5,341.3862,198.5,345.3862" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="198.5" x2="198.5" y1="460.0744" y2="485.5653"/><polygon fill="#333333" points="194.5,475.5653,198.5,485.5653,202.5,475.5653,198.5,479.5653" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="314.5" x2="346.5" y1="448.0744" y2="448.0744"/><polygon fill="#333333" points="342.5,501.9094,346.5,511.9094,350.5,501.9094,346.5,505.9094" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="346.5" x2="346.5" y1="448.0744" y2="570.2536"/><line style="stroke: #333333; stroke-width: 1.5;" x1="346.5" x2="210.5" y1="570.2536" y2="570.2536"/><polygon fill="#333333" points="220.5,566.2536,210.5,570.2536,220.5,574.2536,216.5,570.2536" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="198.5" x2="198.5" y1="538.2536" y2="558.2536"/><polygon fill="#333333" points="194.5,548.2536,198.5,558.2536,202.5,548.2536,198.5,552.2536" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="198.5" x2="198.5" y1="404.0744" y2="436.0744"/><polygon fill="#333333" points="194.5,426.0744,198.5,436.0744,202.5,426.0744,198.5,430.0744" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="198.5" x2="198.5" y1="582.2536" y2="602.2536"/><polygon fill="#333333" points="194.5,592.2536,198.5,602.2536,202.5,592.2536,198.5,596.2536" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[2410f131d8ec3347fa58b48430668f12]
+@startuml
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the reader picks a choice: the desk, the width,\nthe face, the dictionary's language, the voice;
+
+partition "the page" {
+  :the choice is applied at once;
+}
+
+partition "the browser's storage" {
+  :the choice is written down, under the reader's own key (F-27);
+}
+
+partition "every page of the reader" {
+  :the choice is read when the page opens,\nand the page follows it;
+}
+
+if (the browser refuses to keep the choice?) then (yes)
+  :the choice applies to the page, and is not kept,\nand the reader is not troubled;
+else (no)
+endif
+
+stop
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 05:22:07 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

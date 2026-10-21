@@ -1,0 +1,43 @@
+@startuml
+' UC-02 - Read a note.  The goal, whole.
+' Activity - the bytes, the renderer, the chrome, and the place kept.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-02)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the note is open in a tab;
+
+partition "the reader" {
+  :the note's bytes are fetched;
+  :the renderer parses the note (F-3);
+  :the raw HTML is filtered, not passed through (S-4);
+  if (a diagram?) then (yes)
+    :mermaid draws it;
+  else (no)
+  endif
+  if (maths?) then (yes)
+    :KaTeX draws it;
+  else (no)
+  endif
+  :the masthead, the outline and the document are built;
+}
+
+partition "the reader" {
+  :the reader scrolls;
+  :the place is written down as a page and\na fraction of a page (F-4);
+}
+
+partition "the browser's storage" {
+  :the place is kept, keyed by the note's address (S-6);
+}
+
+:the note is read;
+
+stop
+@enduml

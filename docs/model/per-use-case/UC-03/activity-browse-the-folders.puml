@@ -1,0 +1,48 @@
+@startuml
+' UC-03 - Browse the folders.  The goal, whole.
+' Activity - the tree, one folder at a time, and the filters on top of it.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-03)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the workspace opens;
+
+partition "the workspace" {
+  :the roots are asked for;
+  :the folder the tree stands in is asked for;
+  :the names come back, with the facts about the names (F-6);
+}
+
+partition "the reader" {
+  :the names are read from the disk;
+}
+
+:the tree is drawn;
+
+while (the reader browses?) is (yes)
+  if (a folder is clicked?) then (yes)
+    :its contents are asked for, and drawn underneath;
+  else (no)
+  endif
+  if (a name is typed?) then (yes)
+    :the rows whose names hold it are kept,\nand the folders on the way to them;
+  else (no)
+  endif
+  if (a kind, an extension, a size or a date is picked?) then (yes)
+    :the files that are like that are kept (F-7);
+  else (no)
+  endif
+  if (the way up is clicked?) then (yes)
+    :the tree stands in the folder above;
+  else (no)
+  endif
+endwhile (no)
+
+stop
+@enduml

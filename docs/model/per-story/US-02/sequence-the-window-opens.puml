@@ -1,0 +1,31 @@
+@startuml
+' US-02 - The window: folders on the left, tabs along the top.
+' Sequence - the window's first paint.
+' Sources: ../../../analysis/stories.md (US-02)
+
+skinparam shadowing false
+skinparam ArrowColor #333
+autonumber
+
+actor Reader
+participant "The browser" as BR
+participant "The workspace" as WS
+participant "The reader" as SRV
+participant "The tab strip" as TABS
+
+Reader -> BR : opens the reader
+activate BR
+BR -> WS : the page runs
+activate WS
+WS -> SRV : GET /api/tree
+activate SRV
+SRV -> WS : the roots
+deactivate SRV
+WS -> WS : the tree is drawn on the left,\nwith the folder it stands in named above it
+WS -> TABS : the tabs are drawn along the top
+activate TABS
+TABS -> Reader : the empty state: Open file,\nSelect a file to open
+deactivate TABS
+deactivate WS
+deactivate BR
+@enduml

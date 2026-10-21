@@ -1,0 +1,36 @@
+@startuml
+' US-15 - A spreadsheet is read.
+' Activity - the bytes, the zip behind a workbook, and the grid.
+' Sources: ../../../analysis/stories.md (US-15)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the workbook or the CSV is open in a tab;
+
+partition "the reader" {
+  :the file's bytes are fetched;
+  if (it is a workbook?) then (yes)
+    :it is a zip of XML, and is unpacked in the browser (F-22);
+    :its sheets are read;
+    if (it has several sheets?) then (yes)
+      :the reader picks one;
+    else (no)
+    endif
+  else (no)
+    :it is a table already, and is drawn the same way;
+  endif
+  :the grid is drawn;
+}
+
+partition "the reader" {
+  :the reader scrolls the grid, and sorts it;
+}
+
+stop
+@enduml

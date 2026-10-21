@@ -1,0 +1,40 @@
+@startuml
+' UC-07 - Look at a picture.  The goal, whole.
+' Activity - the picture at its own pixels, the zoom, the hand.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-07)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the picture is open in a tab;
+
+partition "the picture's page" {
+  :the picture is drawn at its own pixels,\nand is not shrunk to fit the window (F-19);
+  if (the picture is an SVG?) then (yes)
+    :it is drawn as a vector, and stays sharp at every zoom;
+  else (no)
+  endif
+}
+
+partition "the reader" {
+  if (the reader zooms?) then (yes)
+    :the zoom is about the pointer (F-20);
+  else (no)
+  endif
+  if (the reader drags?) then (yes)
+    :the picture moves with the hand (F-21);
+  else (no)
+  endif
+  if (the reader fits it, or puts it back to 1:1?) then (yes)
+    :the scale changes;
+  else (no)
+  endif
+}
+
+stop
+@enduml

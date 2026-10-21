@@ -1,0 +1,42 @@
+@startuml
+' UC-01 - Open a local file in the workspace.  The goal, whole.
+' Activity - the browser opens it, the extension sends it, the workspace reveals it.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-01)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the reader opens a local file the browser can show;
+
+partition "the extension" {
+  :the tab's address is watched;
+  if (a file:// URL of a kind the reader reads?) then (yes)
+    :the reader's address is written into the tab,\nwith the file's path named in it (F-1);
+  else (no)
+    :nothing is sent. The browser downloads the file,\nand there is no tab to send (P-13);
+    stop
+  endif
+}
+
+partition "the workspace" {
+  :the path is read from the address;
+  :the folders on the way to the file are opened,\nand the tree is moved there (F-2);
+  :the file is opened in a tab;
+  :the file's own page is asked for;
+}
+
+partition "the reader" {
+  :the file's page is served, with the\nkind of the file deciding which;
+}
+
+partition "the browser" {
+  :the note is on the screen;
+}
+
+stop
+@enduml

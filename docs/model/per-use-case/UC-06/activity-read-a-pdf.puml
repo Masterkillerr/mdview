@@ -1,0 +1,44 @@
+@startuml
+' UC-06 - Read a PDF.  The goal, whole.
+' Activity - the boxes first, the paints second, the tools, the hand.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-06)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the PDF is open in a tab;
+
+partition "the reader" {
+  :the bytes are handed to pdf.js;
+  :every page gets a box, at the size the file says (F-15);
+  :the page count and the scrollbar are right at once;
+  :only the pages near the reader are painted;
+  :the paint, and the file's own text over it (F-16);
+}
+
+partition "the reader" {
+  if (the reader turns a page, or types one?) then (yes)
+    :that page is shown (F-17);
+  else (no)
+  endif
+  if (the reader zooms?) then (yes)
+    :the pages take a new size, and the place is kept;
+  else (no)
+  endif
+  if (the reader drags the page?) then (yes)
+    :the page moves with the pointer, unless the drag\nstarted on a word (F-18);
+  else (no)
+  endif
+}
+
+partition "the browser's storage" {
+  :the place, keyed by the file's address;
+}
+
+stop
+@enduml

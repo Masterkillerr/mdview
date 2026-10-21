@@ -1,0 +1,36 @@
+@startuml
+' UC-10 - Find a note.  The goal, whole.
+' Activity - the walk with a budget, and the index behind it.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-10)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the reader types a name in the library's search box;
+
+partition "the reader" {
+  :the folders are walked for the names, six levels down;
+  if (the walk finished in time?) then (yes)
+    :the notes that were found are the answer;
+    :the answer says the folders were walked just now;
+  else (no)
+    if (the index is built?) then (yes)
+      :the index answers;
+      :the answer says this is the index, of such a time;
+    else (no)
+      :what was found so far is the answer,\nand the answer says there may be more;
+    endif
+  endif
+}
+
+partition "the library's page" {
+  :the notes are listed, each with the folder it is in (F-24);
+}
+
+stop
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+' US-11 - The place the reader reached is kept.
+' Sequence - the heading, the fraction, and the place restored.
+' Sources: ../../../analysis/stories.md (US-11)
+
+skinparam shadowing false
+skinparam ArrowColor #333
+autonumber
+
+actor Reader
+participant "The note's page" as PAGE
+participant "The reader's place" as PLACE
+database "The browser's storage" as STORE
+
+Reader -> PAGE : scrolls
+activate PAGE
+PAGE -> PLACE : which heading is the reading line at?
+PLACE -> PAGE : the heading, and the fraction of it that is past
+PAGE -> STORE : the place, keyed by the note's address (F-4)
+deactivate PAGE
+
+Reader -> PAGE : closes the window
+Reader -> PAGE : opens it again
+activate PAGE
+PAGE -> STORE : the place
+STORE -> PAGE : the place
+PAGE -> PAGE : go to that heading, and that part of it
+deactivate PAGE
+PAGE -> Reader : the note is where it was left
+@enduml

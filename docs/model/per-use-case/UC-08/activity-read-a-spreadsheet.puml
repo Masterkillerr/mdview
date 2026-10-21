@@ -1,0 +1,32 @@
+@startuml
+' UC-08 - Read a spreadsheet.  The goal, whole.
+' Activity - the bytes, the zip, the sheets, the grid.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-08)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the workbook or the CSV is open in a tab;
+
+partition "the reader" {
+  :the file's bytes are fetched from the reader's own route;
+  if (it is a workbook?) then (yes)
+    :it is a zip of XML, and is unpacked in the browser;
+    :its sheets are read;
+  else (no)
+    :it is a table already;
+  endif
+  :the grid is drawn (F-22);
+}
+
+partition "the reader" {
+  :the reader scrolls the grid, and sorts it;
+}
+
+stop
+@enduml

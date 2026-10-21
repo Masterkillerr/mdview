@@ -1,0 +1,39 @@
+@startuml
+' US-08 - Point the tree at any folder.
+' Activity - the three dots, the menu, and the tree moving there.
+' Sources: ../../../analysis/stories.md (US-08)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the reader hovers a folder in the tree;
+:the three dots appear on its row;
+
+if (the reader clicks them?) then (yes)
+  :the menu opens, beside the row;
+  if (the reader goes to that folder?) then (yes)
+    :the tree is moved there, and kept there (F-25);
+  else (no)
+    if (the reader adds it to the reader's own?) then (yes)
+      :the folder is added, and the tree is moved there;
+    else (no)
+      if (the reader opens it in the library?) then (yes)
+        :the library is asked for that folder;
+      else (no)
+        if (the reader copies its path?) then (yes)
+          :the path is on the clipboard;
+        else (no)
+        endif
+      endif
+    endif
+  endif
+else (no)
+endif
+
+stop
+@enduml

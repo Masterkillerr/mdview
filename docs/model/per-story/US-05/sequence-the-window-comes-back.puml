@@ -1,0 +1,29 @@
+@startuml
+' US-05 - The window comes back as it was left.
+' Sequence - the state read back, the tabs drawn again, the place restored.
+' Sources: ../../../analysis/stories.md (US-05)
+
+skinparam shadowing false
+skinparam ArrowColor #333
+autonumber
+
+actor Reader
+participant "The browser" as BR
+participant "The workspace" as WS
+database "The browser's storage" as STORE
+participant "The reader" as SRV
+
+Reader -> BR : reloads the window
+activate BR
+BR -> WS : the page runs
+activate WS
+WS -> STORE : the window's state: the folder,\nthe open files, the filters
+STORE -> WS : the state
+WS -> SRV : GET /api/tree
+activate SRV
+SRV -> WS : the folder the tree stands in
+deactivate SRV
+WS -> WS : the tabs are drawn again,\nand the one that was being read is the one shown
+deactivate WS
+deactivate BR
+@enduml

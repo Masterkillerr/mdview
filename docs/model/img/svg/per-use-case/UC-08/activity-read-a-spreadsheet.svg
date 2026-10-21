@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="570px" preserveAspectRatio="none" style="width:486px;height:570px;" version="1.1" viewBox="0 0 486 570" width="486px" zoomAndPan="magnify"><defs/><g><ellipse cx="287.25" cy="20" fill="#000000" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><rect fill="#FEFECE" height="36.3441" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="243" x="165.75" y="50"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="223" x="175.75" y="72.8281">the workbook or the CSV is open in a tab</text><rect fill="#FFFFFF" height="320.4444" style="stroke: #000000; stroke-width: 2.0;" width="465" x="10" y="97.9461"/><path d="M91,98.9461 L91,110.014 L81,120.014 L10,120.014 " fill="none" style="stroke: #000000; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="71" x="13" y="113.912">the reader</text><rect fill="#FEFECE" height="36.3441" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="327" x="123.75" y="137.014"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="307" x="133.75" y="159.8421">the file's bytes are fetched from the reader's own route</text><polygon fill="#FEFECE" points="242.75,193.3581,331.75,193.3581,343.75,205.3581,331.75,217.3581,242.75,217.3581,230.75,205.3581,242.75,193.3581" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="89" x="242.75" y="209.6261">it is a workbook?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="17" x="213.75" y="202.1352">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="14" x="343.75" y="202.1352">no</text><rect fill="#FEFECE" height="36.3441" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="288" x="30" y="227.3581"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="268" x="40" y="250.1862">it is a zip of XML, and is unpacked in the browser</text><rect fill="#FEFECE" height="36.3441" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="124" x="112" y="283.7022"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="104" x="122" y="306.5303">its sheets are read</text><rect fill="#FEFECE" height="36.3441" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="125" x="338" y="227.3581"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="105" x="348" y="250.1862">it is a table already</text><polygon fill="#FEFECE" points="287.25,326.0464,299.25,338.0464,287.25,350.0464,275.25,338.0464,287.25,326.0464" style="stroke: #A80036; stroke-width: 1.5;"/><rect fill="#FEFECE" height="36.3441" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="148" x="213.25" y="370.0464"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="128" x="223.25" y="392.8744">the grid is drawn (F-22)</text><rect fill="#FFFFFF" height="87.412" style="stroke: #000000; stroke-width: 2.0;" width="252" x="161.25" y="429.9925"/><path d="M242.25,430.9925 L242.25,442.0604 L232.25,452.0604 L161.25,452.0604 " fill="none" style="stroke: #000000; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="71" x="164.25" y="445.9584">the reader</text><rect fill="#FEFECE" height="36.3441" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="232" x="171.25" y="469.0604"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="212" x="181.25" y="491.8885">the reader scrolls the grid, and sorts it</text><ellipse cx="287.25" cy="548.4045" fill="#FFFFFF" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/><ellipse cx="287.25" cy="548.4045" fill="#000000" rx="6" ry="6" style="stroke: #7F7F7F; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="287.25" x2="287.25" y1="30" y2="50"/><polygon fill="#333333" points="283.25,40,287.25,50,291.25,40,287.25,44" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="174" x2="174" y1="263.7022" y2="283.7022"/><polygon fill="#333333" points="170,273.7022,174,283.7022,178,273.7022,174,277.7022" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="230.75" x2="174" y1="205.3581" y2="205.3581"/><line style="stroke: #333333; stroke-width: 1.5;" x1="174" x2="174" y1="205.3581" y2="227.3581"/><polygon fill="#333333" points="170,217.3581,174,227.3581,178,217.3581,174,221.3581" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="343.75" x2="400.5" y1="205.3581" y2="205.3581"/><line style="stroke: #333333; stroke-width: 1.5;" x1="400.5" x2="400.5" y1="205.3581" y2="227.3581"/><polygon fill="#333333" points="396.5,217.3581,400.5,227.3581,404.5,217.3581,400.5,221.3581" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="174" x2="174" y1="320.0464" y2="338.0464"/><line style="stroke: #333333; stroke-width: 1.5;" x1="174" x2="275.25" y1="338.0464" y2="338.0464"/><polygon fill="#333333" points="265.25,334.0464,275.25,338.0464,265.25,342.0464,269.25,338.0464" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="400.5" x2="400.5" y1="263.7022" y2="338.0464"/><line style="stroke: #333333; stroke-width: 1.5;" x1="400.5" x2="299.25" y1="338.0464" y2="338.0464"/><polygon fill="#333333" points="309.25,334.0464,299.25,338.0464,309.25,342.0464,305.25,338.0464" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="287.25" x2="287.25" y1="173.3581" y2="193.3581"/><polygon fill="#333333" points="283.25,183.3581,287.25,193.3581,291.25,183.3581,287.25,187.3581" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="287.25" x2="287.25" y1="350.0464" y2="370.0464"/><polygon fill="#333333" points="283.25,360.0464,287.25,370.0464,291.25,360.0464,287.25,364.0464" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="287.25" x2="287.25" y1="86.3441" y2="137.014"/><polygon fill="#333333" points="283.25,127.014,287.25,137.014,291.25,127.014,287.25,131.014" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="287.25" x2="287.25" y1="406.3905" y2="469.0604"/><polygon fill="#333333" points="283.25,459.0604,287.25,469.0604,291.25,459.0604,287.25,463.0604" style="stroke: #333333; stroke-width: 1.0;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="287.25" x2="287.25" y1="505.4045" y2="537.4045"/><polygon fill="#333333" points="283.25,527.4045,287.25,537.4045,291.25,527.4045,287.25,531.4045" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[10c3038168fe15de888969fc09a823f1]
+@startuml
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the workbook or the CSV is open in a tab;
+
+partition "the reader" {
+  :the file's bytes are fetched from the reader's own route;
+  if (it is a workbook?) then (yes)
+    :it is a zip of XML, and is unpacked in the browser;
+    :its sheets are read;
+  else (no)
+    :it is a table already;
+  endif
+  :the grid is drawn (F-22);
+}
+
+partition "the reader" {
+  :the reader scrolls the grid, and sorts it;
+}
+
+stop
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 05:22:07 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

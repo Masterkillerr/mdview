@@ -1,0 +1,45 @@
+@startuml
+' UC-05 - Look a word up.  The goal, whole.
+' Activity - the card, the background script, the dictionary.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-05)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the reader double-clicks a word;
+
+partition "the card" {
+  :the word is read from the page's own text;
+  :the background script is asked for it (F-11);
+}
+
+partition "the extension" {
+  if (the URL is one of the three hosts?) then (yes)
+    :the dictionary is asked, with no credentials\nand no referrer (S-2, P-11);
+  else (no)
+    :the request is refused before it is made;
+  endif
+}
+
+partition "the dictionary" {
+  :the senses;
+}
+
+partition "the card" {
+  :the card is placed from the word's own box,\nso it sits where the word is (F-13);
+}
+
+:the senses are shown, with the part of speech;
+
+if (the reader presses the speaker?) then (yes)
+  :the word is spoken (F-13);
+else (no)
+endif
+
+stop
+@enduml

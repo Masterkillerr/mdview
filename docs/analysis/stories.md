@@ -32,6 +32,9 @@ reader's window **so that** I do not have to find it again.
   3. A file of a kind the browser will not show is not sent: the browser downloads it, and there is nothing to send (F-1).
   4. The file is on the screen in the workspace within 1.5 s of the tab's address being written (RNF-04).
 
+![sequence open a file](../model/img/svg/per-story/US-01/sequence-open-a-file.svg)
+![communication open a file](../model/img/svg/per-story/US-01/communication-open-a-file.svg)
+
 ---
 
 ### US-02 — The window: folders on the left, tabs along the top
@@ -47,6 +50,8 @@ top **so that** the window tells me where I am and what I have open.
   3. The folder the tree is standing in is named above the tree, with its path (F-5).
   4. The window answers a folder of 100 entries in under 50 ms (RNF-01).
   5. The reader's memory stays under 64 MiB while the window is open (RNF-02).
+
+![sequence the window opens](../model/img/svg/per-story/US-02/sequence-the-window-opens.svg)
 
 ---
 
@@ -64,6 +69,9 @@ the way they were written.
   4. A note with a diagram draws it in the reader's own colours.
   5. A note with maths draws it.
 
+![activity render a note](../model/img/svg/per-story/US-03/activity-render-a-note.svg)
+![sequence render a note](../model/img/svg/per-story/US-03/sequence-render-a-note.svg)
+
 ---
 
 ### US-04 — A file opens in a tab
@@ -80,6 +88,8 @@ open at once and come back to them.
   4. Closing a tab closes it and shows the one beside it.
   5. Every tab is one of the reader's own pages (F-9).
 
+![state file in the workspace](../model/img/svg/per-story/US-04/state-file-in-the-workspace.svg)
+
 ---
 
 ### US-05 — The window comes back as it was left
@@ -94,6 +104,8 @@ does not lose my place.
   2. The folder the tree was standing in is the folder it stands in.
   3. The filters are the filters that were set.
   4. The state is kept in the browser and nowhere else (F-10, F-27).
+
+![sequence the window comes back](../model/img/svg/per-story/US-05/sequence-the-window-comes-back.svg)
 
 ---
 
@@ -111,6 +123,8 @@ folder with a thousand files does not take the window down.
   4. A folder that cannot be shown is refused in words, naming the folder (F-8).
   5. The listing of a folder says what each file is *by its name*; the bytes of a file are not read to find out (F-6).
 
+![activity browse the tree](../model/img/svg/per-story/US-06/activity-browse-the-tree.svg)
+
 ---
 
 ### US-07 — The tree is filtered
@@ -126,6 +140,8 @@ folder with a thousand files does not take the window down.
   3. The folders are never filtered out: they are the way to the files (F-7).
   4. The extension list holds only the extensions the tree really has.
   5. Nothing that matches is hidden: a file is kept when it matches every filter that is set.
+
+![activity filter the tree](../model/img/svg/per-story/US-07/activity-filter-the-tree.svg)
 
 ---
 
@@ -143,6 +159,8 @@ window shows me the part of the disk I am working in.
   4. A folder the reader already shows by that name is refused, in words.
   5. A folder inside another one the reader shows is added anyway: it was asked for by name (F-25).
 
+![activity point the tree at a folder](../model/img/svg/per-story/US-08/activity-point-the-tree-at-a-folder.svg)
+
 ---
 
 ### US-09 — A file with no engine opens as its text
@@ -156,6 +174,8 @@ reader of markdown only.
   1. A file with no engine of its own is shown as its own text, with its name, its size, its line count and its folder.
   2. A file that is not text is not shown as broken text: the reader says it is not text and offers the file.
   3. A file bigger than 4 MB is not read into the page.
+
+![activity a file with no engine](../model/img/svg/per-story/US-09/activity-a-file-with-no-engine.svg)
 
 ---
 
@@ -171,6 +191,8 @@ reader of markdown only.
   2. The copy is kept for two hours and then removed, and it never appears in the library (F-9).
   3. The copy is outside the reader's folders, so the tree never shows it.
 
+![activity a file opened once](../model/img/svg/per-story/US-10/activity-a-file-opened-once.svg)
+
 ---
 
 ### US-11 — The place the reader reached is kept
@@ -185,6 +207,8 @@ long document is not read twice.
   2. A note opened again opens at that place.
   3. The place is kept per file, in the browser, and nowhere else (S-6).
   4. The recently opened files are listed with the place each was reached (F-4).
+
+![sequence the place is kept](../model/img/svg/per-story/US-11/sequence-the-place-is-kept.svg)
 
 ---
 
@@ -203,6 +227,8 @@ that** I can read without leaving the page.
   5. The card can speak the word aloud, in the voice and at the pace the reader chose (F-13).
   6. On a page the reader does not own, the card is opened by the extension's own menu item, and the page is not changed where the page forbids it (F-14).
 
+![sequence look up a word](../model/img/svg/per-story/US-12/sequence-look-up-a-word.svg)
+
 ---
 
 ### US-13 — A PDF is read
@@ -220,6 +246,8 @@ manual is a document like any other.
   5. A page bigger than the window is moved with the hand, and a drag that starts on a word is a selection instead (F-18).
   6. The canvas held at once stays under 48 MiB (RNF-05).
 
+![sequence read a pdf](../model/img/svg/per-story/US-13/sequence-read-a-pdf.svg)
+
 ---
 
 ### US-14 — A picture is looked at closely
@@ -236,6 +264,8 @@ sharp when I look at it.
   4. At a whole number of times the size the pixels stay squares (F-19).
   5. A picture in a note opens in this view when it is clicked, in a tab of the window above (F-28).
 
+![sequence look at a picture](../model/img/svg/per-story/US-14/sequence-look-at-a-picture.svg)
+
 ---
 
 ### US-15 — A spreadsheet is read
@@ -248,6 +278,8 @@ document like any other.
 * **Acceptance criteria**
   1. A workbook's sheets are drawn as a grid, and a CSV is drawn the same way (F-22).
   2. The grid scrolls, and the reader can sort it.
+
+![activity read a spreadsheet](../model/img/svg/per-story/US-15/activity-read-a-spreadsheet.svg)
 
 ---
 
@@ -264,6 +296,8 @@ way I want it **so that** the window is mine.
   3. The light, dark and warm desks, the reading width, the face, the dictionary language and the voice are choices the reader makes, and they apply to every page of the reader's own (F-27).
   4. The choices are kept in the browser and nowhere else: the reader keeps nothing about the person who reads (S-6).
 
+![communication organise the library](../model/img/svg/per-story/US-16/communication-organise-the-library.svg)
+
 ---
 
 ### US-17 — A note is found by name
@@ -277,6 +311,8 @@ that** the folders do not have to be remembered.
   1. The search finds the notes whose name holds the text, in any folder under the reader's roots.
   2. The answer says which it gave: the folders walked just now, or the index built in the background (F-24).
   3. Each result says which folder it is in.
+
+![activity find a note](../model/img/svg/per-story/US-17/activity-find-a-note.svg)
 
 ---
 
@@ -292,3 +328,5 @@ have **so that** nothing is refused without a way forward.
   2. The folder can be added, and the file then opens in a tab.
   3. The file can also be read once, without the folder being added.
   4. A refusal names the folder and the reason (F-8).
+
+![sequence open a file outside](../model/img/svg/per-story/US-18/sequence-open-a-file-outside.svg)

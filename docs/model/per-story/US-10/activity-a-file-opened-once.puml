@@ -1,0 +1,33 @@
+@startuml
+' US-10 - A file opened once is kept for two hours.
+' Activity - the copy, the tab, and the sweep.
+' Sources: ../../../analysis/stories.md (US-10)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+if (the reader drops a file on the window,\nor picks one with the + button?) then (yes)
+  partition "the reader" {
+    :the file is copied into a scratch folder\noutside the reader's own folders;
+    :the copy is given an id;
+    :the answer says where the copy is shown;
+  }
+  partition "the workspace" {
+    :the copy is opened in a tab;
+  }
+  partition "the reader" {
+    if (the copy is older than two hours?) then (yes)
+      :it is removed, and it never entered the library;
+    else (no)
+    endif
+  }
+else (no)
+endif
+
+stop
+@enduml

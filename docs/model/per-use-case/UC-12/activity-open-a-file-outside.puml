@@ -1,0 +1,34 @@
+@startuml
+' UC-12 - Open a file from outside the reader's folders.  The goal, whole.
+' Activity - the refusal, the offer, and the two ways forward.
+' Sources: ../../../analysis/use-case-descriptions.md (UC-12)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the reader is asked for a file;
+
+partition "the reader" {
+  if (the file is in one of the roots?) then (yes)
+    :the file's own page is served;
+    stop
+  else (no)
+    :the page that says where the file is is served (F-26);
+  endif
+}
+
+partition "the adoption page" {
+  if (the reader adds the folder?) then (yes)
+    :the folder is added, and the file opens in a tab;
+  else (no)
+    :the file is read once, and the copy is kept\nfor two hours, outside the roots;
+  endif
+}
+
+stop
+@enduml
