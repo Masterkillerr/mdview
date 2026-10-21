@@ -23,6 +23,11 @@ one diagram too many.
 `bash render.sh` renders every source into the mirrored place under `img/`,
 and fails if any of them does not render — the render is a gate.
 
+The **vectors** are the drawings: they are text, and a change in them is a
+change in the model. The **rasters** are made from the vectors, and their
+bytes depend on the machine's fonts and its rasteriser, so they are checked
+for being made, not for being identical.
+
 ## The general set
 
 The system as a whole, drawn once. These are the context every story is drawn

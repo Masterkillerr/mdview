@@ -49,5 +49,8 @@ jobs:
         run: bash docs/model/render.sh
       - name: the drawings are unchanged
         run: |
-          git diff --exit-code docs/model/img || \
+          # The vectors are the drawings; the rasters are made from them, and
+          # their bytes depend on the machine's fonts and its rasteriser, so
+          # only the vectors are compared.
+          git diff --exit-code docs/model/img/svg || \
             (echo "the drawings are out of date: run docs/model/render.sh" && exit 1)
