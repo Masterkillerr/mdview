@@ -26,7 +26,9 @@ and fails if any of them does not render — the render is a gate.
 The **vectors** are the drawings: they are text, and a change in them is a
 change in the model. The **rasters** are made from the vectors, and their
 bytes depend on the machine's fonts and its rasteriser, so they are checked
-for being made, not for being identical.
+for being made, not for being identical. The layout itself depends on the
+version of PlantUML, so the gate is that every diagram draws — not that it
+draws the same bytes on every machine.
 
 ## The general set
 
