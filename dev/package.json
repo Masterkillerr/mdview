@@ -1,0 +1,20 @@
+{
+  "name": "mdview-dev",
+  "version": "1.4.0",
+  "private": true,
+  "description": "Development tooling for the mdview browser extension (not shipped in the xpi).",
+  "scripts": {
+    "dev": "bash dev.sh",
+    "test": "node test/run.js",
+    "score": "node test/score-backup.js",
+    "css": "node check-css.js",
+    "vendor": "node check-vendor.js",
+    "vendor:upstream": "node check-vendor.js --upstream",
+    "preview": "node serve.js 8731",
+    "build": "bash build.sh",
+    "sideload": "bash sideload.sh"
+  },
+  "devDependencies": {
+    "web-ext": "^10.7.0"
+  }
+}

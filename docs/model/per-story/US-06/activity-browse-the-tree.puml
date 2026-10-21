@@ -1,0 +1,54 @@
+@startuml
+' US-06 — Browse the folders.
+' Activity — the tree, one folder at a time
+' Sources: ../../../analysis/stories.md (US-06), ../../../specification/03-features.md (F-6, F-8)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the reader opens the workspace;
+:the workspace asks for the roots;
+note right
+  The folders the reader shows are the
+  reader's own list. The tree can walk out
+  of them, one level at a time.
+end note
+
+while (the reader is in the tree?) is (yes)
+  partition "the workspace" {
+    :the folder it stands in is asked for;
+    :the names come back, with the facts\nabout the names;
+    note right
+      F-6: one folder at a time. The bytes of a
+      file are not read to find out what the
+      file is.
+    end note
+  }
+  partition "the reader" {
+    :the names are read from the disk;
+  }
+
+  if (the reader clicks a folder?) then (yes)
+    :the folder is added to the open ones;
+    :its contents are asked for;
+  else (no)
+  endif
+
+  if (the reader clicks the way up?) then (yes)
+    :the tree stands in the folder above;
+    note right
+      F-8: a folder that cannot be shown is
+      refused in words, naming the folder.
+    end note
+  else (no)
+  endif
+endwhile (no)
+:the window is closed;
+
+stop
+@enduml

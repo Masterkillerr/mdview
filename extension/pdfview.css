@@ -1,0 +1,233 @@
+/* The reader's PDF view: one box per page of the file, the page's paint inside it, and the
+   file's own text laid invisibly over that so a word can be selected and looked up.
+
+   A page is white because a page is the file's, not the reader's: the file says how big it
+   is and what is on it, and a dark theme is the desk around it rather than a filter over it.
+   The canvas and the text layer are sized by pdfview.js, which is why the scale these rules
+   read is set there. */
+
+main {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* The reader's own rule is that a jump travels rather than teleports, and for a note that
+   is right (mdview.css). A PDF is the one place it is wrong: a page number in a
+   thousand-page book is a jump across the whole file, and the motion would drag the reader
+   through six hundred pages of paint nobody asked to see. The page's own controls ask for
+   smooth motion where it belongs — a page forward or back. */
+html[data-mdview-page="pdf"] {
+  scroll-behavior: auto;
+}
+
+.pdfpage {
+  position: relative;
+  margin: 0 auto 16px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  /* The hand: a page bigger than the window is moved with the pointer. A word keeps the
+     text cursor, because a word is still a word to be chosen. */
+  cursor: grab;
+  /* pdf.js's text layer measures its glyphs from these; the script sets the real scale on
+     each page, and the two roundings keep a stretched span from drifting off its word */
+  --total-scale-factor: 1;
+  --scale-round-x: 1px;
+  --scale-round-y: 1px;
+}
+
+/* While the page is being moved, everything under the pointer is being moved. */
+body.pdf-holding .pdfpage,
+body.pdf-holding .textLayer span,
+body.pdf-holding .textLayer br {
+  cursor: grabbing;
+}
+
+.pdfpage canvas {
+  display: block;
+}
+
+/* A page whose paint failed says so, in the colour a note's refusal uses, and keeps its
+   size so the pages after it are still where the file put them. */
+.pdfpage.pdf-bad::after {
+  content: "This page could not be drawn.";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #a03030;
+  font: 13px/1.4 system-ui, sans-serif;
+}
+
+/* A page whose paint has not arrived says which page it is, faintly: a scanned page of a big
+   book takes a second or two to decode, and a white rectangle with nothing on it reads as a
+   blank page in the file. The mark goes when the paint lands. */
+.pdfpage.waiting::before {
+  content: attr(data-page);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(0, 0, 0, 0.16);
+  font: 13px/1 system-ui, sans-serif;
+}
+
+/* pdf.js's own rules for its text layer, which the page has to state because it is not
+   running the viewer's stylesheet. They are not decoration: each span is an absolutely
+   placed box whose font size is `--total-scale-factor` times the height of the font the
+   file drew the run with, then stretched by `--scale-x` to the width of the run — and the
+   box is where a reader's pointer lands. Invisible text that is the wrong size is text
+   that selects the wrong word. */
+.textLayer {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  text-align: initial;
+  line-height: 1;
+  letter-spacing: normal;
+  word-spacing: normal;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  forced-color-adjust: none;
+  color-scheme: only light;
+  transform-origin: 0 0;
+  caret-color: CanvasText;
+  z-index: 0;
+  --min-font-size: 1;
+  --text-scale-factor: calc(var(--total-scale-factor) * var(--min-font-size));
+  --min-font-size-inv: calc(1 / var(--min-font-size));
+}
+
+.textLayer span,
+.textLayer br {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+  user-select: text;
+}
+
+.textLayer :not(.markedContent),
+.textLayer .markedContent span:not(.markedContent) {
+  z-index: 1;
+  --font-height: 0;
+  font-size: calc(var(--text-scale-factor) * var(--font-height));
+  --scale-x: 1;
+  --rotate: 0deg;
+  transform: rotate(var(--rotate)) scaleX(var(--scale-x)) scale(var(--min-font-size-inv));
+}
+
+.textLayer .markedContent {
+  display: contents;
+}
+
+.textLayer span[role="img"] {
+  user-select: none;
+  cursor: default;
+}
+
+.textLayer ::selection {
+  background: rgba(0, 100, 255, 0.3);
+  color: transparent;
+}
+
+/* The file's page count and the way through it, in a bar of its own at the bottom of
+   the window: a forty-page deck is read by page, and a thousand-page book is read by
+   jumping. The bar floats over the pages rather than sitting in the reader's own bar
+   at the top, because the file is often read in a frame where that bar is not, and a
+   PDF with no way to turn its pages is a PDF that can only be scrolled. */
+.pdf-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: 0;
+  padding: 5px 8px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  box-shadow: var(--page-shadow, 0 8px 28px -12px rgba(0, 0, 0, 0.35));
+  color: var(--muted);
+  white-space: nowrap;
+  font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.pdf-nav button {
+  font: inherit;
+  line-height: 1;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  min-width: 28px;
+  height: 26px;
+  padding: 0 4px;
+  cursor: pointer;
+}
+
+.pdf-nav select {
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 3px 4px;
+  cursor: pointer;
+}
+
+/* the seam between the pages and the way they are drawn */
+.pdf-nav .sep {
+  width: 1px;
+  height: 18px;
+  margin: 0 0.25rem;
+  background: var(--line);
+}
+
+.pdf-nav button:hover:not(:disabled) {
+  background: var(--fence);
+}
+
+.pdf-nav button:disabled {
+  color: var(--faint);
+  cursor: default;
+}
+
+.pdf-nav input {
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  width: 3.2em;
+  height: 26px;
+  padding: 0 4px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.pdf-nav input:focus {
+  outline: 2px solid var(--accentline);
+  outline-offset: 1px;
+}
+
+.pdf-nav .of {
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* A narrow window keeps the page count and puts the zoom away: the count is how a reader
+   finds their place, and a zoomed page on a phone is a pan, not a reading. */
+@media (max-width: 760px) {
+  .pdf-nav .of,
+  .pdf-nav .sep,
+  .pdf-nav select {
+    display: none;
+  }
+}

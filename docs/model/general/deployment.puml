@@ -1,0 +1,48 @@
+@startuml
+' Deployment diagram — where it runs
+' Sources: ../../specification/01-architecture.md, ../../operations/deployment.md
+
+skinparam shadowing false
+skinparam ArrowColor #333
+
+node "The machine" as M {
+  node "systemd --user" as SD {
+    [mdview-reader.service] as SVC
+  }
+  node "Python 3" as PY {
+    [server.py\n127.0.0.1:8765] as SRV
+  }
+  node "The browser" as BR {
+    [Firefox\nthe extension, the tabs] as FF
+    [Edge --app\nthe reader's window] as ED
+  }
+  node "The disk" as DISK {
+    [the reader's roots] as ROOTS
+    [~/mdview\nthe repository] as HOME
+  }
+  node "The internet" as NET {
+    [api.dictionaryapi.dev] as D1
+    [api.datamuse.com] as D2
+    [en.wiktionary.org] as D3
+  }
+}
+
+SVC --> SRV : starts and restarts it
+SRV --> ROOTS : reads and writes (D5)
+SRV --> HOME : reads its own files
+FF --> SRV : HTTP, on the loopback
+ED --> SRV : HTTP, on the loopback
+SRV -.-> NET : three dictionary requests\nand nothing else (S-10)
+FF -.-> NET : the extension's requests\nonly for those hosts (S-2)
+
+note bottom of SRV
+  Bound to the loopback (P-1).
+  Everything it serves is on this machine.
+end note
+
+note bottom of NET
+  A page in the browser can reach
+  127.0.0.1 — which is why a write
+  needs the token (ADR-0008).
+end note
+@enduml

@@ -1,0 +1,201 @@
+/* Generated from mdview.css by mdview-dev/split-define-css.js. Do not edit:
+   the definition card's styles only, for pages that are not rendered markdown. */
+:root {
+  --md-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --md-font-body: var(--md-font);
+  --md-font-head: var(--md-font);
+  --md-font-serif: "Noto Serif", "Bitstream Charter", Charter, "Iowan Old Style",
+    "Source Serif 4", "Source Serif Pro", Georgia, "TeX Gyre Schola",
+    "Palatino Linotype", "Book Antiqua", "Liberation Serif", "DejaVu Serif", serif;
+  --type-size: 1;
+  --type-leading: 1.62;
+  --reader-bar: 0px;
+  --code-size: 0.855em;
+  --type-base: clamp(16px, 15.1px + 0.2vw, 18px);
+  --ui-size: calc(var(--type-base) * var(--type-size));
+  --md-font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", "Cascadia Code",
+    Menlo, Consolas, "Liberation Mono", monospace;
+  --bg: #f4f4f4;
+  --ink: #1a1a1a;
+  --muted: #555555;
+  --faint: #666666;
+  --line: #e2e2e2;
+  --line-strong: #c8c8c8;
+  --card: #ffffff;
+  --fence: #f6f6f6;
+  --zebra: #fafafa;
+  --rowof: #efefef;
+  --codebg: #f0f0f0;
+  --thbg: #f2f2f2;
+  --accent: #0969da;
+  --accenttint: rgba(9, 105, 218, 0.08);
+  --accentline: rgba(9, 105, 218, 0.3);
+  --select-bg: color-mix(in srgb, var(--accent) 20%, transparent);
+  --callout-note: var(--accent);
+  --callout-tip: #2a795d;
+  --callout-important: #7a45f5;
+  --callout-warning: #8a6416;
+  --callout-caution: #cd271e;
+  --mark-bg: #fde68a;
+  --mark-ink: #422006;
+  --rule: rgba(0, 0, 0, 0.07);
+  --scrollfade: rgba(0, 0, 0, 0.13);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-xs: 4px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --float-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 12px 28px -18px rgba(0, 0, 0, 0.45);
+  --float-h: calc(var(--ui-size) * 1.9);
+  --page-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 24px 48px -32px rgba(0, 0, 0, 0.35);
+  --read-measure: 62ch;
+  --measure-cap: 74rem;
+  --measure: var(--measure-cap);
+  --bleed: 0px;
+  --rhythm: 1em;
+  --rhythm-rule: 1.6em;
+  --page-pad: clamp(28px, 3.2vw, 48px);
+  --page-pad-x: clamp(26px, 3vw, 52px);
+  --page-radius: 16px;
+  --def-term-cap: 10em;
+  --pad-y: clamp(28px, 3.6vw, 56px);
+  --pad-x: clamp(20px, 5vw, 56px);
+  --check-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.4 8.6l3 3 6.2-6.4'/%3E%3C/svg%3E");
+}
+:root[data-mdview-width="narrow"] {
+  --measure: var(--read-measure);
+}
+:root[data-mdview-width="full"] {
+  --measure: 200rem;
+}
+:root[data-mdview-font="serif"] {
+  --md-font-body: var(--md-font-serif);
+  --md-font-head: var(--md-font-serif);
+  --type-size: 1.02;
+  --type-leading: 1.66;
+  --code-size: 0.89em;
+}
+@media (prefers-color-scheme: dark) {
+:root:not([data-mdview-theme="light"]) {
+  --bg: #0d1117;
+  --ink: #e4e8ee;
+  --muted: #9aa5b4;
+  --faint: #808b9a;
+  --line: #30363d;
+  --line-strong: #30363d;
+  --card: #161b22;
+  --fence: #161b22;
+  --zebra: #12161c;
+  --rowof: #1e2631;
+  --codebg: #161b22;
+  --thbg: #161b22;
+  --accent: #58a6ff;
+  --accenttint: rgba(88, 166, 255, 0.13);
+  --accentline: rgba(88, 166, 255, 0.38);
+  --callout-tip: #3aa981;
+  --callout-important: #9c74f7;
+  --callout-warning: #d29922;
+  --callout-caution: #e75d55;
+  --mark-bg: #4a3a12;
+  --mark-ink: #fde68a;
+  --rule: rgba(255, 255, 255, 0.05);
+  --scrollfade: rgba(0, 0, 0, 0.55);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --page-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 24px 48px -30px rgba(0, 0, 0, 0.6);
+  --float-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 28px -18px rgba(0, 0, 0, 0.75);
+  --check-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%230f1216' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.4 8.6l3 3 6.2-6.4'/%3E%3C/svg%3E");
+}
+}
+:root[data-mdview-theme="dark"] {
+  --bg: #0d1117;
+  --ink: #e4e8ee;
+  --muted: #9aa5b4;
+  --faint: #808b9a;
+  --line: #30363d;
+  --line-strong: #30363d;
+  --card: #161b22;
+  --fence: #161b22;
+  --zebra: #12161c;
+  --rowof: #1e2631;
+  --codebg: #161b22;
+  --thbg: #161b22;
+  --accent: #58a6ff;
+  --accenttint: rgba(88, 166, 255, 0.13);
+  --accentline: rgba(88, 166, 255, 0.38);
+  --callout-tip: #3aa981;
+  --callout-important: #9c74f7;
+  --callout-warning: #d29922;
+  --callout-caution: #e75d55;
+  --mark-bg: #4a3a12;
+  --mark-ink: #fde68a;
+  --rule: rgba(255, 255, 255, 0.05);
+  --scrollfade: rgba(0, 0, 0, 0.55);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --page-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 24px 48px -30px rgba(0, 0, 0, 0.6);
+  --float-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 28px -18px rgba(0, 0, 0, 0.75);
+  --check-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%230f1216' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.4 8.6l3 3 6.2-6.4'/%3E%3C/svg%3E");
+}
+:root[data-mdview-theme="warm"] {
+  --bg: #f1e9db;
+  --ink: #2b2419;
+  --muted: #6b6151;
+  --faint: #6f6456;
+  --line: #e5dbc6;
+  --line-strong: #cfc2a6;
+  --card: #fbf6ec;
+  --fence: #f3ecdc;
+  --zebra: #f8f2e6;
+  --rowof: #f0e7d4;
+  --codebg: #f2ebdb;
+  --thbg: #f6efdf;
+  --accent: #0969da;
+  --accenttint: rgba(9, 105, 218, 0.09);
+  --accentline: rgba(9, 105, 218, 0.32);
+  --callout-tip: #287458;
+  --callout-important: #733cf5;
+  --callout-warning: #856216;
+  --callout-caution: #c5241c;
+  --mark-bg: #fde68a;
+  --mark-ink: #422006;
+  --rule: rgba(74, 56, 28, 0.08);
+  --scrollfade: rgba(74, 56, 28, 0.16);
+  --shadow: 0 1px 2px rgba(74, 56, 28, 0.06);
+  --page-shadow: 0 1px 2px rgba(74, 56, 28, 0.05), 0 24px 48px -32px rgba(74, 56, 28, 0.4);
+  --float-shadow: 0 1px 2px rgba(74, 56, 28, 0.08), 0 12px 28px -18px rgba(74, 56, 28, 0.5);
+  --check-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.4 8.6l3 3 6.2-6.4'/%3E%3C/svg%3E");
+}
+@media (min-width: 1400px) {
+:root {
+  --read-measure: 64ch;
+}
+}
+@media (min-width: 1600px) {
+:root {
+  --page-pad-x: clamp(44px, 4vw, 72px);
+}
+:root[data-mdview-width="narrow"] {
+  --bleed: min(14vw, 15rem);
+}
+}
+@media (min-width: 1800px) {
+:root {
+  --page-pad-x: clamp(52px, 6vw, 150px);
+  --page-pad: clamp(28px, 3.2vw, 48px);
+  --pad-y: clamp(28px, 3.6vw, 56px);
+}
+}
+@media (min-width: 1920px) {
+:root[data-mdview-width="narrow"] {
+  --bleed: min(18vw, 20rem);
+}
+}
+@media (max-width: 640px) {
+:root {
+  --type-base: 16.5px;
+}
+}
+@media print {
+:root {
+  --bleed: 0px;
+}
+}

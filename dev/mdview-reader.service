@@ -1,0 +1,16 @@
+[Unit]
+Description=mdview reader (local notes server on 127.0.0.1:8765)
+After=default.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/mdview/reader
+ExecStart=/usr/bin/python3 %h/mdview/reader/server.py
+Environment=MDVIEW_ENGINE=%h/mdview/extension
+Restart=always
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

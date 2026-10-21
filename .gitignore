@@ -1,0 +1,20 @@
+# the reader's own state
+reader/roots.json
+reader/temp/
+reader/__pycache__/
+*.pyc
+
+# the built extension
+extension/mdview.xpi
+dev/*.pid
+
+# the tooling
+dev/node_modules/
+dev/package-lock.json
+
+# the code graph
+extension/graphify-out/
+
+# the operating system's leftovers
+.DS_Store
+Thumbs.db

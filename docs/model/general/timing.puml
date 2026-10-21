@@ -1,0 +1,53 @@
+@startuml
+' Timing — the budget from the tab's address to the note on the screen
+' Sources: ../../operations/performance.md, RNF-01, RNF-04
+'
+' The times are on the messages, because the ruler of a timing diagram needs a
+' PlantUML newer than the one this project has.
+
+skinparam shadowing false
+skinparam ArrowColor #333
+autonumber
+
+actor "The browser" as BR
+participant "The reader\n(server.py)" as SRV
+participant "The workspace" as WS
+participant "The file's page" as PAGE
+participant "The renderer" as MD
+
+BR -> SRV : GET /?open=<path> (0.4 ms)
+activate SRV
+SRV -> BR : the workspace
+deactivate SRV
+BR -> WS : the page runs
+activate WS
+WS -> SRV : GET /api/tree?path=<folder> (1.0 ms)
+activate SRV
+SRV -> WS : the names inside it
+deactivate SRV
+WS -> SRV : GET /view/<path>?embed=1 (0.7 ms)
+activate SRV
+SRV -> BR : the file's own page
+deactivate SRV
+deactivate WS
+BR -> PAGE : the page runs
+activate PAGE
+PAGE -> SRV : GET /f/<path> (0.7 ms)
+activate SRV
+SRV -> PAGE : the bytes
+deactivate SRV
+PAGE -> MD : the source
+activate MD
+MD -> PAGE : the document is built
+deactivate MD
+deactivate PAGE
+MD -> BR : the note is on the screen (90 ms in all)
+
+note right
+  90 ms measured in all, of which the reader
+  answers 2 ms. The rest is the browser: the
+  engine's scripts, the parse and the first
+  paint. It is not measured apart yet, which is a gap
+  in ../analysis/requirements.md.
+end note
+@enduml

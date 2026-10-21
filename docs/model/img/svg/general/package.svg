@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="871px" preserveAspectRatio="none" style="width:2168px;height:871px;" version="1.1" viewBox="0 0 2168 871" width="2168px" zoomAndPan="magnify"><defs/><g><!--MD5=[c60a4869dea654daf2c0e2c69c4c7e6a]
+cluster SURF--><polygon fill="#FBFBFC" points="30,483,94,483,101,508.0679,518,508.0679,518,723,30,723,30,483" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="30" x2="101" y1="508.0679" y2="508.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="58" x="34" y="499.9659">Surfaces</text><!--MD5=[ecf4b24d341c847057ccb8e88a0ede60]
+cluster PROC--><polygon fill="#FBFBFC" points="353,296,412,296,419,321.0679,495,321.0679,495,443,353,443,353,296" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="353" x2="419" y1="321.0679" y2="321.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="53" x="357" y="312.9659">Process</text><!--MD5=[518059fab439e7877e7e319f97903550]
+cluster SERV--><polygon fill="#FBFBFC" points="737,86,799,86,806,111.0679,1378,111.0679,1378,363,737,363,737,86" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="737" x2="806" y1="111.0679" y2="111.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="56" x="741" y="102.9659">Services</text><!--MD5=[77f9717bc8a7774b4c2b33b1a8dbee7e]
+cluster PLAT--><polygon fill="#FBFBFC" points="1177,425,1250,425,1257,469.1358,1707.5,469.1358,1707.5,666,1177,666,1177,425" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="1177" x2="1257" y1="469.1358" y2="469.1358"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="61" x="1184" y="441.9659">Platform</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="67" x="1181" y="461.0339">boundary</text><!--MD5=[bc626bd40949d04a3504d83696d54a38]
+cluster CORE--><polygon fill="#FBFBFC" points="1510.5,182,1548.5,182,1555.5,207.0679,2111,207.0679,2111,385,1510.5,385,1510.5,182" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="1510.5" x2="1555.5" y1="207.0679" y2="207.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="32" x="1514.5" y="198.9659">Core</text><!--MD5=[b0f19e166a6d6034c6a681d4a725ee62]
+cluster PROTO--><polygon fill="#FBFBFC" points="1896.5,533,1961.5,533,1968.5,558.0679,2139.5,558.0679,2139.5,736,1896.5,736,1896.5,533" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="1896.5" x2="1968.5" y1="558.0679" y2="558.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="59" x="1900.5" y="549.9659">Protocol</text><!--MD5=[48558302b29571c46195c4765052fa70]
+entity WS--><rect fill="#FEFECE" height="58.1358" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="54" y="641"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="49" y="646"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="49" y="689.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="100" x="64" y="665.9659">The workspace</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="78" x="64" y="685.0339">the window</text><!--MD5=[7e2428c7f3e623b9213eda7e12bbaee2]
+entity LIB--><rect fill="#FEFECE" height="58.1358" style="stroke: #A80036; stroke-width: 1.5;" width="93" x="67.5" y="548"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="62.5" y="553"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="62.5" y="596.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="73" x="77.5" y="572.9659">The library</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="59" x="77.5" y="592.0339">organise</text><!--MD5=[1f00b56461031ad0372d9123bc420801]
+entity DEF--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="140" x="354" y="634.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="349" y="639.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="349" y="663.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="120" x="364" y="659.4659">The definition tab</text><!--MD5=[2ae9bfc662548d719b2d3e00ac63b9a4]
+entity SRV--><rect fill="#FEFECE" height="58.1358" style="stroke: #A80036; stroke-width: 1.5;" width="94" x="377" y="342"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="372" y="347"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="372" y="390.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="74" x="387" y="366.9659">The reader</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="62" x="387" y="386.0339">server.py</text><!--MD5=[e291d5aa2260f5663058080aae2b1552]
+entity MD--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="184" x="761" y="280.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="756" y="285.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="756" y="309.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="164" x="771" y="305.4659">The markdown renderer</text><!--MD5=[b33bd656212286946e0f6485ee27f6f9]
+entity PDF--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="108" x="799" y="206.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="794" y="211.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="794" y="235.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="88" x="809" y="231.4659">The PDF view</text><!--MD5=[a0d19e8811d565ca66e32cc4c28ac1ad]
+entity IMG--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="131" x="787.5" y="132.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="782.5" y="137.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="782.5" y="161.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="111" x="797.5" y="157.4659">The picture view</text><!--MD5=[7dfe3d3c800f879fa06c8e53ec28e54d]
+entity XLS--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="1234" y="269.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1229" y="274.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1229" y="298.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="100" x="1244" y="294.4659">The sheet view</text><!--MD5=[04730345b77229edac70b3723410e69f]
+entity CARD--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="117" x="1235.5" y="195.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1230.5" y="200.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1230.5" y="224.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="97" x="1245.5" y="220.4659">The word card</text><!--MD5=[e47fa06001d3545761002d272ada9cd9]
+entity STORE--><rect fill="#FEFECE" height="58.1358" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="1207.5" y="584"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1202.5" y="589"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1202.5" y="632.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="149" x="1217.5" y="608.9659">The browser's storage</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="153" x="1217.5" y="628.0339">the choices, the places</text><!--MD5=[d92183cf5af8f4f31b0607538d95b5f3]
+entity DOC--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="186" x="1201" y="509.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1196" y="514.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1196" y="538.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="166" x="1211" y="534.4659">The browser's document</text><!--MD5=[47c832da24913f321347c8387a1e1b8d]
+entity KINDS--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="171" x="1512.5" y="593.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1507.5" y="598.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1507.5" y="622.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="151" x="1522.5" y="618.4659">The file system's kinds</text><!--MD5=[18d2ff3cf90480e9298772269bcf0040]
+entity KIND--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="127" x="1534.5" y="302.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1529.5" y="307.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1529.5" y="331.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="107" x="1544.5" y="327.4659">The kinds of file</text><!--MD5=[e729838962ccd0aba2d04ddc4e1c2f0a]
+entity ROOTS--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="83" x="1556.5" y="228.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1551.5" y="233.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1551.5" y="257.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="63" x="1566.5" y="253.4659">The roots</text><!--MD5=[9e39487a8926c284836edb18605329d1]
+entity TABRULES--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="138" x="1949" y="302.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1944" y="307.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1944" y="331.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="118" x="1959" y="327.4659">The rules of a tab</text><!--MD5=[33446b653b931de7fd47471c5a2c3590]
+entity ROUTES--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="151" x="1942.5" y="579.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1937.5" y="584.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1937.5" y="608.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="131" x="1952.5" y="604.4659">The reader's routes</text><!--MD5=[20d7c2ec6dc7b8956a56b15fb21609ce]
+entity MESSAGES--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="195" x="1920.5" y="653.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1915.5" y="658.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1915.5" y="682.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="175" x="1930.5" y="678.4659">The extension's messages</text><!--MD5=[c6d6d4da8b4a45e2cf2408caa42c2835]
+entity EXT--><ellipse cx="1598" cy="826" fill="#FEFECE" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="24" x="1586" y="857.9659">EXT</text><path d="M1460.5,94.5 L1460.5,157.618 L1735.5,157.618 L1735.5,104.5 L1725.5,94.5 L1460.5,94.5 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M1725.5,94.5 L1725.5,104.5 L1735.5,104.5 L1725.5,94.5 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="246" x="1466.5" y="113.397">A-4: the state has one owner in each kind.</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="254" x="1466.5" y="131.103">The disk belongs to the reader, the choices</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="180" x="1466.5" y="148.809">and the places to the browser.</text><path d="M1879.5,94.5 L1879.5,157.618 L2156.5,157.618 L2156.5,104.5 L2146.5,94.5 L1879.5,94.5 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M2146.5,94.5 L2146.5,104.5 L2156.5,104.5 L2146.5,94.5 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="244" x="1885.5" y="113.397">A-5: the dependency points one way. The</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="251" x="1885.5" y="131.103">extension knows the reader's address; the</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="256" x="1885.5" y="148.809">reader does not know the extension exists.</text><!--MD5=[0e01836b351cea1edb54f07e6a0b841c]
+link SURF to PROC--><path d="M194.2099,482.938 C194.3667,482.889 194.5236,482.84 194.6803,482.7911 C195.3074,482.5957 195.9337,482.4019 196.5589,482.2099 C199.0598,481.4421 201.5444,480.7031 204,480 C251.02,466.54 304.8075,455.4275 347.31,447.6125 C352.6228,446.6356 357.7593,445.7103 362.6842,444.8383 C365.1466,444.4023 367.5562,443.9797 369.9084,443.5706 C370.4965,443.4683 371.081,443.3669 371.6618,443.2664 C371.9522,443.2161 372.2417,443.166 372.5303,443.1161 " fill="none" id="SURF-&gt;PROC" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="372.5303,443.1161,362.9807,440.7067,367.6033,443.9674,364.3427,448.5899,372.5303,443.1161" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="118" x="205" y="448.897">asks and reads (P-1)</text><!--MD5=[0e01836b351cea1edb54f07e6a0b841c]
+link SURF to PROC--><!--MD5=[67c55b31b694f03abebc26f09667bccd]
+link PROC to SERV--><path d="M495.4131,433.5367 C495.5991,433.4952 495.7851,433.4532 495.971,433.4109 C496.3429,433.3262 496.7145,433.2399 497.0859,433.1519 C498.5715,432.8 500.053,432.4214 501.5275,432.0147 C513.3231,428.7606 524.665,423.7 534,416 C541.7,409.64 534.16,401.18 542,395 C595.695,352.67 671.63,342.3175 734.905,342.72 C735.3993,342.7231 735.8929,342.7269 736.3857,342.7314 " fill="none" id="PROC-&gt;SERV" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="736.3857,342.7314,727.4221,338.6503,731.3859,342.6863,727.3499,346.65,736.3857,342.7314" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="169" x="543" y="339.897">serves the page of a file (A-1)</text><!--MD5=[67c55b31b694f03abebc26f09667bccd]
+link PROC to SERV--><!--MD5=[412895dbbaf43ea2edf3ea33f34471c8]
+link SERV to CORE--><path d="M1127.9892,363.1114 C1129.3731,363.1524 1130.759,363.1934 1132.1467,363.2345 C1134.9222,363.3167 1137.705,363.3991 1140.4947,363.4817 C1146.0739,363.6469 1151.6802,363.813 1157.3082,363.9796 C1179.8198,364.6463 1202.6775,365.3231 1225.535,366 C1316.965,368.7075 1408.3925,371.415 1477.6656,373.4669 C1486.3248,373.7234 1494.6377,373.9696 1502.5613,374.2043 C1504.5422,374.263 1506.4987,374.321 1508.4303,374.3782 C1508.9131,374.3925 1509.3945,374.4067 1509.8742,374.4209 " fill="none" id="SERV-&gt;CORE" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1509.8742,374.4209,1500.9966,370.1562,1504.8764,374.2729,1500.7597,378.1527,1509.8742,374.4209" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="209" x="1189.5" y="360.897">what a file is, and what a tab is (A-6)</text><!--MD5=[3314a285e9a598e68cc7dd8d37ba6d29]
+link SURF to CORE--><path d="M119.3364,481.5571 C119.4902,480.5698 119.6487,479.5624 119.8117,478.5353 C120.4639,474.4269 121.1899,470.0034 121.9944,465.2938 C123.6034,455.8747 125.5261,445.3112 127.7986,433.8352 C136.8884,387.9309 151.5744,327.4256 174.1638,267.1538 C219.3425,146.61 296.135,27 423,27 C423,27 423,27 1295,27 C1356.01,27 1367.29,64.19 1399.5,116 C1458.05,210.2 1377.93,283.94 1460.5,358 C1471.7225,368.065 1485.6881,374.3269 1500.367,378.048 C1502.2019,378.5131 1504.0479,378.9385 1505.9011,379.3267 C1506.8277,379.5208 1507.7561,379.7056 1508.6858,379.8814 C1509.1506,379.9693 1509.6158,380.055 1510.0812,380.1384 " fill="none" id="SURF-&gt;CORE" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1510.0812,380.1384,1501.9282,374.6131,1505.1597,379.2562,1500.5166,382.4876,1510.0812,380.1384" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="140" x="783" y="22.897">the kinds, the tabs (A-3)</text><!--MD5=[eaeb95059dbac4849fbe72ed6a44ac8a]
+link PROC to PLAT--><path d="M495.0729,442.749 C496.2201,442.8711 497.3792,442.9943 498.55,443.1185 C500.8917,443.3669 503.2801,443.6195 505.7139,443.876 C515.4491,444.9019 525.9111,445.9904 537.0128,447.127 C559.2162,449.4 583.9784,451.865 610.6038,454.405 C717.105,464.565 853.415,475.925 975,481 C1054.04,484.3 1073.91,482.98 1153,481 C1160.6638,480.8088 1168.5612,480.5586 1176.5189,480.2669 " fill="none" id="PROC-&gt;PLAT" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1176.5189,480.2669,1167.3784,476.5993,1171.5223,480.4501,1167.6715,484.5939,1176.5189,480.2669" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="74" x="816" y="460.897">the disk (D5)</text><!--MD5=[51f0f6b298364b0446ff554e8f9bc24b]
+link SERV to PLAT--><path d="M869.9678,363.1318 C870.0937,363.1943 870.2201,363.2569 870.3472,363.3199 C870.8555,363.5718 871.3738,363.828 871.9019,364.0885 C874.014,365.1305 876.2816,366.2401 878.6875,367.4052 C883.4992,369.7354 888.8638,372.2878 894.6425,374.9662 C917.7575,385.68 947.5,398.41 975,407 C1052.04,431.06 1074.04,426.27 1153,443 C1160.6712,444.625 1168.5744,446.3195 1176.5362,448.0419 " fill="none" id="SERV-&gt;PLAT" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1176.5362,448.0419,1168.5854,442.2294,1171.6492,446.9847,1166.8939,450.0485,1176.5362,448.0419" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="176" x="976" y="402.897">the browser's document (A-2)</text><!--MD5=[51f0f6b298364b0446ff554e8f9bc24b]
+link SERV to PLAT--><!--MD5=[8d2514f9a8a190fc94000cbe2e7c8072]
+link SURF to PLAT--><path d="M519.2628,514.9088 C520.9056,514.8945 522.5514,514.8799 524.2001,514.865 C530.7949,514.8055 537.4365,514.7412 544.1225,514.6717 C570.8662,514.3941 598.3185,514.0355 626.3133,513.5815 C682.303,512.6736 740.4633,511.3843 799.4672,509.5983 C917.475,506.0263 1038.8575,500.4675 1153,492 C1160.6975,491.4288 1168.6203,490.7256 1176.5964,489.9317 " fill="none" id="SURF-&gt;PLAT" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1176.5964,489.9317,1167.2445,486.8428,1171.621,490.4269,1168.0369,494.8035,1176.5964,489.9317" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="160" x="547.5" y="508.897">the browser's storage (A-4)</text><!--MD5=[8035d5b7efbf28f69abd426507305278]
+link SURF to PROTO--><path d="M346.1229,723.0694 C346.8013,723.4573 347.4855,723.8398 348.1755,724.2168 C350.9355,725.7248 353.789,727.1444 356.745,728.4702 C362.6571,731.1217 368.9794,733.3978 375.785,735.254 C389.3961,738.9666 404.94,741 423,741 C423,741 423,741 1599,741 C1691.21,741 1794.805,737.8 1875.795,734.575 C1880.8569,734.3734 1885.8304,734.1718 1890.7074,733.9708 C1891.9267,733.9205 1893.1399,733.8703 1894.3469,733.8202 C1894.9504,733.7951 1895.5524,733.7701 1896.1528,733.745 " fill="none" id="SURF-&gt;PROTO" style="stroke: #333333; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#333333" points="1896.1528,733.745,1886.9939,730.1236,1891.1572,733.9534,1887.3274,738.1166,1896.1528,733.745" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="113" x="1007.5" y="736.897">the reader's routes</text><!--MD5=[e8369af52f9442ebe974219ad20f005f]
+link EXT to PROTO--><path d="M1607.32,825.21 C1639.14,822.06 1755.95,809.47 1849.5,786 C1887.11,776.565 1928.275,762.3675 1960.3838,750.3813 C1968.4109,747.3847 1975.8721,744.5263 1982.5702,741.9151 C1985.9193,740.6095 1989.0776,739.3657 1992.0204,738.1973 C1993.4919,737.6132 1994.9095,737.0478 1996.2701,736.503 C1996.6103,736.3668 1996.9469,736.2319 1997.2799,736.0983 " fill="none" id="EXT-&gt;PROTO" style="stroke: #333333; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#333333" points="1997.2799,736.0983,1987.4377,735.7371,1992.6395,737.9601,1990.4165,743.1618,1997.2799,736.0983" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="82" x="1766.5" y="781.897">the messages</text><!--MD5=[4abf4c98d9db9e9742ceff4b2dcff454]
+link PLAT to CORE--><!--MD5=[5e780b2f5d9a467fcd0fccfb9d1c2db0]
+link CORE to PROTO--><!--MD5=[1893d2ff7ff28cbcd1652ba86bad34ee]
+link CORE to GMN41--><path d="M1510.2541,382.4332 C1509.9662,382.4037 1509.6783,382.3735 1509.3904,382.3427 C1508.8146,382.2811 1508.2387,382.217 1507.6629,382.1504 C1506.5113,382.0172 1505.36,381.8737 1504.2096,381.7196 C1501.909,381.4115 1499.6123,381.0608 1497.3258,380.6641 C1488.1798,379.0773 1479.1963,376.7545 1470.768,373.473 C1453.9113,366.91 1439.275,356.5125 1430,340.5 C1405.28,297.81 1405.95,272.57 1430,229.5 C1447.96,197.35 1480.46,173.95 1512.12,157.62 " fill="none" id="CORE-GMN41" style="stroke: #333333; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><!--MD5=[0f7430fa1564072255d504b8c47964b7]
+link PROTO to GMN44--><path d="M1967.6223,736.063 C1967.0242,736.1198 1966.4225,736.1755 1965.8175,736.2301 C1964.6075,736.3394 1963.3841,736.4443 1962.1479,736.5443 C1952.259,737.3444 1941.5609,737.8306 1930.4888,737.735 C1886.2,737.3525 1835.925,727.66 1807.5,691.5 C1744.05,610.78 1753.23,316.65 1807.5,229.5 C1828.27,196.14 1863.29,173.22 1898.87,157.62 " fill="none" id="PROTO-GMN44" style="stroke: #333333; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><!--MD5=[58434cdf9018845d120afd23554ecec5]
+link WS to LIB--><!--MD5=[5156b76aca635f3b0706bb7a42aecc05]
+link WS to DEF--><!--MD5=[92acc61b5922d43eea19ee3f65906544]
+link MD to PDF--><!--MD5=[180a496a8a1437f7a9b02a1d4a6e5a54]
+link PDF to IMG--><!--MD5=[138a598ddce23e181661320827a19e7d]
+link MD to XLS--><!--MD5=[f2152b11fbe24030d5106fb680fd3ef5]
+link XLS to CARD--><!--MD5=[ab7f4c36e5d3c33f81e774c731541d87]
+link STORE to DOC--><!--MD5=[486626a969c88bb597cbfc87a4fa4e92]
+link STORE to KINDS--><!--MD5=[3fc6935117bd42ca966c913516015682]
+link KIND to ROOTS--><!--MD5=[f0692374b621e1985bfea52bd00d021a]
+link KIND to TABRULES--><!--MD5=[f61c5867311343c04834a677ecc92ae3]
+link LIB to MD--><!--MD5=[736ccd0027fc7e2fa348eaf2c18e31f3]
+link DEF to STORE--><!--MD5=[299a321dd9b673edee811d0c569e6f6e]
+link DOC to KIND--><!--MD5=[1a3f500969175cd982ecf0168f9a0f4e]
+@startuml
+
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "Surfaces" as SURF {
+  [The workspace\nthe window] as WS
+  [The library\norganise] as LIB
+  [The definition tab] as DEF
+}
+
+package "Process" as PROC {
+  [The reader\nserver.py] as SRV
+}
+
+package "Services" as SERV {
+  [The markdown renderer] as MD
+  [The PDF view] as PDF
+  [The picture view] as IMG
+  [The sheet view] as XLS
+  [The word card] as CARD
+}
+
+package "Platform\nboundary" as PLAT {
+  [The browser's storage\nthe choices, the places] as STORE
+  [The browser's document] as DOC
+  [The file system's kinds] as KINDS
+}
+
+package "Core" as CORE {
+  [The kinds of file] as KIND
+  [The roots] as ROOTS
+  [The rules of a tab] as TABRULES
+}
+
+package "Protocol" as PROTO {
+  [The reader's routes] as ROUTES
+  [The extension's messages] as MESSAGES
+}
+
+SURF - -> PROC : asks and reads (P-1)
+PROC - -> SERV : serves the page of a file (A-1)
+SERV - -> CORE : what a file is, and what a tab is (A-6)
+SURF - -> CORE : the kinds, the tabs (A-3)
+PROC - -> PLAT : the disk (D5)
+SERV - -> PLAT : the browser's document (A-2)
+SURF - -> PLAT : the browser's storage (A-4)
+SURF ..> PROTO : the reader's routes
+EXT ..> PROTO : the messages
+
+SURF -[hidden]-> PROC
+PROC -[hidden]-> SERV
+SERV -[hidden]-> PLAT
+PLAT -[hidden]-> CORE
+CORE -[hidden]-> PROTO
+
+note bottom of CORE
+  A-4: the state has one owner in each kind.
+  The disk belongs to the reader, the choices
+  and the places to the browser.
+end note
+
+note bottom of PROTO
+  A-5: the dependency points one way. The
+  extension knows the reader's address; the
+  reader does not know the extension exists.
+end note
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 05:22:07 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

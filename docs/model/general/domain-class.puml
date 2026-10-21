@@ -1,0 +1,109 @@
+@startuml
+' Class diagram (domain) — the concepts, their attributes and their operations
+' Sources: ../../specification/00-overview.md (the vocabulary), Rule A-6
+
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  ArrowColor #333
+}
+
+class Root {
+  + path : Path
+  + name : String
+  + show() : Folder
+}
+
+class Folder {
+  + path : Path
+  + name : String
+  + up : Path
+  + entries : List<File>
+  + listing() : List<File>
+  + parent() : Folder
+}
+
+class File {
+  + path : Path
+  + name : String
+  + kind : Kind
+  + size : int
+  + mtime : int
+  + isFolder() : bool
+  + page() : String
+}
+
+class Kind {
+  + md
+  + html
+  + pdf
+  + img
+  + sheet
+  + text
+  + binary
+  + of(name : String) : Kind
+  + ofBytes(path : Path) : Kind
+}
+
+class Tab {
+  + id : String
+  + path : Path
+  + name : String
+  + src : String
+  + frame : Frame
+  + open() : void
+  + close() : void
+  + activate() : void
+}
+
+class Frame {
+  + src : String
+  + hidden : bool
+  + show() : void
+  + hide() : void
+}
+
+class Place {
+  + page : int
+  + at : float
+  + zoom : String
+  + remember() : void
+  + restore() : void
+}
+
+class Choice {
+  + theme : String
+  + width : String
+  + font : String
+  + lang : String
+  + voice : String
+  + apply() : void
+}
+
+Root "1" o-- "*" Folder : shows
+Folder "1" *-- "*" File : contains
+File --> Kind : is a
+Tab "1" *-- "1" Frame : shows
+File --> Place : is read at
+Choice --> File : is read with
+Kind ..> Kind : of(name) and ofBytes(path)
+
+note right of Kind
+  A-6: the kind is decided in one
+  place — by the name, and by the
+  bytes only when the file is opened.
+end note
+
+note right of Place
+  ADR-0010: a page and a fraction
+  of a page, never a pixel offset.
+end note
+
+note bottom of Folder
+  F-6: the listing is the names of one
+  folder, with the facts about the names.
+  The bytes of a file are not read.
+end note
+@enduml

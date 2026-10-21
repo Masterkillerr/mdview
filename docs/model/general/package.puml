@@ -1,0 +1,81 @@
+@startuml
+' Package diagram — the layers, and the dependencies allowed between them
+' Sources: ../../specification/01-architecture.md (section 1), Rule A-1
+'
+' The layers are in a row, in the order they may depend on each other: a
+' layer may only depend on the layers above it.
+
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "Surfaces" as SURF {
+  [The workspace\nthe window] as WS
+  [The library\norganise] as LIB
+  [The definition tab] as DEF
+}
+
+package "Process" as PROC {
+  [The reader\nserver.py] as SRV
+}
+
+package "Services" as SERV {
+  [The markdown renderer] as MD
+  [The PDF view] as PDF
+  [The picture view] as IMG
+  [The sheet view] as XLS
+  [The word card] as CARD
+}
+
+package "Platform\nboundary" as PLAT {
+  [The browser's storage\nthe choices, the places] as STORE
+  [The browser's document] as DOC
+  [The file system's kinds] as KINDS
+}
+
+package "Core" as CORE {
+  [The kinds of file] as KIND
+  [The roots] as ROOTS
+  [The rules of a tab] as TABRULES
+}
+
+package "Protocol" as PROTO {
+  [The reader's routes] as ROUTES
+  [The extension's messages] as MESSAGES
+}
+
+SURF --> PROC : asks and reads (P-1)
+PROC --> SERV : serves the page of a file (A-1)
+SERV --> CORE : what a file is, and what a tab is (A-6)
+SURF --> CORE : the kinds, the tabs (A-3)
+PROC --> PLAT : the disk (D5)
+SERV --> PLAT : the browser's document (A-2)
+SURF --> PLAT : the browser's storage (A-4)
+SURF ..> PROTO : the reader's routes
+EXT ..> PROTO : the messages
+
+' the layers, in the order they may depend on each other
+SURF -[hidden]-> PROC
+PROC -[hidden]-> SERV
+SERV -[hidden]-> PLAT
+PLAT -[hidden]-> CORE
+CORE -[hidden]-> PROTO
+
+note bottom of CORE
+  A-4: the state has one owner in each kind.
+  The disk belongs to the reader, the choices
+  and the places to the browser.
+end note
+
+note bottom of PROTO
+  A-5: the dependency points one way. The
+  extension knows the reader's address; the
+  reader does not know the extension exists.
+end note
+@enduml

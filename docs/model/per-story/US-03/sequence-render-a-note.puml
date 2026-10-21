@@ -1,0 +1,44 @@
+@startuml
+' Sequence — a note is rendered, and the place is kept
+' Sources: ../../../analysis/use-case-descriptions.md (UC-02), ../../../specification/03-features.md
+
+skinparam shadowing false
+skinparam ArrowColor #333
+autonumber
+
+actor Reader
+participant "The note's page" as PAGE
+participant "The renderer\n(mdview.js)" as MD
+participant "The reader\n(server.py)" as SRV
+database "The browser's\nstorage" as STORE
+
+Reader -> PAGE : opens the note
+activate PAGE
+PAGE -> SRV : GET /f/<path> (the bytes)
+activate SRV
+SRV -> PAGE : the bytes
+deactivate SRV
+PAGE -> MD : the source
+activate MD
+MD -> MD : the block parser and the inline\ntokenizer (F-3)
+MD -> MD : the raw HTML is filtered, not\npassed through (S-4)
+MD -> PAGE : the document, the masthead,\nthe outline
+deactivate MD
+deactivate PAGE
+PAGE -> Reader : the note is on the screen
+
+Reader -> PAGE : scrolls
+activate PAGE
+PAGE -> PAGE : which heading is the reading line at?\n(a page and a fraction of a page, F-4)
+PAGE -> STORE : the place, keyed by the file's address
+deactivate PAGE
+
+Reader -> PAGE : closes the window
+Reader -> PAGE : opens it again
+activate PAGE
+PAGE -> STORE : the place
+STORE -> PAGE : the place
+PAGE -> PAGE : go to that heading
+deactivate PAGE
+PAGE -> Reader : the note is where it was left
+@enduml

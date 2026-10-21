@@ -1,0 +1,77 @@
+@startuml
+' US-13 — Read a PDF.
+' Sequence — the boxes first, the paints second, and the hand
+' Sources: ../../../analysis/stories.md (US-13), ../../../specification/03-features.md (F-15, F-17, F-18)
+
+skinparam shadowing false
+skinparam ArrowColor #333
+autonumber
+
+actor Reader
+participant "The PDF's page" as PAGE
+participant "pdf.js" as PDF
+participant "The canvas\n(the paint)" as CV
+participant "The text layer\n(the file's own words)" as TL
+participant "The tools\n(the bar at the bottom)" as BAR
+database "The browser's\nstorage" as STORE
+
+Reader -> PAGE : opens the file
+activate PAGE
+PAGE -> PDF : the bytes
+activate PDF
+PDF -> PAGE : every page's size
+PDF -> PAGE : a box for every page, at once (F-15)
+deactivate PDF
+deactivate PAGE
+PAGE -> Reader : the file is open: the scrollbar\nand the page count are right
+
+Reader -> PAGE : scrolls
+activate PAGE
+PAGE -> PDF : the pages near the reader are painted
+activate PDF
+PDF -> CV : the paint of a page
+PDF -> TL : the file's own text, over the words (F-16)
+deactivate PDF
+deactivate PAGE
+Reader -> Reader : a word can be chosen, and looked up
+
+Reader -> BAR : turns a page, or types a page
+activate BAR
+BAR -> PAGE : go to that page
+deactivate BAR
+
+Reader -> BAR : zooms
+activate BAR
+BAR -> PAGE : the pages take a new size
+activate PAGE
+PAGE -> PDF : the pages near the reader are painted again
+deactivate PAGE
+deactivate BAR
+
+Reader -> PAGE : drags the page
+activate PAGE
+PAGE -> PAGE : the page moves with the pointer (F-18)
+deactivate PAGE
+
+Reader -> PAGE : closes the window
+Reader -> PAGE : opens it again
+activate PAGE
+PAGE -> STORE : the place, keyed by the file's address
+STORE -> PAGE : the place
+PAGE -> PAGE : go to that page, and that part of it
+deactivate PAGE
+PAGE -> Reader : the file is where it was left
+
+note right
+  F-15: the boxes come first, the paints
+  second. A long book is a scrollbar, not
+  a blank window.
+
+  F-17: the tools are in the window's own
+  bar, so they are there in a frame too.
+
+  F-18: a drag that starts on a word is a
+  selection; the middle button moves the
+  page whatever is under the pointer.
+end note
+@enduml

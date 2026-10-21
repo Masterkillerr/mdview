@@ -1,0 +1,107 @@
+/* The source view: a file of a kind the reader has no engine for, shown as its own
+   text. It is the reader's desk again — the same light, dark and warm — so a file with
+   no drawing of its own does not look like it came from somewhere else. */
+
+:root {
+  color-scheme: light;
+  --txt-bg: #ffffff;
+  --txt-head: #fafbfc;
+  --txt-ink: #1b2027;
+  --txt-muted: #5f6a79;
+  --txt-faint: #8b95a3;
+  --txt-line: #e5e8ec;
+  --txt-code: #f6f8fa;
+  --txt-accent: #0369a1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mdview-theme="light"]) {
+    color-scheme: dark;
+    --txt-bg: #0d1117;
+    --txt-head: #10161d;
+    --txt-ink: #e4e8ee;
+    --txt-muted: #9aa5b4;
+    --txt-faint: #78828f;
+    --txt-line: #242b34;
+    --txt-code: #161b22;
+    --txt-accent: #58a6ff;
+  }
+}
+
+:root[data-mdview-theme="dark"] {
+  color-scheme: dark;
+  --txt-bg: #0d1117;
+  --txt-head: #10161d;
+  --txt-ink: #e4e8ee;
+  --txt-muted: #9aa5b4;
+  --txt-faint: #78828f;
+  --txt-line: #242b34;
+  --txt-code: #161b22;
+  --txt-accent: #58a6ff;
+}
+
+:root[data-mdview-theme="warm"] {
+  color-scheme: light;
+  --txt-bg: #fbf6ec;
+  --txt-head: #f4ecdd;
+  --txt-ink: #2b2419;
+  --txt-muted: #6b6151;
+  --txt-faint: #8a7f6d;
+  --txt-line: #e5dbc6;
+  --txt-code: #f2ebdb;
+  --txt-accent: #0969da;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--txt-bg);
+  color: var(--txt-ink);
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+}
+
+/* The bar above the text: which file this is, and how big it is. */
+.txt-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 18px;
+  background: var(--txt-head);
+  border-bottom: 1px solid var(--txt-line);
+  font: 13px/1.4 system-ui, sans-serif;
+}
+.txt-name { font-weight: 600; color: var(--txt-ink); }
+.txt-meta { color: var(--txt-faint); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.txt-body {
+  margin: 0;
+  padding: 18px 20px 60px;
+  overflow: auto;
+  background: var(--txt-bg);
+  color: var(--txt-ink);
+  font: 13px/1.62 ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  tab-size: 2;
+  white-space: pre;
+  -moz-tab-size: 2;
+}
+
+.txt-none {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 6px;
+  min-height: 60vh;
+  text-align: center;
+  padding: 24px;
+}
+.txt-none h1 { margin: 0; font-size: 16px; font-weight: 600; }
+.txt-none p { margin: 0; color: var(--txt-muted); }
+.txt-none a { color: var(--txt-accent); }
+
+:focus-visible { outline: 2px solid var(--txt-accent); outline-offset: 2px; }

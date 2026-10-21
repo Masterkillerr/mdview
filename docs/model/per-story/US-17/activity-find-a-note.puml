@@ -1,0 +1,47 @@
+@startuml
+' US-17 — Find a note.
+' Activity — the search, and which answer it gave
+' Sources: ../../../analysis/stories.md (US-17), ../../../specification/03-features.md (F-24)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the library's form asks for the notes\nwhose name holds the text;
+
+partition "the reader" {
+  :the folders are walked for the names,\nsix levels down;
+  note right
+    The walk has a budget, and it says
+    when it runs out.
+  end note
+
+  if (the walk finished in time?) then (yes)
+    :the notes that were found are the answer;
+    :the answer says — the folders were walked\njust now, six folders down;
+  else (no)
+    if (the index is built?) then (yes)
+      :the index answers, and the answer says —\nthis is the index, of such a time;
+    else (no)
+      :what was found so far is the answer,\nand the answer says there may be more;
+    endif
+  endif
+}
+
+partition "the library's page" {
+  :the notes are listed, each with the\nfolder it is in;
+}
+
+stop
+
+note right
+  F-24: the search says which answer it gave.
+  A reader who is told "13 notes" should know
+  whether the number is the truth or a copy of
+  it.
+end note
+@enduml

@@ -1,0 +1,60 @@
+@startuml
+' Activity diagram — the rendering of a note, and where it branches
+' Sources: ../../../specification/03-features.md (section 2), Rule F-3, Rule S-4
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the note's page is asked for;
+
+partition "the reader" {
+  :the kind is decided by the name;
+  if (the kind is markdown?) then (yes)
+    :the page fetches the bytes from /f/;
+    :the renderer parses the note;
+    :the raw HTML is filtered, not passed through;
+    if (there is a diagram?) then (yes)
+      :mermaid draws it;
+    else (no)
+    endif
+    if (there is maths?) then (yes)
+      :KaTeX draws it;
+    else (no)
+    endif
+    :the masthead, the outline, the document;
+  else (no)
+    :the file's own page is served;
+    if (the kind is html?) then (yes)
+      :the file's own page, in a frame;
+    else (no)
+      :the picture view, the grid, or the text;
+    endif
+  endif
+}
+
+partition "the reader" {
+  :the reader scrolls;
+  :the place is written down;
+}
+
+partition "the browser's storage" {
+  :the place, keyed by the file's address;
+}
+
+stop
+
+note right
+  F-3: one renderer draws every note,
+  and it is measured against the
+  official corpus — 601 of 652.
+
+  S-4: a note cannot run script. Only
+  the presentational part of its raw
+  HTML survives.
+end note
+@enduml

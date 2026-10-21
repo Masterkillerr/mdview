@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="897px" preserveAspectRatio="none" style="width:1017px;height:897px;" version="1.1" viewBox="0 0 1017 897" width="1017px" zoomAndPan="magnify"><defs/><g><!--MD5=[f6516cf320c6f29c8f5b7f891cd14058]
+class Root--><rect fill="#FBFBFC" height="92.9457" id="Root" style="stroke: #333333; stroke-width: 1.5;" width="95" x="243" y="45.5"/><ellipse cx="275.1" cy="61.5" fill="#ADD1B2" rx="11" ry="11" style="stroke: #333333; stroke-width: 1.0;"/><path d="M278.0688,67.1406 Q277.4906,67.4375 276.85,67.5781 Q276.2094,67.7344 275.5063,67.7344 Q273.0063,67.7344 271.6781,66.0938 Q270.3656,64.4375 270.3656,61.3125 Q270.3656,58.1875 271.6781,56.5313 Q273.0063,54.875 275.5063,54.875 Q276.2094,54.875 276.85,55.0313 Q277.5063,55.1875 278.0688,55.4844 L278.0688,58.2031 Q277.4438,57.625 276.85,57.3594 Q276.2563,57.0781 275.6313,57.0781 Q274.2875,57.0781 273.6,58.1563 Q272.9125,59.2188 272.9125,61.3125 Q272.9125,63.4063 273.6,64.4844 Q274.2875,65.5469 275.6313,65.5469 Q276.2563,65.5469 276.85,65.2813 Q277.4438,65 278.0688,64.4219 L278.0688,67.1406 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="25" x="292.9" y="66.156">Root</text><line style="stroke: #333333; stroke-width: 1.5;" x1="244" x2="337" y1="77.5" y2="77.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="63" x="249" y="93.2589">+path : Path</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="76" x="249" y="108.2408">+name : String</text><line style="stroke: #333333; stroke-width: 1.5;" x1="244" x2="337" y1="115.4638" y2="115.4638"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="83" x="249" y="131.2227">+show() : Folder</text><!--MD5=[d1dcc9c41ef051a777528f9336a950e3]
+class Folder--><rect fill="#FBFBFC" height="137.8913" id="Folder" style="stroke: #333333; stroke-width: 1.5;" width="113" x="234" y="255"/><ellipse cx="269.7" cy="271" fill="#ADD1B2" rx="11" ry="11" style="stroke: #333333; stroke-width: 1.0;"/><path d="M272.6688,276.6406 Q272.0906,276.9375 271.45,277.0781 Q270.8094,277.2344 270.1063,277.2344 Q267.6063,277.2344 266.2781,275.5938 Q264.9656,273.9375 264.9656,270.8125 Q264.9656,267.6875 266.2781,266.0313 Q267.6063,264.375 270.1063,264.375 Q270.8094,264.375 271.45,264.5313 Q272.1063,264.6875 272.6688,264.9844 L272.6688,267.7031 Q272.0438,267.125 271.45,266.8594 Q270.8563,266.5781 270.2313,266.5781 Q268.8875,266.5781 268.2,267.6563 Q267.5125,268.7188 267.5125,270.8125 Q267.5125,272.9063 268.2,273.9844 Q268.8875,275.0469 270.2313,275.0469 Q270.8563,275.0469 271.45,274.7813 Q272.0438,274.5 272.6688,273.9219 L272.6688,276.6406 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="35" x="288.3" y="275.656">Folder</text><line style="stroke: #333333; stroke-width: 1.5;" x1="235" x2="346" y1="287" y2="287"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="63" x="240" y="302.7589">+path : Path</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="76" x="240" y="317.7408">+name : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="53" x="240" y="332.7227">+up : Path</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="99" x="240" y="347.7046">+entries : List&lt;File&gt;</text><line style="stroke: #333333; stroke-width: 1.5;" x1="235" x2="346" y1="354.9276" y2="354.9276"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="101" x="240" y="370.6865">+listing() : List&lt;File&gt;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="90" x="240" y="385.6684">+parent() : Folder</text><!--MD5=[63dd87716ef75a5caca5dce59428e94a]
+class File--><rect fill="#FBFBFC" height="152.8732" id="File" style="stroke: #333333; stroke-width: 1.5;" width="99" x="415" y="472"/><ellipse cx="451.6" cy="488" fill="#ADD1B2" rx="11" ry="11" style="stroke: #333333; stroke-width: 1.0;"/><path d="M454.5688,493.6406 Q453.9906,493.9375 453.35,494.0781 Q452.7094,494.2344 452.0063,494.2344 Q449.5063,494.2344 448.1781,492.5938 Q446.8656,490.9375 446.8656,487.8125 Q446.8656,484.6875 448.1781,483.0313 Q449.5063,481.375 452.0063,481.375 Q452.7094,481.375 453.35,481.5313 Q454.0063,481.6875 454.5688,481.9844 L454.5688,484.7031 Q453.9438,484.125 453.35,483.8594 Q452.7563,483.5781 452.1313,483.5781 Q450.7875,483.5781 450.1,484.6563 Q449.4125,485.7188 449.4125,487.8125 Q449.4125,489.9063 450.1,490.9844 Q450.7875,492.0469 452.1313,492.0469 Q452.7563,492.0469 453.35,491.7813 Q453.9438,491.5 454.5688,490.9219 L454.5688,493.6406 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="19" x="470.4" y="492.656">File</text><line style="stroke: #333333; stroke-width: 1.5;" x1="416" x2="513" y1="504" y2="504"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="63" x="421" y="519.7589">+path : Path</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="76" x="421" y="534.7408">+name : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="62" x="421" y="549.7227">+kind : Kind</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="48" x="421" y="564.7046">+size : int</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="62" x="421" y="579.6865">+mtime : int</text><line style="stroke: #333333; stroke-width: 1.5;" x1="416" x2="513" y1="586.9094" y2="586.9094"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="87" x="421" y="602.6684">+isFolder() : bool</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="79" x="421" y="617.6502">+page() : String</text><!--MD5=[4f347979e1a00d433aec894ae4d0a099]
+class Kind--><rect fill="#FBFBFC" height="182.837" id="Kind" style="stroke: #333333; stroke-width: 1.5;" width="153" x="6" y="704"/><ellipse cx="66.25" cy="720" fill="#ADD1B2" rx="11" ry="11" style="stroke: #333333; stroke-width: 1.0;"/><path d="M69.2188,725.6406 Q68.6406,725.9375 68,726.0781 Q67.3594,726.2344 66.6563,726.2344 Q64.1563,726.2344 62.8281,724.5938 Q61.5156,722.9375 61.5156,719.8125 Q61.5156,716.6875 62.8281,715.0313 Q64.1563,713.375 66.6563,713.375 Q67.3594,713.375 68,713.5313 Q68.6563,713.6875 69.2188,713.9844 L69.2188,716.7031 Q68.5938,716.125 68,715.8594 Q67.4063,715.5781 66.7813,715.5781 Q65.4375,715.5781 64.75,716.6563 Q64.0625,717.7188 64.0625,719.8125 Q64.0625,721.9063 64.75,722.9844 Q65.4375,724.0469 66.7813,724.0469 Q67.4063,724.0469 68,723.7813 Q68.5938,723.5 69.2188,722.9219 L69.2188,725.6406 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="24" x="86.75" y="724.656">Kind</text><line style="stroke: #333333; stroke-width: 1.5;" x1="7" x2="158" y1="736" y2="736"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="23" x="12" y="751.7589">+md</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="30" x="12" y="766.7408">+html</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="24" x="12" y="781.7227">+pdf</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="26" x="12" y="796.7046">+img</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="34" x="12" y="811.6865">+sheet</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="26" x="12" y="826.6684">+text</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="40" x="12" y="841.6502">+binary</text><line style="stroke: #333333; stroke-width: 1.5;" x1="7" x2="158" y1="848.8732" y2="848.8732"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="126" x="12" y="864.6321">+of(name : String) : Kind</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="141" x="12" y="879.614">+ofBytes(path : Path) : Kind</text><!--MD5=[86cb79e53930c0153cd693d492fd6a03]
+class Tab--><rect fill="#FBFBFC" height="167.8551" id="Tab" style="stroke: #333333; stroke-width: 1.5;" width="96" x="541.5" y="8"/><ellipse cx="575.85" cy="24" fill="#ADD1B2" rx="11" ry="11" style="stroke: #333333; stroke-width: 1.0;"/><path d="M578.8188,29.6406 Q578.2406,29.9375 577.6,30.0781 Q576.9594,30.2344 576.2563,30.2344 Q573.7563,30.2344 572.4281,28.5938 Q571.1156,26.9375 571.1156,23.8125 Q571.1156,20.6875 572.4281,19.0313 Q573.7563,17.375 576.2563,17.375 Q576.9594,17.375 577.6,17.5313 Q578.2563,17.6875 578.8188,17.9844 L578.8188,20.7031 Q578.1938,20.125 577.6,19.8594 Q577.0063,19.5781 576.3813,19.5781 Q575.0375,19.5781 574.35,20.6563 Q573.6625,21.7188 573.6625,23.8125 Q573.6625,25.9063 574.35,26.9844 Q575.0375,28.0469 576.3813,28.0469 Q577.0063,28.0469 577.6,27.7813 Q578.1938,27.5 578.8188,26.9219 L578.8188,29.6406 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="21" x="594.15" y="28.656">Tab</text><line style="stroke: #333333; stroke-width: 1.5;" x1="542.5" x2="636.5" y1="40" y2="40"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="57" x="547.5" y="55.7589">+id : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="63" x="547.5" y="70.7408">+path : Path</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="76" x="547.5" y="85.7227">+name : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="62" x="547.5" y="100.7046">+src : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="79" x="547.5" y="115.6865">+frame : Frame</text><line style="stroke: #333333; stroke-width: 1.5;" x1="542.5" x2="636.5" y1="122.9094" y2="122.9094"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="71" x="547.5" y="138.6684">+open() : void</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="70" x="547.5" y="153.6502">+close() : void</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="84" x="547.5" y="168.6321">+activate() : void</text><!--MD5=[678ba86161b65c93147b2a3a8cf02be2]
+class Frame--><rect fill="#FBFBFC" height="107.9276" id="Frame" style="stroke: #333333; stroke-width: 1.5;" width="88" x="545.5" y="270"/><ellipse cx="569.5" cy="286" fill="#ADD1B2" rx="11" ry="11" style="stroke: #333333; stroke-width: 1.0;"/><path d="M572.4688,291.6406 Q571.8906,291.9375 571.25,292.0781 Q570.6094,292.2344 569.9063,292.2344 Q567.4063,292.2344 566.0781,290.5938 Q564.7656,288.9375 564.7656,285.8125 Q564.7656,282.6875 566.0781,281.0313 Q567.4063,279.375 569.9063,279.375 Q570.6094,279.375 571.25,279.5313 Q571.9063,279.6875 572.4688,279.9844 L572.4688,282.7031 Q571.8438,282.125 571.25,281.8594 Q570.6563,281.5781 570.0313,281.5781 Q568.6875,281.5781 568,282.6563 Q567.3125,283.7188 567.3125,285.8125 Q567.3125,287.9063 568,288.9844 Q568.6875,290.0469 570.0313,290.0469 Q570.6563,290.0469 571.25,289.7813 Q571.8438,289.5 572.4688,288.9219 L572.4688,291.6406 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="36" x="585.5" y="290.656">Frame</text><line style="stroke: #333333; stroke-width: 1.5;" x1="546.5" x2="632.5" y1="302" y2="302"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="62" x="551.5" y="317.7589">+src : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="76" x="551.5" y="332.7408">+hidden : bool</text><line style="stroke: #333333; stroke-width: 1.5;" x1="546.5" x2="632.5" y1="339.9638" y2="339.9638"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="72" x="551.5" y="355.7227">+show() : void</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="67" x="551.5" y="370.7046">+hide() : void</text><!--MD5=[8515a37c80da559ff7ce07f8a9e75d30]
+class Place--><rect fill="#FBFBFC" height="122.9094" id="Place" style="stroke: #333333; stroke-width: 1.5;" width="111" x="650" y="734"/><ellipse cx="687.05" cy="750" fill="#ADD1B2" rx="11" ry="11" style="stroke: #333333; stroke-width: 1.0;"/><path d="M690.0188,755.6406 Q689.4406,755.9375 688.8,756.0781 Q688.1594,756.2344 687.4563,756.2344 Q684.9563,756.2344 683.6281,754.5938 Q682.3156,752.9375 682.3156,749.8125 Q682.3156,746.6875 683.6281,745.0313 Q684.9563,743.375 687.4563,743.375 Q688.1594,743.375 688.8,743.5313 Q689.4563,743.6875 690.0188,743.9844 L690.0188,746.7031 Q689.3938,746.125 688.8,745.8594 Q688.2063,745.5781 687.5813,745.5781 Q686.2375,745.5781 685.55,746.6563 Q684.8625,747.7188 684.8625,749.8125 Q684.8625,751.9063 685.55,752.9844 Q686.2375,754.0469 687.5813,754.0469 Q688.2063,754.0469 688.8,753.7813 Q689.3938,753.5 690.0188,752.9219 L690.0188,755.6406 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="30" x="705.95" y="754.656">Place</text><line style="stroke: #333333; stroke-width: 1.5;" x1="651" x2="760" y1="766" y2="766"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="55" x="656" y="781.7589">+page : int</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="49" x="656" y="796.7408">+at : float</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="76" x="656" y="811.7227">+zoom : String</text><line style="stroke: #333333; stroke-width: 1.5;" x1="651" x2="760" y1="818.9457" y2="818.9457"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="99" x="656" y="834.7046">+remember() : void</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="82" x="656" y="849.6865">+restore() : void</text><!--MD5=[8b9001a0c05b8d4d9bb7e50d8398a9c1]
+class Choice--><rect fill="#FBFBFC" height="137.8913" id="Choice" style="stroke: #333333; stroke-width: 1.5;" width="92" x="418.5" y="255"/><ellipse cx="443.4" cy="271" fill="#ADD1B2" rx="11" ry="11" style="stroke: #333333; stroke-width: 1.0;"/><path d="M446.3688,276.6406 Q445.7906,276.9375 445.15,277.0781 Q444.5094,277.2344 443.8063,277.2344 Q441.3063,277.2344 439.9781,275.5938 Q438.6656,273.9375 438.6656,270.8125 Q438.6656,267.6875 439.9781,266.0313 Q441.3063,264.375 443.8063,264.375 Q444.5094,264.375 445.15,264.5313 Q445.8063,264.6875 446.3688,264.9844 L446.3688,267.7031 Q445.7438,267.125 445.15,266.8594 Q444.5563,266.5781 443.9313,266.5781 Q442.5875,266.5781 441.9,267.6563 Q441.2125,268.7188 441.2125,270.8125 Q441.2125,272.9063 441.9,273.9844 Q442.5875,275.0469 443.9313,275.0469 Q444.5563,275.0469 445.15,274.7813 Q445.7438,274.5 446.3688,273.9219 L446.3688,276.6406 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="38" x="459.6" y="275.656">Choice</text><line style="stroke: #333333; stroke-width: 1.5;" x1="419.5" x2="509.5" y1="287" y2="287"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="80" x="424.5" y="302.7589">+theme : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="77" x="424.5" y="317.7408">+width : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="69" x="424.5" y="332.7227">+font : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="70" x="424.5" y="347.7046">+lang : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="74" x="424.5" y="362.6865">+voice : String</text><line style="stroke: #333333; stroke-width: 1.5;" x1="419.5" x2="509.5" y1="369.9094" y2="369.9094"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="73" x="424.5" y="385.6684">+apply() : void</text><path d="M388.5,764 L388.5,791.5 L159.02,795.5 L388.5,799.5 L388.5,827.118 A0,0 0 0 0 388.5,827.118 L614.5,827.118 A0,0 0 0 0 614.5,827.118 L614.5,774 L604.5,764 L388.5,764 A0,0 0 0 0 388.5,764 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M604.5,764 L604.5,774 L614.5,774 L604.5,764 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="176" x="394.5" y="782.897">A-6: the kind is decided in one</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="195" x="394.5" y="800.603">place — by the name, and by the</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="205" x="394.5" y="818.309">bytes only when the file is opened.</text><path d="M796,773 L796,791.5 L761.11,795.5 L796,799.5 L796,818.412 A0,0 0 0 0 796,818.412 L1005,818.412 A0,0 0 0 0 1005,818.412 L1005,783 L995,773 L796,773 A0,0 0 0 0 796,773 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M995,773 L995,783 L1005,783 L995,773 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="802" y="791.897">ADR-0010: a page and a fraction</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="176" x="802" y="809.603">of a page, never a pixel offset.</text><path d="M129.5,517 L129.5,580.118 A0,0 0 0 0 129.5,580.118 L379.5,580.118 A0,0 0 0 0 379.5,580.118 L379.5,527 L369.5,517 L263.46,517 L279.45,393.27 L255.46,517 L129.5,517 A0,0 0 0 0 129.5,517 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M369.5,517 L369.5,527 L379.5,527 L369.5,517 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="202" x="135.5" y="535.897">F-6: the listing is the names of one</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="229" x="135.5" y="553.603">folder, with the facts about the names.</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="182" x="135.5" y="571.309">The bytes of a file are not read.</text><!--MD5=[188cc427f91420a4b29fd1243946cb8e]
+reverse link Root to Folder--><path d="M290.5,152.1 C290.5,183.43 290.5,222.07 290.5,254.68 " fill="none" id="Root&lt;-Folder" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#FFFFFF" points="290.5,138.72,286.5,144.72,290.5,150.72,294.5,144.72,290.5,138.72" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="38" x="291.5" y="220.897">shows</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="283.0078" y="160.4358">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="283.1172" y="243.11">*</text><!--MD5=[982650921ae870dc70f313cd92631acb]
+reverse link Folder to File--><path d="M351.96,403.59 C372.54,429.91 395.21,458.89 414.78,483.92 " fill="none" id="Folder&lt;-File" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="343.89,393.27,344.4308,400.4608,351.2764,402.7273,350.7357,395.5365,343.89,393.27" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="51" x="378.5" y="437.897">contains</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="341.801" y="414.8626">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="399.9633" y="470.1445">*</text><!--MD5=[24c85502a85a9c9729de6e809f2771fe]
+link File to Kind--><path d="M414.78,608.82 C408.89,614.58 402.74,620.09 396.5,625 C324.21,681.84 230.19,729.75 163.93,759.98 " fill="none" id="File-&gt;Kind" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="159.21,762.12,169.0585,762.0372,163.7618,760.051,165.7481,754.7543,159.21,762.12" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="19" x="350.5" y="669.897">is a</text><!--MD5=[c658031e1510f18107cccee76ef43bfe]
+reverse link Tab to Frame--><path d="M589.5,189.4 C589.5,216.92 589.5,245.91 589.5,269.82 " fill="none" id="Tab&lt;-Frame" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="589.5,176.04,585.5,182.04,589.5,188.04,593.5,182.04,589.5,176.04" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="38" x="590.5" y="220.897">shows</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="582.2102" y="197.6357">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="582.0297" y="258.3467">1</text><!--MD5=[b71358af65318c639c63a323bc5d573a]
+link File to Place--><path d="M514.1,591.63 C548.54,621.72 594.84,663.81 632.5,704 C639.97,711.97 647.55,720.62 654.85,729.31 " fill="none" id="File-&gt;Place" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="658.42,733.57,655.7173,724.0992,655.2134,729.7336,649.5791,729.2297,658.42,733.57" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="54" x="602.5" y="669.897">is read at</text><!--MD5=[19cf5b13cec905b2a521c0e10e3b3a31]
+link Choice to File--><path d="M464.5,393.27 C464.5,416.53 464.5,442.74 464.5,466.87 " fill="none" id="Choice-&gt;File" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="464.5,471.99,468.5,462.99,464.5,466.99,460.5,462.99,464.5,471.99" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="68" x="465.5" y="437.897">is read with</text><!--MD5=[275e0015fd70190afb293539a606cb16]
+link Kind to Kind--><path d="M159.11,771.38 C179,772.86 194,780.9 194,795.5 C194,808.84 181.47,816.71 164.12,819.1 " fill="none" id="Kind-&gt;Kind" style="stroke: #333333; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#333333" points="159.11,819.62,168.4738,822.6727,164.0835,819.1055,167.6506,814.7151,159.11,819.62" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="164" x="200" y="800.897">of(name) and ofBytes(path)</text><!--MD5=[c89b0f7ffe9c32a6d611b5860f5c28c0]
+@startuml
+
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  ArrowColor #333
+}
+
+class Root {
+  + path : Path
+  + name : String
+  + show() : Folder
+}
+
+class Folder {
+  + path : Path
+  + name : String
+  + up : Path
+  + entries : List<File>
+  + listing() : List<File>
+  + parent() : Folder
+}
+
+class File {
+  + path : Path
+  + name : String
+  + kind : Kind
+  + size : int
+  + mtime : int
+  + isFolder() : bool
+  + page() : String
+}
+
+class Kind {
+  + md
+  + html
+  + pdf
+  + img
+  + sheet
+  + text
+  + binary
+  + of(name : String) : Kind
+  + ofBytes(path : Path) : Kind
+}
+
+class Tab {
+  + id : String
+  + path : Path
+  + name : String
+  + src : String
+  + frame : Frame
+  + open() : void
+  + close() : void
+  + activate() : void
+}
+
+class Frame {
+  + src : String
+  + hidden : bool
+  + show() : void
+  + hide() : void
+}
+
+class Place {
+  + page : int
+  + at : float
+  + zoom : String
+  + remember() : void
+  + restore() : void
+}
+
+class Choice {
+  + theme : String
+  + width : String
+  + font : String
+  + lang : String
+  + voice : String
+  + apply() : void
+}
+
+Root "1" o- - "*" Folder : shows
+Folder "1" *- - "*" File : contains
+File - -> Kind : is a
+Tab "1" *- - "1" Frame : shows
+File - -> Place : is read at
+Choice - -> File : is read with
+Kind ..> Kind : of(name) and ofBytes(path)
+
+note right of Kind
+  A-6: the kind is decided in one
+  place — by the name, and by the
+  bytes only when the file is opened.
+end note
+
+note right of Place
+  ADR-0010: a page and a fraction
+  of a page, never a pixel offset.
+end note
+
+note bottom of Folder
+  F-6: the listing is the names of one
+  folder, with the facts about the names.
+  The bytes of a file are not read.
+end note
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 05:22:07 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

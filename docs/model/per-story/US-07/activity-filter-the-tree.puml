@@ -1,0 +1,74 @@
+@startuml
+' US-07 — Filter the tree.
+' Activity — the filters, and what each of them keeps
+' Sources: ../../../analysis/stories.md (US-07), ../../../specification/03-features.md (F-7)
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the tree is drawn;
+
+partition "the reader" {
+  if (the reader types a name?) then (yes)
+    :the rows whose names hold it are kept,
+    and the folders on the way to them;
+    note right
+      The name is a plain search field, and it
+      is matched against the name of the file
+      only — not its contents.
+    end note
+  else (no)
+  endif
+
+  if (the reader picks a kind?) then (yes)
+    :the files of that kind are kept;
+    note right
+      The kind chips: All, MD, HTML, PDF, IMG,
+      SHEET, OTHER. The kind is decided by the
+      name of the file (A-6).
+    end note
+  else (no)
+  endif
+
+  if (the reader picks an extension?) then (yes)
+    :the files with that extension are kept;
+    note right
+      The list holds only the extensions the
+      tree really has: it is filled from the
+      tree as it changes.
+    end note
+  else (no)
+  endif
+
+  if (the reader picks a size?) then (yes)
+    :the files that size are kept;
+  else (no)
+  endif
+
+  if (the reader picks a date?) then (yes)
+    :the files touched then are kept;
+  else (no)
+  endif
+
+  :the folders are kept whatever;
+  note right
+    F-7: the filters are controls, not a
+    language. Folders are never filtered out:
+    they are the way to the files.
+  end note
+}
+
+:the tree is drawn again;
+
+if (nothing matched?) then (yes)
+  :the tree says so, in words;
+else (no)
+endif
+
+stop
+@enduml

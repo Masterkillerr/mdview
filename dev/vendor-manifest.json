@@ -1,0 +1,294 @@
+{
+  "note": "Vendored engine assets served by mdview-app/server.py (ENGINE_FILES/ENGINE_DIRS), not packaged in the xpi. Digests are written by `check-vendor.js --record`; patched_hunks records how far a local asset is allowed to differ from its upstream package. See VENDOR.md.",
+  "packages": {
+    "pdfjs-dist": {
+      "version": "6.3.289",
+      "why": "PDF rendering; worker + wasm decoders + cMap/standard-font data"
+    },
+    "mermaid": {
+      "version": "11.16.0",
+      "why": "diagram rendering in .md code fences"
+    },
+    "katex": {
+      "version": "0.16.11",
+      "why": "math typesetting"
+    }
+  },
+  "assets": [
+    {
+      "ext": "pdf.mjs",
+      "package": "pdfjs-dist",
+      "version": "6.3.289",
+      "upstream": "build/pdf.mjs",
+      "kind": "file",
+      "why": "ESM build, imported by the reader as /static/pdf.mjs",
+      "patches": [
+        "prepended Map.prototype.getOrInsert/getOrInsertComputed polyfill (VENDOR.md patch 1)",
+        "trailing sourceMappingURL comment removed"
+      ],
+      "files": 1,
+      "digest": "1bb56276a36843f45e4044b6f7cf1b08319c0c6b38c20fef3eb13e9b0f39a6b8",
+      "patched_hunks": 2
+    },
+    {
+      "ext": "pdf.worker.mjs",
+      "package": "pdfjs-dist",
+      "version": "6.3.289",
+      "upstream": "build/pdf.worker.mjs",
+      "kind": "file",
+      "why": "worker entry, workerSrc of the reader's getDocument call",
+      "patches": [
+        "prepended Map.prototype.getOrInsert/getOrInsertComputed polyfill (VENDOR.md patch 1)",
+        "toHex() helper replacing the Uint8Array#toHex() the ESM build omits (fingerprints getter)",
+        "trailing sourceMappingURL comment removed"
+      ],
+      "files": 1,
+      "digest": "aa2335679ce2994963e7ad267b403739fb96f8e8ea5d2df2b006a2286de92a9c",
+      "patched_hunks": 4
+    },
+    {
+      "ext": "pdfjs-LICENSE",
+      "package": "pdfjs-dist",
+      "version": "6.3.289",
+      "upstream": "LICENSE",
+      "kind": "file",
+      "why": "upstream license text, shipped under the engine's own name",
+      "files": 1,
+      "digest": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "patched_hunks": 0
+    },
+    {
+      "ext": "wasm",
+      "package": "pdfjs-dist",
+      "version": "6.3.289",
+      "upstream": "wasm",
+      "kind": "dir",
+      "mode": "exact",
+      "why": "jbig2/openjpeg/qcms decoders (wasmUrl), licences, nowasm fallbacks, quickjs sandbox glue",
+      "note": "quickjs-eval.js/quickjs-eval.wasm are referenced by nothing the reader loads; the only .wasm names in pdf.mjs/pdf.worker.mjs are jbig2.wasm, openjpeg.wasm and qcms_bg.wasm",
+      "files": 13,
+      "digest": "88f849aefc98f3b1648a410225f83e639ba8fe696df50be2d590b8162cbca0e1"
+    },
+    {
+      "ext": "cmaps",
+      "package": "pdfjs-dist",
+      "version": "6.3.289",
+      "upstream": "cmaps",
+      "kind": "dir",
+      "mode": "exact",
+      "why": "cMapUrl data for CJK and other non-Latin encodings",
+      "files": 169,
+      "digest": "475758012b39f69f600799a66c2ae03ce2e5b4ba983e63f36d0d4bdcd56c5c28"
+    },
+    {
+      "ext": "standard_fonts",
+      "package": "pdfjs-dist",
+      "version": "6.3.289",
+      "upstream": "standard_fonts",
+      "kind": "dir",
+      "mode": "exact",
+      "why": "standardFontDataUrl fallbacks for PDFs without embedded fonts",
+      "files": 16,
+      "digest": "5b233769b9e2d113583c864cc238945d57234bc80f354c5bc931c8dfe7e64a72"
+    },
+    {
+      "ext": "mermaid.min.js",
+      "package": "mermaid",
+      "version": "11.16.0",
+      "upstream": "dist/mermaid.min.js",
+      "kind": "file",
+      "why": "the UMD/min bundle; dist/mermaid.esm.min.mjs + dist/chunks/ is the on-demand alternative",
+      "patches": [],
+      "files": 1,
+      "digest": "74d7c46dabca328c2294733910a8aa1ed0c37451776e8d5295da38a2b758fb9b",
+      "patched_hunks": 0
+    },
+    {
+      "ext": "katex/katex.min.js",
+      "package": "katex",
+      "version": "0.16.11",
+      "upstream": "dist/katex.min.js",
+      "kind": "file",
+      "why": "math renderer",
+      "patches": [],
+      "files": 1,
+      "digest": "e6bfe5deebd4c7ccd272055bab63bd3ab2c73b907b6e6a22d352740a81381fd4",
+      "patched_hunks": 0
+    },
+    {
+      "ext": "katex/katex.min.css",
+      "package": "katex",
+      "version": "0.16.11",
+      "upstream": "dist/katex.min.css",
+      "kind": "file",
+      "why": "math styles",
+      "patches": [
+        "every @font-face src reduced to its woff2 source, dropping woff/truetype fallbacks (VENDOR.md patch 3)"
+      ],
+      "files": 1,
+      "digest": "f0dbfcc2940b4d788c805c1a1e117e898d2814b0f1a52bf16640543216e0964d",
+      "patched_hunks": 1
+    },
+    {
+      "ext": "katex/LICENSE",
+      "package": "katex",
+      "version": "0.16.11",
+      "upstream": "LICENSE",
+      "kind": "file",
+      "why": "upstream license text",
+      "files": 1,
+      "digest": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3",
+      "patched_hunks": 0
+    },
+    {
+      "ext": "katex/fonts",
+      "package": "katex",
+      "version": "0.16.11",
+      "upstream": "dist/fonts",
+      "kind": "dir",
+      "mode": "subset",
+      "why": "only the 20 woff2 faces the patched stylesheet points at; upstream also ships woff and ttf",
+      "files": 20,
+      "digest": "3c6b3508075e3ac872a177c4d762fb3365d5559d7885501578cc3e8c22d34824"
+    }
+  ],
+  "wasm_modules": [
+    {
+      "ext": "wasm/jbig2.wasm",
+      "why": "JBIG2 image decoder",
+      "sha256": "e6bee67724a7b5436fe8162638e3708cfc8d52b6342db69a49715e30ff27cfdc",
+      "interface": [
+        "Import[8]:",
+        "- func[0] sig=2 <a.a> <- a.a",
+        "- func[1] sig=6 <a.b> <- a.b",
+        "- func[2] sig=12 <a.c> <- a.c",
+        "- func[3] sig=3 <a.d> <- a.d",
+        "- func[4] sig=6 <a.e> <- a.e",
+        "- func[5] sig=8 <a.f> <- a.f",
+        "- func[6] sig=2 <a.g> <- a.g",
+        "- func[7] sig=5 <a.h> <- a.h",
+        "Memory[1]:",
+        "- memory[0] pages: initial=256 max=32768",
+        "Export[7]:",
+        "- memory[0] -> \"i\"",
+        "- func[128] <j> -> \"j\"",
+        "- func[105] <k> -> \"k\"",
+        "- func[8] <l> -> \"l\"",
+        "- func[124] <m> -> \"m\"",
+        "- func[125] <n> -> \"n\"",
+        "- func[113] <o> -> \"o\""
+      ]
+    },
+    {
+      "ext": "wasm/openjpeg.wasm",
+      "why": "JPEG 2000 image decoder",
+      "sha256": "004a0e62db930ba9ff2a22212f4554d0bb57a0635a8287caf70f98117cee14ba",
+      "interface": [
+        "Import[17]:",
+        "- func[0] sig=2 <a.a> <- a.a",
+        "- func[1] sig=1 <a.b> <- a.b",
+        "- func[2] sig=2 <a.c> <- a.c",
+        "- func[3] sig=13 <a.d> <- a.d",
+        "- func[4] sig=7 <a.e> <- a.e",
+        "- func[5] sig=3 <a.f> <- a.f",
+        "- func[6] sig=7 <a.g> <- a.g",
+        "- func[7] sig=4 <a.h> <- a.h",
+        "- func[8] sig=22 <a.i> <- a.i",
+        "- func[9] sig=5 <a.j> <- a.j",
+        "- func[10] sig=2 <a.k> <- a.k",
+        "- func[11] sig=14 <a.l> <- a.l",
+        "- func[12] sig=14 <a.m> <- a.m",
+        "- func[13] sig=23 <a.n> <- a.n",
+        "- func[14] sig=6 <a.o> <- a.o",
+        "- func[15] sig=6 <a.p> <- a.p",
+        "- func[16] sig=3 <a.q> <- a.q",
+        "Memory[1]:",
+        "- memory[0] pages: initial=256 max=32768",
+        "Export[6]:",
+        "- memory[0] -> \"r\"",
+        "- func[216] <s> -> \"s\"",
+        "- func[162] <t> -> \"t\"",
+        "- func[18] <u> -> \"u\"",
+        "- func[161] <v> -> \"v\"",
+        "- func[148] <w> -> \"w\""
+      ]
+    },
+    {
+      "ext": "wasm/qcms_bg.wasm",
+      "why": "colour management (wasm-bindgen)",
+      "sha256": "663d86126d5f5fcb1c61490f94353e2a8375660b8c5498ab3ebab5a34b08800e",
+      "interface": [
+        "Import[3]:",
+        "- func[0] sig=1 <./qcms_bg.js.__wbg_copy_result_0d15f3bf9d9012ae> <- ./qcms_bg.js.__wbg_copy_result_0d15f3bf9d9012ae",
+        "- func[1] sig=1 <./qcms_bg.js.__wbg___wbindgen_throw_344f42d3211c4765> <- ./qcms_bg.js.__wbg___wbindgen_throw_344f42d3211c4765",
+        "- func[2] sig=8 <__wbindgen_start> <- ./qcms_bg.js.__wbindgen_init_externref_table",
+        "Memory[1]:",
+        "- memory[0] pages: initial=17",
+        "Export[25]:",
+        "- memory[0] -> \"memory\"",
+        "- func[109] <qcms_convert_array> -> \"qcms_convert_array\"",
+        "- func[85] <qcms_convert_four> -> \"qcms_convert_four\"",
+        "- func[91] <qcms_convert_one> -> \"qcms_convert_one\"",
+        "- func[86] <qcms_convert_three> -> \"qcms_convert_three\"",
+        "- func[141] <qcms_drop_transformer> -> \"qcms_drop_transformer\"",
+        "- func[98] <qcms_transformer_from_memory> -> \"qcms_transformer_from_memory\"",
+        "- global[1] -> \"__abort_handler\"",
+        "- global[2] -> \"__instance_terminated\"",
+        "- func[42] <qcms_profile_precache_output_transform> -> \"qcms_profile_precache_output_transform\"",
+        "- func[31] <lut_inverse_interp16> -> \"lut_inverse_interp16\"",
+        "- func[82] <lut_interp_linear16> -> \"lut_interp_linear16\"",
+        "- func[143] <qcms_enable_iccv4> -> \"qcms_enable_iccv4\"",
+        "- func[72] <qcms_profile_is_bogus> -> \"qcms_profile_is_bogus\"",
+        "- func[18] <qcms_transform_data_bgra_out_lut> -> \"qcms_transform_data_bgra_out_lut\"",
+        "- func[37] <qcms_transform_data_bgra_out_lut_precache> -> \"qcms_transform_data_bgra_out_lut_precache\"",
+        "- func[20] <qcms_transform_data_rgb_out_lut> -> \"qcms_transform_data_rgb_out_lut\"",
+        "- func[40] <qcms_transform_data_rgb_out_lut_precache> -> \"qcms_transform_data_rgb_out_lut_precache\"",
+        "- func[19] <qcms_transform_data_rgba_out_lut> -> \"qcms_transform_data_rgba_out_lut\"",
+        "- func[39] <qcms_transform_data_rgba_out_lut_precache> -> \"qcms_transform_data_rgba_out_lut_precache\"",
+        "- func[142] <qcms_transform_release> -> \"qcms_transform_release\"",
+        "- func[116] <qcms_white_point_sRGB> -> \"qcms_white_point_sRGB\"",
+        "- table[1] -> \"__wbindgen_externrefs\"",
+        "- func[102] <__wbindgen_malloc> -> \"__wbindgen_malloc\"",
+        "- func[2] <__wbindgen_start> -> \"__wbindgen_start\""
+      ]
+    },
+    {
+      "ext": "wasm/quickjs-eval.wasm",
+      "why": "AcroForm/JS sandbox — referenced by nothing the reader loads",
+      "sha256": "7bcacc9f22cacf7e9b23866d2a6d1639693d40c7f144e41b7c69ed37ba9cbe8f",
+      "interface": [
+        "Import[13]:",
+        "- func[0] sig=29 <a.a> <- a.a",
+        "- func[1] sig=48 <a.b> <- a.b",
+        "- func[2] sig=20 <a.c> <- a.c",
+        "- func[3] sig=73 <a.d> <- a.d",
+        "- func[4] sig=29 <a.e> <- a.e",
+        "- func[5] sig=2 <a.f> <- a.f",
+        "- func[6] sig=1 <a.g> <- a.g",
+        "- func[7] sig=49 <a.h> <- a.h",
+        "- func[8] sig=50 <a.i> <- a.i",
+        "- func[9] sig=6 <a.j> <- a.j",
+        "- func[10] sig=10 <a.k> <- a.k",
+        "- func[11] sig=20 <a.l> <- a.l",
+        "- func[12] sig=10 <a.m> <- a.m",
+        "Memory[1]:",
+        "- memory[0] pages: initial=256 max=32768",
+        "Export[13]:",
+        "- memory[0] -> \"n\"",
+        "- func[1241] <o> -> \"o\"",
+        "- func[1107] <p> -> \"p\"",
+        "- func[696] <q> -> \"q\"",
+        "- func[1098] <r> -> \"r\"",
+        "- func[1095] <s> -> \"s\"",
+        "- func[1068] <t> -> \"t\"",
+        "- func[1113] <u> -> \"u\"",
+        "- func[187] <v> -> \"v\"",
+        "- func[1114] <w> -> \"w\"",
+        "- func[1111] <x> -> \"x\"",
+        "- func[1110] <y> -> \"y\"",
+        "- func[1108] <z> -> \"z\""
+      ]
+    }
+  ],
+  "recorded": "2026-10-18"
+}

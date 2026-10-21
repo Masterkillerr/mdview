@@ -1,0 +1,52 @@
+@startuml
+' Sequence — a word is looked up
+' Sources: ../../../analysis/use-case-descriptions.md (UC-05), ../../../specification/02-interfaces.md
+
+skinparam shadowing false
+skinparam ArrowColor #333
+autonumber
+
+actor Reader
+participant "The card\n(lookup.js)" as CARD
+participant "Extension\n(background)" as EXT
+participant "Dictionary" as DICT
+
+Reader -> CARD : double-clicks a word
+activate CARD
+CARD -> CARD : is there a word here?\n(the page's own text layer)
+CARD -> EXT : mdview:fetch, the dictionary's URL (F-11)
+activate EXT
+EXT -> EXT : is it api.dictionaryapi.dev,\napi.datamuse.com or en.wiktionary.org? (S-2)
+
+alt the URL is one of the three hosts
+  EXT -> DICT : the request, with no credentials\nand no referrer (P-11)
+  activate DICT
+  DICT -> EXT : the senses
+  deactivate DICT
+  EXT -> CARD : the text
+  deactivate EXT
+  CARD -> CARD : the card is placed from the word's\nown box, so it sits where the word is (F-13)
+  deactivate CARD
+  CARD -> Reader : the card, with the senses\nand the part of speech
+  Reader -> CARD : presses the speaker
+  activate CARD
+  CARD -> Reader : the word, spoken (F-13)
+  deactivate CARD
+else the word is Spanish
+  EXT -> DICT : en.wiktionary.org (F-12)
+  activate DICT
+  DICT -> EXT : the senses
+  deactivate DICT
+  EXT -> CARD : the text
+  deactivate EXT
+  CARD -> Reader : the card
+end
+
+note over CARD, EXT
+  The card asks the background script and
+  never the dictionary itself: a page's own
+  fetch is subject to that page's rules,
+  and the background script holds the
+  permissions (ADR-0007).
+end note
+@enduml

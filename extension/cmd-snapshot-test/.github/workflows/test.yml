@@ -1,0 +1,55 @@
+name: snapshot-test
+on: [push, workflow_dispatch]
+jobs:
+  test:
+    runs-on: windows-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make CI copy (no Notepad, one action per run)
+        shell: pwsh
+        run: |
+          Get-Content snapshot.bat |
+            Where-Object { $_ -notmatch 'notepad' } |
+            ForEach-Object { $_ -replace 'goto menu\s*$', 'exit /b 0' } |
+            Set-Content snapshot_ci.bat
+          Select-String -Path snapshot_ci.bat -Pattern 'exit /b 0' | Measure-Object | ForEach-Object { "exit points: $($_.Count)" }
+      - name: Snapshot 1
+        shell: cmd
+        timeout-minutes: 2
+        run: snapshot_ci.bat < ci_snap.txt
+      - name: Snapshot 2
+        shell: cmd
+        timeout-minutes: 2
+        run: snapshot_ci.bat < ci_snap.txt
+      - name: Compare
+        shell: cmd
+        timeout-minutes: 2
+        run: snapshot_ci.bat < ci_cmp.txt
+      - name: Compare - invalid first number
+        shell: cmd
+        timeout-minutes: 2
+        run: snapshot_ci.bat < ci_bad_a.txt | findstr /C:"Numero anterior no valido"
+      - name: Compare - invalid second number
+        shell: cmd
+        timeout-minutes: 2
+        run: snapshot_ci.bat < ci_bad_b.txt | findstr /C:"Numero posterior no valido"
+      - name: Compare - same snapshot twice
+        shell: cmd
+        timeout-minutes: 2
+        run: snapshot_ci.bat < ci_same.txt | findstr /C:"Debe elegir dos snapshots distintos"
+      - name: Compare - reversed order is swapped
+        shell: cmd
+        timeout-minutes: 2
+        run: snapshot_ci.bat < ci_swap.txt | findstr /C:"informe_0001_vs_0002.txt"
+      - name: Checks
+        shell: cmd
+        run: test.cmd
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-output
+          path: |
+            snapshots
+            informes

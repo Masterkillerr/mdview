@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>mdview preview</title>
+<link rel="stylesheet" id="sheet" href="../../mdview-ext/mdview.css">
+<script>
+  // Cache-bust the stylesheet on every load. An injected/stale sheet looks exactly
+  // like a CSS change that did not work, which is a bad afternoon.
+  document.getElementById("sheet").href = "../../mdview-ext/mdview.css?t=" + Date.now();
+</script>
+</head>
+<body>
+<!-- Mimics the plain-text viewer the content script expects: a <pre> holding
+     the .md source, then mdview.js replaces it (mermaid loaded first). -->
+<pre id="source">loading…</pre>
+<script src="../../mdview-ext/mermaid.min.js"></script>
+<script>
+  // ?file=/abs/path.md renders a real document instead of the fixture
+  const wanted = new URLSearchParams(location.search).get("file");
+  const source = wanted ? "/__md?path=" + encodeURIComponent(wanted) : "kitchen-sink.md";
+  document.title = wanted ? wanted.replace(/^.*\//, "") : "mdview preview";
+  fetch(source)
+    .then((r) => r.text())
+    .then((md) => {
+      document.getElementById("source").textContent = md;
+      const s = document.createElement("script");
+      // Cache-bust the script for the same reason the stylesheet above is: a
+      // stale one looks exactly like a change to mdview.js that did not work.
+      s.src = "../../mdview-ext/mdview.js?t=" + Date.now();
+      document.body.appendChild(s);
+      s.addEventListener("load", () => {
+        document.title = (wanted ? wanted.replace(/^.*\//, "") + " " : "mdview preview ") + "ready";
+        window.__mdviewReady = {
+          headings: document.querySelectorAll(".mdview h1, .mdview h2, .mdview h3").length,
+          mermaid: document.querySelectorAll(".mdview pre.mermaid svg").length,
+          escapedScript: document.querySelectorAll(".mdview script").length,
+          onclickAttrs: document.querySelectorAll(".mdview [onclick]").length,
+        };
+      });
+    });
+</script>
+</body>
+</html>

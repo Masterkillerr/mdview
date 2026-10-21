@@ -1,0 +1,54 @@
+@startuml
+' US-18 — Open a file from outside the reader's folders.
+' Sequence — the offer, and the two ways forward
+' Sources: ../../../analysis/stories.md (US-18), ../../../specification/03-features.md (F-26), Rule S-1
+
+skinparam shadowing false
+skinparam ArrowColor #333
+autonumber
+
+actor Reader
+participant "The reader\n(server.py)" as SRV
+participant "The adoption page" as ADOPT
+participant "The workspace" as WS
+
+Reader -> SRV : asks for a file
+activate SRV
+SRV -> SRV : is the file in one of the roots?
+deactivate SRV
+
+alt it is
+  SRV -> Reader : the file's own page
+else it is not
+  SRV -> ADOPT : the page that says where the file is
+  activate ADOPT
+  ADOPT -> Reader : this file is in /somewhere, and the reader\nonly shows the folders it was set up with
+  ADOPT -> Reader : two ways forward (F-26)
+
+  alt the reader adds the folder
+    Reader -> ADOPT : Add this folder to the reader
+    activate ADOPT
+    ADOPT -> SRV : POST /api/add-folder
+    activate SRV
+    SRV -> SRV : the origin and the token are checked (S-1)
+    SRV -> SRV : the folder is not one the reader\nalready shows by that name
+    SRV -> ADOPT : the folder is added
+    deactivate SRV
+    deactivate ADOPT
+    ADOPT -> WS : open the file in a tab
+    WS -> SRV : GET /view/<path>?embed=1
+    SRV -> Reader : the file's own page
+  else the reader reads it once
+    Reader -> ADOPT : Open a file without adding it
+    activate ADOPT
+    ADOPT -> SRV : POST /api/temp
+    activate SRV
+    SRV -> SRV : the copy is kept for two hours,\noutside the reader's folders
+    SRV -> ADOPT : where it is shown
+    deactivate SRV
+    deactivate ADOPT
+    ADOPT -> WS : open the copy in a tab
+    WS -> Reader : the file's own page
+  end
+end
+@enduml

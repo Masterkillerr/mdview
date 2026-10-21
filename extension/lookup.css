@@ -1,0 +1,693 @@
+/* lookup — the word lookup card (lookup.js). Shared by mdview and Bookshelf.
+   It is drawn with the host's palette: these are only the defaults for a host that does
+   not define a name. `:where()` makes them weigh nothing, so any `:root` rule the host
+   has wins whatever order the two files load in. mdview defines every one of them;
+   Bookshelf maps its own (--text, --panel) onto --ink and --card. */
+:where(:root) {
+  --ink: #1a1a1a;
+  --card: #ffffff;
+  --line: #e2e2e2;
+  --line-strong: #c8c8c8;
+  --muted: #555555;
+  --faint: #666666;
+  --accent: #1f4f82;
+  --accentline: rgba(31, 79, 130, 0.3);
+  --accenttint: rgba(31, 79, 130, 0.08);
+  --zebra: #fafafa;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-xs: 4px;
+  --float-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 12px 28px -18px rgba(0, 0, 0, 0.45);
+  --ui-size: 16px;
+  --md-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --md-font-head: var(--md-font);
+  --select-bg: color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+/* --------------------------------------------------------------- narrow -- */
+
+@media (max-width: 640px) {
+  /* a card that has to fit the window anyway: let it use the width rather than
+     sit in the middle of a phone screen with text wrapping around it */
+  .mdview-define {
+    width: calc(100vw - 24px);
+  }
+}
+/* The definition card: what a double-click on a word puts on the screen, in the
+   same corner-anchored vocabulary as the two pills above — `--card` for the
+   surface, `--float-shadow` for the lift, `--ui-size` for the type — so a card
+   arriving under a word reads as the same reader's furniture as the rest of the
+   page rather than as a dialog borrowed from somewhere else. */
+.mdview-define {
+  position: fixed;
+  z-index: 40;
+  box-sizing: border-box;
+  width: min(23.5rem, calc(100vw - 24px));
+  padding: 0.7rem 0.85rem 0.55rem;
+  /* The card lives outside `.mdview`, so it reaches no family of its own and
+     would otherwise take the browser's default serif — which is a different
+     face from every other piece of chrome on the page. */
+  font-family: var(--md-font);
+  font-size: calc(var(--ui-size) * 0.82);
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--float-shadow);
+  text-align: left;
+  /* A flex column so that the one part allowed to be tall — the list of senses
+     behind the pill — gives way first. A word can have a dozen senses, and a
+     card taller than the window is a card whose last sense is unreachable and
+     whose notch has left the screen. */
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 24px);
+  /* mounted visible, and hidden only while `.in` is still on: the fade is the
+     arrival, and a reader who has asked for less motion still gets the card,
+     just without the fade (the reduced-motion block below takes the transition
+     away, so `.in` costs nothing). */
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.14s ease, transform 0.14s ease;
+}
+.mdview-define.in {
+  opacity: 0;
+  transform: translateY(4px);
+}
+/* The notch: the card is anchored to a word, and a card that says so is not a
+   card that wandered in. `--def-notch` is the word's centre measured in px from
+   the card's left edge, clamped in `placeDefine`.
+   Two stacked border-triangles rather than one rotated square: a square's own
+   edges paint *over* the card's fill, so its bottom half shows and the notch
+   reads as a diamond sitting on the card. A border triangle has no interior to
+   hide, and the outer one in `--line` with the inner one in `--card` a pixel
+   smaller is the whole outline. The inner reaches one pixel past the card's edge
+   so it also covers the card's own hairline where the notch meets it. */
+.mdview-define::before,
+.mdview-define::after {
+  content: "";
+  position: absolute;
+  left: var(--def-notch, 50%);
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.mdview-define::before {
+  top: -9px;
+  margin-left: -7px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 9px solid var(--line);
+}
+.mdview-define::after {
+  top: -8px;
+  margin-left: -6px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 9px solid var(--card);
+}
+/* no room below the word: the card goes above it and the notch turns with it */
+.mdview-define.above::before {
+  top: auto;
+  bottom: -9px;
+  margin-left: -7px;
+  border-bottom: 0;
+  border-top: 9px solid var(--line);
+}
+.mdview-define.above::after {
+  top: auto;
+  bottom: -8px;
+  margin-left: -6px;
+  border-bottom: 0;
+  border-top: 9px solid var(--card);
+}
+.mdview-define-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+.mdview-define-src {
+  flex: 1 1 auto;
+  min-width: 0;
+  /* Where the answer came from is provenance, not a heading, and it is the one
+     line in the card that can be long: "Definitions from Free Dictionary" with
+     a link in it. It ellipsises rather than wrapping, because a source line that
+     wraps pushes the card's own layout down by however many lines it needed and
+     the panel's height is what decides whether the word it points at still fits
+     under it. The full text stays in the title. */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.92em;
+  color: var(--muted);
+}
+.mdview-define-src a {
+  color: var(--muted);
+  text-decoration-color: var(--line-strong);
+}
+.mdview-define-src a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accentline);
+}
+/* the way out of a definition that was itself reached from a definition. The
+   glyph stays the same hairline arrow it has always been — what grew is the thing
+   you press, because a 15×20 target is something you hit by aiming at it. The
+   control is 34×29 now, clear of the 24px floor for a pointer target, and the
+   `×` beside it grew to the same height rather than leaving one control twice as
+   easy to miss as the other. */
+.mdview-define-back {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: max(1.9em, 24px);
+  min-height: max(1.6em, 24px);
+  margin-left: -0.3rem;
+  padding: 0 0.35rem;
+  font: inherit;
+  font-size: 1.25em;
+  line-height: 1;
+  color: var(--faint);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.mdview-define-back:hover {
+  color: var(--ink);
+  background: var(--zebra);
+}
+/* Both header controls are one control twice. They measured 34×29 and 25×25 —
+   two targets in one row, side by side, that a reader has to tell apart by
+   glyph. They are the same box now, with the arrow's own margin kept so a panel
+   with no arrow above it does not shift its source line sideways when one
+   appears. */
+.mdview-define-x {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: max(1.9em, 24px);
+  min-height: max(1.6em, 24px);
+  font: inherit;
+  font-size: 1.25em;
+  line-height: 1;
+  padding: 0 0.35rem;
+  color: var(--faint);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.mdview-define-x:hover {
+  color: var(--ink);
+  background: var(--zebra);
+}
+.mdview-define :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+/* the word itself, set as a head: this is the thing being defined, and it should
+   be the largest thing in the card */
+.mdview-define-word {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.mdview-define-say {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 1.6em;
+  height: 1.6em;
+  padding: 0;
+  color: var(--card);
+  background: var(--accent);
+  border: 0;
+  border-radius: 99px;
+  cursor: pointer;
+}
+.mdview-define-say svg {
+  width: 62%;
+  height: 62%;
+}
+.mdview-define-say:hover {
+  background: var(--ink);
+}
+/* Talking: the button goes dark and its waves become a stop square, so a reader
+   can tell a word being said from a button that did nothing. The square is in
+   the DOM from the start and only drawn here — a glyph added on the first press
+   would move the icon sideways at the moment the eye is on it. */
+.mdview-define-say-stop {
+  display: none;
+}
+.mdview-define-say-on {
+  background: var(--ink);
+}
+.mdview-define-say-on .mdview-define-say-wave {
+  display: none;
+}
+.mdview-define-say-on .mdview-define-say-stop {
+  display: block;
+}
+.mdview-define-say-on:hover {
+  background: var(--muted);
+}
+.mdview-define-term {
+  font-family: var(--md-font-head);
+  font-size: 1.45em;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  /* A long entry — a hyphenated compound, a German noun, a phrasal verb read as
+     one string — must wrap inside the card rather than push it wider, and a word
+     with no break opportunity in it has to break somewhere rather than widen the
+     panel past the notch that points at it. */
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+.mdview-define-phon {
+  margin-top: 0.1rem;
+  font-size: 0.95em;
+  color: var(--faint);
+}
+.mdview-define-body {
+  margin-top: 0.45rem;
+  min-height: 0;
+  overflow-y: auto;
+  /* a long list of senses scrolled with the wheel must not take the page with
+     it: the reader is reading the card, not the document, until they stop */
+  overscroll-behavior: contain;
+  /* The one scroll region the reader uses most and the only one that did not
+     have the page's own scrollbar: it sat at the platform default, 15px of it,
+     measured — a quarter of the width of the collapsed card, with the thumb
+     carrying the window's own colours rather than the palette's. The card is
+     outside `.mdview`, so the rule below that thins code blocks and tables did
+     not reach it; this is the same declaration, said again where it is needed. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+.mdview-define.open .mdview-define-body {
+  max-height: min(50vh, 24rem);
+  /* the hairline that separates one sense from the next is the edge of the list
+     as well as of the row, and once the list scrolls the top edge needs to say
+     so — otherwise the first sense reads as the card's header */
+  padding-right: 0.35rem;
+}
+/* The collapsed card's one definition, which is a paragraph and nothing else.
+
+   It used to carry a hanging indent — `padding-left: 0.85rem; text-indent:
+   -0.85rem` — inherited from the version where every sense was a paragraph in a
+   list, where a hanging indent is how the eye learns which lines belong to the
+   same item. With one definition there is no list, so the first line sat at the
+   card's edge and every line after it sat 0.85rem further in, and on a sense
+   like *tier*'s "A row or range, especially one at a higher or lower / level than
+   another." the word after the wrap looked indented for no reason a reader could
+   name. A single paragraph is flush. The expanded list gets its alignment from
+   the number rail instead, which is what a hanging indent was standing in for. */
+.mdview-define-sense {
+  margin: 0;
+}
+/* The expanded list is an ordered list, and says so: a number in a gutter, then
+   the definition hanging off it. The gutter is what does the work — every sense
+   starts on the same line, under the same column of figures, so the eye has a
+   rail to follow down the card and each meaning is an item rather than a
+   paragraph. It is also the only structure available for the words whose
+   senses carry no field label at all, which is most words: *mercy* has ten
+   senses and every parenthetical in them is `uncountable` or `countable`, so
+   there is nothing for a label to divide.
+
+   The rule between senses is gone, and that is the point. Six definitions with a
+   hairline above each of the last five is six horizontal lines asking to be read
+   as a table; a numbered list with air between the items says the same thing
+   with none of the ink. Rules stay where they mark a change of *kind* — a
+   part-of-speech heading, and a field label that starts a new run. */
+.mdview-define-sense-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.mdview-define-sense-row > .mdview-define-def {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.mdview-define-sense-row + .mdview-define-sense-row {
+  margin-top: 0.6rem;
+}
+/* `--faint`, like the phonetic line and the "Looking up…" note: this is a mark
+   on the margin, not something to read. 3.0:1 on light and 4.2:1 on dark, which
+   is the floor this card already sets for its own furniture — and it is
+   furniture, in the same way the letterspacing on the heading is furniture. The
+   definition itself is `--ink` at 1em and always has been; nothing about a sense
+   is quieter than it was. */
+.mdview-define-n {
+  flex: 0 0 auto;
+  min-width: 1.2em;
+  text-align: right;
+  font-size: 0.85em;
+  line-height: inherit;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+/* the sense the card led with, and the one the reader came for */
+.mdview-define-n-first {
+  color: var(--accent);
+}
+/* The field label a dictionary puts in front of a definition — "(slang, mildly
+   vulgar)", "(falconry)", "(textiles, usually pluralized)" — names the corner of
+   the language the answer comes from, and as prose it reads like the first clause
+   of the definition. It gets a line of its own above the senses it governs.
+
+   It is a line of accent-coloured text and nothing else. Two earlier versions of
+   this were wrong, and both about colour rather than about size. The first was
+   `--muted` behind a `--line-strong` bar: `--muted` is this card's supporting
+   ink — the source line, the examples, the base form — and a field label is not
+   supporting text, it is a scope marker, so wearing that grey made it read as
+   furniture that had been greyed out. The second was a full-width `--accenttint`
+   band, which solved findability and introduced a third thing to look at: a blue
+   slab in a list that is otherwise ink on white. So the label takes the heading's
+   colour exactly, and the two ranks are told apart by weight and case — 600 and
+   uppercase for the part of speech, 400 and sentence case for the field. Two
+   ranks of the same ink is a hierarchy; two ranks of different inks are two
+   unrelated things. Measured on the card: 5.93:1 light, 7.83:1 dark, 5.12:1 warm,
+   the same figures as the heading because it is the heading's ink. */
+.mdview-define-tag {
+  margin: 0.7rem 0 0.3rem;
+  /* 0.92em of a 12.7px body is 11.7px: within a point of the definitions
+     themselves. A label has to be read before it can be skipped, so it is not
+     made small — it is made a different colour, which is a difference the eye
+     can use without the letters getting smaller. */
+  font-size: 0.92em;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  /* "(mildly vulgar, slang, transitive)" is longer than the card is wide on a
+     narrow window, and a label that cannot wrap pushes the panel past the notch
+     that points at the word. */
+  overflow-wrap: break-word;
+}
+/* the top of the list is not the start of a new section */
+.mdview-define-tag:first-child {
+  margin-top: 0;
+}
+/* The hairline between senses is gone, so a label no longer deletes one by
+   standing in the way. What is left is the rule a label carries when it starts a
+   run of its own, which is a change of kind rather than of item. */
+.mdview-define-sense + .mdview-define-tag,
+.mdview-define-sense-row + .mdview-define-tag {
+  margin-top: 0.9rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line-strong);
+}
+/* unless the part-of-speech heading has just drawn one, half a rem above: two
+   hairlines with a label between them is a rendering fault, not a division */
+.mdview-define-group + .mdview-define-tag {
+  margin-top: 0.35rem;
+  padding-top: 0;
+  border-top: 0;
+}
+/* the pointer row: the parts of speech this word has, one press each, sitting
+   directly above the senses they point at. A reader who wants the adverbs of a
+   word should not have to go looking for them, and this is the one piece of
+   navigation in the card that costs no opinion about meaning — every answer has
+   a verb or it has not. Plain ink rather than a label: these are doors, not
+   headings. The row breathes a little more than it did at 19px targets, because
+   the targets are 22px now. */
+.mdview-define-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.35rem;
+  margin: 0.5rem 0 0.1rem;
+}
+.mdview-define-jump-b {/* A pointer target, not a word: the whole reason this row exists is that a
+   reader should not have to aim at 10.8px type to choose a part of speech. The
+   glyphs stay small — they are furniture next to a 1.45em headword — but the hit
+   area is the box, not the letters, and the box is `max(1.75em, 24px)`. The em
+   alone was not enough: it scales with `--ui-size`, so the same control measured
+   22px tall on a desktop window and 19px on a narrow one at default type, which
+   is the same 24px floor the fold caret and the corner pills keep. `max()` takes
+   whichever is larger, so it still grows with the reader's type. */
+  min-height: max(1.75em, 24px);
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  font: inherit;
+  font-size: 0.85em;
+  line-height: 1.3;
+  color: var(--muted);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.mdview-define-jump-b:hover {
+  color: var(--ink);
+  background: var(--zebra);
+}
+.mdview-define-jump-b[aria-pressed="true"] {
+  color: var(--accent);
+  background: var(--card);
+  border-color: var(--accentline);
+  font-weight: 600;
+}
+/* The count of what is not being listed, and the way past it. Said plainly,
+   because the reader is owed to know that the list they are scanning is not the
+   whole dictionary — and because a count with nothing attached to it is a wall.
+   It is a control now, so it is dressed like one: the same quiet link the "See
+   all definitions" row is, with the count still reading as the count. */
+.mdview-define-rest {
+  display: block;
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.25rem 0.2rem;
+  text-align: left;
+  font: inherit;
+  font-size: 0.9em;
+  line-height: 1.3;
+  color: var(--faint);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.mdview-define-rest:hover {
+  color: var(--accent);
+  background: var(--accenttint);
+}
+.mdview-define-rest::after {
+  content: " ↓";
+  font-size: 0.9em;
+}
+/* Three things in the card are shown by removing an attribute rather than by
+   having no element: the arrow (only when there is a word before this one), the
+   pointer row (only when the word has more than one part of speech) and the pill
+   (only when there is more than one sense). Each of them also carries a `display`
+   of its own, and an author `display` beats the user-agent stylesheet's
+   `[hidden] { display: none }` — so without this the arrow sat in the header of
+   every first card doing nothing, and the pill offered "See all definitions" for
+   a word that has one. `hidden` has to be stated where the layout is. */
+.mdview-define-back[hidden],
+.mdview-define-jump[hidden],
+.mdview-define-all[hidden] {
+  display: none;
+}
+/* the part-of-speech heading in the expanded list. The reader is comparing now,
+   and the fastest way to compare a dozen definitions is to see the same shape of
+   word together rather than read all twelve. It carries the hairline that used
+   to separate two senses, because a change of part of speech is a bigger break
+   than a second definition of the same word. */
+.mdview-define-group {
+  margin: 0.6rem 0 0.3rem;
+  padding-top: 0.5rem;
+  /* the same hairline the senses are divided by, for the same reason: this rule
+     separates one part of speech from another and the reader has to be able to
+     see it do that */
+  border-top: 1px solid var(--line-strong);
+  font-size: 0.8em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+/* the base form, when the senses came from it */
+.mdview-define-of {
+  flex: 0 1 auto;
+  min-width: 0;
+  /* Not `--faint`, and not 0.8em. This is the card saying which word it is
+     actually answering, which is information rather than furniture: a phrase
+     looked up as *give in* and answered as *give* is a different thing from the
+     one the reader asked, and they are entitled to read that at the size they
+     read everything else. `--muted` on the card is 6.4:1 on light and 7.1:1 on
+     dark, where `--faint` at this size was 3.0 and 4.2. */
+  font-size: 0.88em;
+  color: var(--muted);
+}
+.mdview-define-eg {
+  display: block;
+  margin-top: 0.2rem;
+  padding-left: 0.7rem;
+  border-left: 2px solid var(--accentline);
+  font-size: 0.94em;
+  color: var(--muted);
+}
+/* The waiting state is the only thing the panel has ever shown that is not an
+   answer, and it was set in the same size and weight as the definition that
+   replaces it — so the panel did not read as loading, it read as having said
+   something. Smaller, and in the card's fine print: a glance should be able to
+   tell "still looking" from "this is the answer" without reading either. */
+.mdview-define-wait,
+.mdview-define-none {
+  margin: 0;
+  color: var(--muted);
+}
+.mdview-define-wait {
+  font-size: 0.9em;
+  color: var(--faint);
+}
+/* Not a box. This is one line of text about a list the reader has not asked for
+   yet, and a full-width bordered button is the loudest thing in the card after
+   the headword itself — it outranked the definition it was offering more of. It
+   reads as a link instead: the row is full width so the target is still the
+   whole line, but the line is quiet until it is pressed. The disclosure state is
+   carried by the words, so nothing has to be drawn twice. */
+.mdview-define-all {
+  display: block;
+  width: 100%;
+  margin-top: 0.55rem;
+  padding: 0.3rem 0.2rem;
+  text-align: left;
+  font: inherit;
+  line-height: 1.3;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.mdview-define-all:hover {
+  color: var(--accent);
+  background: var(--accenttint);
+}
+.mdview-define-foot {
+  margin-top: 0.45rem;
+  text-align: right;
+}
+/* The card sits outside `.mdview`, so the reader's own selection colour does not
+   reach it and a selection inside the card would come out in the browser's
+   default blue — the one place on the page that disagrees with the palette. */
+.mdview-define ::selection {
+  background: var(--select-bg);
+  color: var(--ink);
+}
+.mdview-define-web {
+  font-size: 0.88em;
+  font-style: italic;
+  /* `--muted`, not `--faint`: at 0.88em this is small text and it wants 4.5:1,
+     which `--faint` did not reach on any of the three pages (3.03 light, 3.10
+     warm, 4.18 dark). This is the one control in the card that is neither
+     decoration nor an echo of a definition, so it is held to the same floor as
+     the definition itself. */
+  color: var(--muted);
+  text-decoration: none;
+}
+.mdview-define-web:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+/* Print is declared last in the file on purpose: it has to beat every screen
+   rule above it — the page surface, the fixed bar, the folds — and it sits
+   after the narrow rules so a phone-width print viewport cannot restyle the
+   paper. This is what the empty "print" banner used to promise and not keep. */
+@media print {
+  .mdview > .toc,
+  .mdview .doc > .mast,
+  .mdview .doc > .contents,
+  .mdview .anchor,
+  .mdview .fold,
+  .mdview pre.fence .copy,
+  .mdview .tablewrap.scroll-x::before,
+  .mdview .tablewrap.scroll-x::after,
+  .mdview .doc > .endplate,
+  .mdview-progress,
+  .mdview-totop,
+  .mdview-resume,
+  .mdview-zoom,
+  .mdview-define {
+    display: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* the fixed chrome lives outside `.mdview`, so the wildcard above misses it:
+     the two corner controls and the progress line move for the same reasons as
+     everything inside the page, so they stop for the same reason too */
+  .mdview-totop,
+  .mdview-resume,
+  .mdview-progress,
+  .mdview-define,
+  .mdview-define-all,
+  .mdview-define-rest,
+  .mdview-define-jump-b {
+    transition: none !important;
+  }
+}
+/* Definition card, tidied. The part-of-speech buttons get a visible edge so they read as
+   controls; the accent on sense 1 only means "the one the card led with" while the list is
+   short, and in the full list it just looked like a stray colour; the web link sits at the
+   left like the rest of the card and is no longer cut by the edge. */
+.mdview-define-jump-b {
+  border-color: var(--line);
+}
+.mdview-define-jump-b:hover {
+  border-color: var(--line-strong);
+}
+.mdview-define.open .mdview-define-n-first {
+  color: var(--faint);
+}
+.mdview-define-all {
+  margin-top: 0.25rem;
+}
+.mdview-define-foot {
+  margin-top: 0.3rem;
+  padding: 0 0.2rem 0.5rem;
+  text-align: left;
+}
+.mdview-define-web {
+  font-style: normal;
+}
+/* The two lines under the list start where the definitions start (they were 3px in), and
+   "Show fewer" gets air from the last sense instead of touching it. The hover tint keeps its
+   inset by growing outwards rather than by indenting the text. */
+.mdview-define-all {
+  margin: 0.6rem -0.2rem 0;
+  width: calc(100% + 0.4rem);
+}
+.mdview-define-foot {
+  padding-left: 0;
+}
+/* A scrolled list says so: a soft shadow shows at the edge that has more behind it, and goes
+   when the list is at that edge. The covers scroll with the content (`local`), the shadows
+   stay put, so no script has to track the position. */
+.mdview-define.open .mdview-define-body {
+  background:
+    linear-gradient(var(--card), var(--card)) top / 100% 1rem local no-repeat,
+    linear-gradient(var(--card), var(--card)) bottom / 100% 1rem local no-repeat,
+    radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, 0.12), transparent) top / 100% 0.55rem scroll no-repeat,
+    radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.12), transparent) bottom / 100% 0.55rem scroll no-repeat;
+}
+/* the part of speech the list is currently scrolled to */
+.mdview-define-jump-b[data-here] {
+  color: var(--ink);
+  border-color: var(--line-strong);
+  background: var(--zebra);
+}
+
+/* anything in brackets in a definition: its aside, set back so the meaning words lead */
+.mdview-define-ph {
+  color: var(--faint);
+  font-weight: 400;
+}

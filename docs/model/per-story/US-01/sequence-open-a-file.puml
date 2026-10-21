@@ -1,0 +1,56 @@
+@startuml
+' Sequence — the extension sends a local file and the workspace opens it
+' Sources: ../../../analysis/use-case-descriptions.md (UC-01), ../../../specification/02-interfaces.md
+'
+' The vertical bars are the calls in progress: the object is busy until the
+' call comes back.
+
+skinparam shadowing false
+skinparam ArrowColor #333
+autonumber
+
+actor Reader
+participant "Browser" as BR
+participant "Extension\n(background)" as EXT
+participant "Reader\n(server.py)" as SRV
+participant "Workspace\n(workspace.js)" as WS
+participant "The file's page\n(mdview.js)" as PAGE
+
+Reader -> BR : opens notes/lesson.md
+BR -> EXT : the tab's address changed
+activate EXT
+EXT -> EXT : is it a file:// URL of a kind\nthe reader reads? (P-13)
+
+alt a kind the reader reads
+  EXT -> BR : write the tab's address\nhttp://mdview.localhost:8765/?open=… (F-1)
+  deactivate EXT
+  BR -> SRV : GET /?open=<path>
+  activate SRV
+  SRV -> BR : the workspace
+  deactivate SRV
+  BR -> WS : the page runs
+  activate WS
+  WS -> SRV : GET /api/tree?path=<folder>
+  activate SRV
+  SRV -> WS : the names inside it (F-6)
+  deactivate SRV
+  WS -> WS : reveal the file: the folders on the way\nto it are opened (F-2)
+  WS -> SRV : GET /view/<path>?embed=1
+  activate SRV
+  SRV -> BR : the file's own page
+  deactivate SRV
+  deactivate WS
+  BR -> PAGE : the page runs
+  activate PAGE
+  PAGE -> SRV : GET /f/<path> (the bytes)
+  activate SRV
+  SRV -> PAGE : the bytes
+  deactivate SRV
+  PAGE -> PAGE : the renderer parses the note (F-3)
+  deactivate PAGE
+  PAGE -> Reader : the note is on the screen
+else a kind the browser will not show
+  BR -> BR : the browser downloads it.\nNo tab is sent (P-13)
+  deactivate EXT
+end
+@enduml

@@ -1,0 +1,50 @@
+@startuml
+' State machine — the states of a file in the workspace
+' Sources: ../../../analysis/use-case-descriptions.md (UC-04), ../../../specification/03-features.md
+'
+' The object is a file as the window holds it: a tab, a name, a frame.
+
+skinparam shadowing false
+skinparam ArrowColor #333
+
+[*] --> Closed : the window opens
+
+state Closed {
+}
+
+state Open {
+  [*] --> Loading
+  Loading --> Shown : the file's own page answers
+  Shown --> [*]
+}
+
+state Held {
+  [*] --> Kept
+  Kept --> [*]
+}
+
+Closed --> Open : the reader clicks a file\nin the tree, or the address names one
+Open --> Open : a second file (a second tab)
+Open --> Closed : the tab is closed
+Open --> Held : the reader reloads the window
+Held --> Open : the window comes back (F-10)
+Held --> Closed : the file is not there any more
+
+note right of Open
+  A tab is the reader's own page in a
+  frame (ADR-0003). Eight frames are
+  kept alive. The oldest is let go of.
+end note
+
+note right of Held
+  The window's state is kept in the
+  browser's storage under one key,
+  and nowhere else (F-10, S-6).
+end note
+
+note right of Closed
+  The file is not in the window, but it
+  is on the disk, and the reader's
+  place in it is kept (F-4).
+end note
+@enduml

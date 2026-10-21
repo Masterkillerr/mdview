@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="610px" preserveAspectRatio="none" style="width:1244px;height:610px;" version="1.1" viewBox="0 0 1244 610" width="1244px" zoomAndPan="magnify"><defs/><g><!--MD5=[7e2428c7f3e623b9213eda7e12bbaee2]
+entity LIB--><rect fill="#FFFFFF" height="39.0679" style="stroke: #333333; stroke-width: 1.5;" width="105" x="603.06" y="67"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="598.06" y="72"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="598.06" y="96.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="85" x="613.06" y="91.9659">Library page</text><!--MD5=[b65e7c144e2ce3bdc7ab281d7a0403b1]
+entity SET--><rect fill="#FFFFFF" height="39.0679" style="stroke: #333333; stroke-width: 1.5;" width="117" x="287.06" y="67"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="282.06" y="72"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="282.06" y="96.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="97" x="297.06" y="91.9659">Settings panel</text><!--MD5=[2ae9bfc662548d719b2d3e00ac63b9a4]
+entity SRV--><rect fill="#FFFFFF" height="58.1358" style="stroke: #333333; stroke-width: 1.5;" width="90" x="822.56" y="203"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="817.56" y="208"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="817.56" y="251.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="48" x="832.56" y="227.9659">Reader</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="832.56" y="247.0339">(server.py)</text><!--MD5=[d02ba911057be7427be6a71227efef16]
+entity FILES--><rect fill="#FFFFFF" height="58.1358" style="stroke: #333333; stroke-width: 1.5;" width="155" x="899.06" y="342.5"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="894.06" y="347.5"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="894.06" y="390.6358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="30" x="909.06" y="367.4659">Files</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="135" x="909.06" y="386.5339">(kinds, roots, writes)</text><!--MD5=[adf46589e69c07006a47b4115c04f343]
+entity DISK--><rect fill="#FFFFFF" height="39.0679" style="stroke: #333333; stroke-width: 1.5;" width="76" x="784.56" y="520.5"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="779.56" y="525.5"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="779.56" y="549.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="794.56" y="545.4659">The disk</text><!--MD5=[e47fa06001d3545761002d272ada9cd9]
+entity STORE--><rect fill="#FFFFFF" height="58.1358" style="stroke: #333333; stroke-width: 1.5;" width="111" x="102.06" y="203"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="97.06" y="208"/><rect fill="#FFFFFF" height="5" style="stroke: #333333; stroke-width: 1.5;" width="10" x="97.06" y="251.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="52" x="112.06" y="227.9659">Storage</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="91" x="112.06" y="247.0339">(localStorage)</text><!--MD5=[f36b681f1568c85a1e29d94d0cd105c7]
+entity Reader--><ellipse cx="160.56" cy="86.5" fill="#FEFECE" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="48" x="136.56" y="118.4659">Reader</text><path d="M959.06,482 L959.06,598.2361 L1232.06,598.2361 L1232.06,492 L1222.06,482 L959.06,482 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M1222.06,482 L1222.06,492 L1232.06,492 L1222.06,482 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="247" x="965.06" y="500.897">F-23: the library keeps notes, pictures and</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="252" x="965.06" y="518.603">spreadsheets. The refusal names the kinds</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="49" x="965.06" y="536.309">it keeps.</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="968.06" y="554.0151"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="242" x="965.06" y="571.7211">D5: the reader is the only writer. Nothing</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="131" x="965.06" y="589.4271">else writes to the disk.</text><path d="M15.06,340 L15.06,403.118 A0,0 0 0 0 15.06,403.118 L300.06,403.118 A0,0 0 0 0 300.06,403.118 L300.06,350 L290.06,340 L161.56,340 L157.56,261.16 L153.56,340 L15.06,340 A0,0 0 0 0 15.06,340 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M290.06,340 L290.06,350 L300.06,350 L290.06,340 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="253" x="21.06" y="358.897">S-6: the state lives in the browser's storage</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="264" x="21.06" y="376.603">and nowhere else. The reader keeps nothing</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="172" x="21.06" y="394.309">about the person who reads.</text><!--MD5=[4e4c183aa147c10f7f5c6846138c583b]
+link LIB to SRV--><path d="M708.21,89.22 C778.79,92.77 898.41,103.53 925.56,136 C941.83,155.46 926.18,179.93 907.05,199.17 " fill="none" id="LIB-&gt;SRV" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="903.19,202.94,912.4176,199.4975,906.7611,199.4404,906.8182,193.7838,903.19,202.94" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="69" x="932.56" y="159.897">GET /library</text><!--MD5=[1bb7b3e3deeb81331af20597a7348654]
+link SRV to LIB--><path d="M822.41,229.95 C740.7,226.98 573.42,215.71 537.56,173 C526.99,160.41 528.41,149.66 537.56,136 C551.26,115.56 575.29,103.73 598.11,96.88 " fill="none" id="SRV-&gt;LIB" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="602.96,95.49,593.2085,94.1087,598.1513,96.8598,595.4002,101.8027,602.96,95.49" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="538.56" y="159.897">the folders, the notes, the kinds</text><!--MD5=[4e4c183aa147c10f7f5c6846138c583b]
+link LIB to SRV--><path d="M708.2,86.63 C797.3,86.4 971.96,91.77 1010.56,136 C1043.6,173.85 971.13,203.05 917.77,218.57 " fill="none" id="LIB-&gt;SRV-1" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="912.67,220.03,922.4215,221.4113,917.4787,218.6602,920.2298,213.7173,912.67,220.03" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="183" x="1019.56" y="150.897">POST /api/rename, /api/delete,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="139" x="1041.56" y="168.603">/api/mkdir, /api/upload</text><!--MD5=[1bb7b3e3deeb81331af20597a7348654]
+link SRV to LIB--><path d="M822.39,210.2 C803.28,200.32 781.36,187.49 763.56,173 C746.7,159.27 748.01,150.22 731.56,136 C720.07,126.06 706.36,116.69 693.78,108.88 " fill="none" id="SRV-&gt;LIB-1" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="689.19,106.07,694.798,114.1663,693.461,108.6697,698.9576,107.3327,689.19,106.07" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="152" x="764.56" y="159.897">the answer, or the reason</text><!--MD5=[9fa7d66f71c3448203220094fc66f55d]
+link SRV to FILES--><path d="M907.33,261.06 C918.01,269.83 928.97,280.09 937.56,291 C948.6,305.01 957.64,322.64 964.23,337.74 " fill="none" id="SRV-&gt;FILES" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="966.2,342.34,966.3572,332.4924,964.2425,337.7391,958.9958,335.6244,966.2,342.34" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="118" x="950.56" y="305.897">the kinds of a folder</text><!--MD5=[9fa7d66f71c3448203220094fc66f55d]
+link SRV to FILES--><path d="M857.2,261.21 C853.35,276.66 851.79,295.54 860.56,310 C868.71,323.44 880.92,334.03 894.41,342.33 " fill="none" id="SRV-&gt;FILES-1" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="899.03,345.06,893.3076,337.0441,894.7225,342.5212,889.2455,343.9361,899.03,345.06" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="67" x="861.56" y="305.897">the change</text><!--MD5=[4bf4285bb591d0eac5cf607cddcd45c0]
+link FILES to DISK--><path d="M979.7,400.64 C980.13,416.84 978.17,436.9 968.56,452 C956.12,471.55 903.96,499.88 865.52,518.84 " fill="none" id="FILES-&gt;DISK" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="860.9,521.1,870.7418,520.7283,865.3892,518.8983,867.2191,513.5456,860.9,521.1" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="63" x="976.56" y="447.897">the names</text><!--MD5=[4bf4285bb591d0eac5cf607cddcd45c0]
+link FILES to DISK--><path d="M898.7,382.4 C867.5,390.62 834.52,405.63 815.56,433 C798.8,457.21 805.67,492.44 813.21,515.54 " fill="none" id="FILES-&gt;DISK-1" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="814.82,520.28,815.7068,510.4711,813.209,515.5467,808.1334,513.0488,814.82,520.28" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="143" x="816.56" y="447.897">the change is made (D5)</text><!--MD5=[95c4001a3d51df962c3021804e62e844]
+link Reader to LIB--><path d="M169.84,81.28 C192.53,68.84 253.04,37.68 308.06,27 C411.78,6.87 533.61,40.93 601.98,65.26 " fill="none" id="Reader-&gt;LIB" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="606.81,67,599.6888,60.1964,602.1036,65.312,596.988,67.7267,606.81,67" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="87" x="309.06" y="32.897">picks a change</text><!--MD5=[82b96b660d5a23eba8a27a98ec744e97]
+link DISK to SRV--><path d="M815.17,520.47 C807.59,499.49 797.23,464.17 799.56,433 C802.68,391.32 800.88,379.83 813.56,340 C821.9,313.83 836,286.19 847.7,265.57 " fill="none" id="DISK-&gt;SRV" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="850.31,261.01,842.3594,266.8227,847.8201,265.3459,849.2969,270.8066,850.31,261.01" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="66" x="814.56" y="376.897">the answer</text><!--MD5=[0e388cfc9bf8a94bcbeb075b9e24d58d]
+link Reader to SET--><path d="M169.74,86.5 C190.05,86.5 240.34,86.5 281.96,86.5 " fill="none" id="Reader-&gt;SET" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="286.99,86.5,277.99,82.5,281.99,86.5,277.99,90.5,286.99,86.5" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="81" x="187.81" y="79.397">picks a choice</text><!--MD5=[1d003a6e26079e1d68b24c9dd24279d7]
+link SET to STORE--><path d="M286.83,94.1 C194.12,104.81 23.39,125.78 14.56,136 C-16.12,171.5 45.01,199.26 96.63,215.38 " fill="none" id="SET-&gt;STORE" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="101.6,216.9,94.173,210.4317,96.8208,215.4306,91.8219,218.0784,101.6,216.9" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="237" x="15.56" y="159.897">the choice, under the reader's key (F-27)</text><!--MD5=[b9839ce428c07732e9930c11a0514f92]
+link STORE to SET--><path d="M212.24,202.88 C227.47,194.11 243.64,183.86 257.56,173 C275.66,158.89 277.17,152.05 293.56,136 C302.52,127.23 312.54,117.79 321.39,109.59 " fill="none" id="STORE-&gt;SET" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="325.1,106.16,315.7788,109.3404,321.4315,109.5573,321.2145,115.21,325.1,106.16" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="202" x="294.56" y="159.897">the choices, when the page opens</text><!--MD5=[2e42ed9d8910673a5086f99fcfb68411]
+link FILES to GMN22--><path d="M1038.44,400.66 C1051.76,409.32 1064.54,420.06 1073.56,433 C1083.51,447.26 1089.14,465.06 1092.27,481.97 " fill="none" id="FILES-GMN22" style="stroke: #333333; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><!--MD5=[d4485e9cbcdc886883f29a5cbf27b385]
+@startuml
+
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam component {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+[Library page] as LIB
+[Settings panel] as SET
+[Reader\n(server.py)] as SRV
+[Files\n(kinds, roots, writes)] as FILES
+[The disk] as DISK
+[Storage\n(localStorage)] as STORE
+
+LIB - -> SRV : GET /library
+SRV - -> FILES : the kinds of a folder
+FILES - -> DISK : the names
+SRV - -> LIB : the folders, the notes, the kinds
+
+Reader -> LIB : picks a change
+LIB - -> SRV : POST /api/rename, /api/delete,\n/api/mkdir, /api/upload
+SRV - -> FILES : the change
+FILES - -> DISK : the change is made (D5)
+DISK - -> SRV : the answer
+SRV - -> LIB : the answer, or the reason
+
+Reader -> SET : picks a choice
+SET - -> STORE : the choice, under the reader's key (F-27)
+STORE - -> SET : the choices, when the page opens
+
+note bottom of FILES
+  F-23: the library keeps notes, pictures and
+  spreadsheets. The refusal names the kinds
+  it keeps.
+
+  D5: the reader is the only writer. Nothing
+  else writes to the disk.
+end note
+
+note bottom of STORE
+  S-6: the state lives in the browser's storage
+  and nowhere else. The reader keeps nothing
+  about the person who reads.
+end note
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 05:22:07 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

@@ -1,0 +1,49 @@
+@startuml
+' Activity diagram — a change on the disk, and every way it can be refused
+' Sources: ../../specification/04-security.md (section 1), Rule S-1, Rule P-5
+
+skinparam shadowing false
+skinparam {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+start
+:the page posts a change to /api/…;
+
+partition "the reader" {
+  :the origin is checked;
+  if (the origin is the reader's own?) then (yes)
+    :the token is checked;
+    if (the token is the reader's own?) then (yes)
+      :the path is resolved;
+      if (the path is inside one of the roots?) then (yes)
+        :the change is made on the disk;
+        :the page is told, and reloads;
+        stop
+      else (no)
+        :refused — "that isn't in one of your folders";
+        stop
+      endif
+    else (no)
+      :refused — "that request didn't come\nfrom the reader's own pages";
+      stop
+    endif
+  else (no)
+    :refused — the same reason;
+    stop
+  endif
+}
+
+note right
+  S-1: a write needs the reader's own origin
+  and the reader's own token. The token is
+  minted when the reader starts, so a page
+  that was open yesterday cannot write
+  today.
+
+  P-5: the reader is the only writer (D5).
+  Nothing else writes to the disk.
+end note
+@enduml

@@ -1,0 +1,61 @@
+@startuml
+' Communication diagram — the same opening, arranged by the objects
+' rather than by the time
+' Sources: ../../../analysis/use-case-descriptions.md (UC-01), Rule F-2, Rule A-3
+'
+' A sequence diagram answers "in what order". This one answers "between
+' whom": which objects know about the file, and which are only told.
+
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam component {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+[Browser] as BR
+[Extension\n(background)] as EXT
+[The reader\n(server.py)] as SRV
+[Workspace] as WS
+[State\n(localStorage)] as ST
+[Tab] as TAB
+[Frame] as FRM
+[File's page] as PAGE
+[Engine] as ENG
+
+BR --> EXT : the tab's address changed
+EXT --> SRV : GET /?open=<path>
+SRV --> BR : the workspace
+BR --> WS : the page runs
+WS --> SRV : GET /api/tree?path=<folder>
+SRV --> WS : the names inside it
+WS --> ST : the folder it stands in
+WS --> TAB : opens the file
+TAB --> FRM : the page in a frame
+FRM --> SRV : GET /view/<path>?embed=1
+SRV --> FRM : the file's own page
+FRM --> ENG : the page runs the engine
+ENG --> SRV : GET /f/<path> (the bytes)
+SRV --> ENG : the bytes
+ENG --> FRM : the document
+FRM --> BR : the note is on the screen
+
+note bottom of WS
+  F-2: the workspace reveals the file in
+  the tree — the folders on the way to it
+  are opened, so the file is shown where
+  it lives.
+end note
+
+note bottom of TAB
+  A-3: a tab is the reader's own page in
+  a frame. The workspace composes; it
+  does not draw a document.
+end note
+
+note bottom of ST
+  The state has one owner, and it is the
+  browser's storage (A-4).
+end note
+@enduml

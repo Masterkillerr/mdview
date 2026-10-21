@@ -1,0 +1,455 @@
+/* sheet.css — the spreadsheet view, for the reader's .xlsx/.xlsm/.csv/.tsv pages.
+
+   It borrows someone else's tokens on purpose. The page is served with mdview.css
+   alongside it, so `--bg`, `--ink`, `--line`, `--accent` and the rest arrive already
+   resolved — including the reader's own choice of light, dark or warm, which is a
+   document-element attribute the stylesheet reads. A second palette here would be a
+   second answer to a question the reader has already answered once. Nothing in this file
+   declares a token; it only spends them.
+
+   The table is laid out with `border-collapse: separate` and one-pixel right and bottom
+   edges, which is not the tidier CSS. It is what a sticky header needs: with collapsed
+   borders the header's own border is painted by the row above it and slides away as the
+   table scrolls, which is exactly the line you want to keep.
+
+   The page does not scroll — the grid inside it does. A spreadsheet is read by moving
+   around inside one, and a window that scrolls the document first takes the column
+   letters and the row numbers off the screen before it has moved a single cell. So the
+   document is one viewport tall and the table is given whatever the bar leaves. */
+
+html[data-mdview-page="sheet"] body {
+  display: flex;
+  flex-direction: column;
+  /* `dvh` is the part of the window that is really there, which is not `vh` on a browser
+     whose chrome comes and goes; `vh` stays as the fallback for one that has neither. */
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+#sheet {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  /* every other page of the reader stands 20px off the window edge, and a sheet is a
+     page of the reader */
+  padding: 14px 20px 18px;
+  font-family: var(--md-font);
+  font-size: calc(var(--ui-size) * 0.82);
+  color: var(--ink);
+}
+
+.sheet-view,
+.sheet-box {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  /* without this a flex item refuses to go below its content, and the box of a 25,000px
+     table would take the page with it */
+  min-height: 0;
+}
+
+.sheet-box {
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+/* the scrolling box, and the reason the header row can be sticky at all: the page stays
+   put and the table moves inside it */
+.sheet-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  overscroll-behavior: contain;
+  /* the pictures a sheet carries are laid over the grid, and the layer that holds them is
+     positioned against this box: this box's padding edge is their coordinates */
+  position: relative;
+}
+
+/* The class is on the table itself, which is why this rule is `table.sheet` and not
+   `.sheet table.sheet` — that would ask for a table inside a sheet table, and match
+   nothing at all.
+
+   `border-spacing: 0` rather than the two pixels a browser gives a table: the head of
+   the table is pinned directly beneath the letters row, and a gap between rows is a gap
+   no pinned offset can see. */
+table.sheet {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  /* Columns are as wide as what is in them — each cell capped by the `max-width` above —
+     and the grid scrolls sideways rather than squeezing them. A spreadsheet does not
+     re-flow its columns to the window, and a column that keeps getting narrower is how
+     one long sentence ends up eight lines tall in a cell three words wide. */
+  min-width: max-content;
+}
+
+.sheet th,
+.sheet td {
+  padding: 0.3em 0.6em;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  /* The cell is shown as it was written: a line break inside one is a line break, and a
+     sentence too long for its column wraps inside the column instead of being cut off at
+     the first word past the edge. The cap is what keeps one long paragraph from pushing
+     every other column off the screen — just under seventy characters of this size, so a
+     column of prose is still a column and not a paragraph read sideways.
+
+     `--cap` and `--floor` are the file's own column width where the workbook names one:
+     sheet.js measures the width of a character on this page and works the column out from
+     it, and then the column is that wide and no wider — the floor as well as the cap,
+     because a column three characters across is three characters across even when there is
+     nothing in it. A workbook that names no widths — and every .csv, which has none to
+     name — keeps the reading above: natural width, capped, and the grid scrolls. */
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  max-width: var(--cap, 28rem);
+  /* A column with nothing in it is still a column, and without a floor an empty one
+     collapses to the width of its letter — a column of twenty pixels reads as a scratch in
+     the grid rather than as a place something could have been typed. About the width the
+     program that wrote the file gives a new column. */
+  min-width: var(--floor, 4.5em);
+  line-height: 1.4;
+}
+
+/* a number sits against its right edge, the way it does in the program that wrote the
+   file, so a column of quantities can be read down the last digit */
+.sheet td.num,
+.sheet th.num {
+  text-align: right;
+}
+
+.sheet tbody tr:nth-child(even) td,
+.sheet tbody tr:nth-child(even) th {
+  background: var(--zebra);
+}
+
+/* A wrapped cell makes a row several lines tall, and which row the pointer is on should
+   not be a question — the row is lit, the way a note page's table lights it. Written
+   after the zebra on purpose: the two match the row at the same weight, so what wins is
+   the order they are written in.
+
+   The tint is laid on twice, once as a colour and once as an image, because half the cells
+   in a real workbook carry a fill of their own: a colour written on the cell outranks a
+   colour written in a stylesheet, and without the image over it a filled row would never
+   light at all. */
+.sheet tbody tr:hover > th,
+.sheet tbody tr:hover > td {
+  background-color: var(--rowof);
+  background-image: linear-gradient(color-mix(in srgb, var(--rowof) 72%, transparent),
+    color-mix(in srgb, var(--rowof) 72%, transparent));
+}
+
+/* the column letters: the one part of a spreadsheet the file never writes down, so they
+   are drawn quietly — a ruler, not a heading */
+.sheet thead tr.sheet-letters th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  /* The height is set rather than left to the contents, because the head of the table is
+     pinned directly beneath this row and the distance between them has to be the same
+     number. `line-height: 1` keeps the line box inside it, so the row is exactly this
+     tall and not this tall plus what a line of text wanted. */
+  height: 2em;
+  line-height: 1;
+  vertical-align: middle;
+  /* Almost no padding, because a column can be narrower than its letter: a workbook written
+     by a program that lays out its own columns has spacer columns a couple of pixels wide,
+     and the half-character of padding a cell wants would be wider than the column is. The
+     letter is centred either way, and a letter that overlaps its neighbour is what a
+     spreadsheet does with a column too narrow to hold it. */
+  padding: 0 0.15em;
+  background: var(--thbg);
+  color: var(--faint);
+  font-family: var(--md-font-mono);
+  font-size: 0.82em;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0.02em;
+  border-bottom-color: var(--line-strong);
+}
+
+/* row 1, when it is being read as a header: it stays under the letters, whose 2em is
+   0.82 of this row's own em */
+.sheet thead tr:not(.sheet-letters) th {
+  position: sticky;
+  top: calc(2em * 0.82);
+  z-index: 2;
+  background: var(--thbg);
+  font-weight: 650;
+  border-bottom-color: var(--line-strong);
+}
+
+/* the row numbers, pinned to the left edge so they stay with the row they name */
+.sheet tbody th,
+.sheet thead th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  min-width: 3.2em;
+  background: var(--thbg);
+  color: var(--faint);
+  font-family: var(--md-font-mono);
+  font-size: 0.85em;
+  font-weight: 500;
+  text-align: right;
+  border-right-color: var(--line-strong);
+}
+
+/* The corner of the two pinned edges — where the letters row, or the header row, meets
+   the row numbers. Two rules outrank the z-index of every row above it on purpose:
+   whatever is sliding past, this is the cell that stays whole. */
+.sheet thead tr:first-child th:first-child,
+.sheet thead tr:not(.sheet-letters) th:first-child {
+  z-index: 3;
+}
+
+/* The pinned edge is said out loud once the columns are sliding under it — the same
+   shadow a note page's pinned label column casts. `at-start` is put on the scroll box by
+   sheet.js while it sits at the left edge, where there is nothing to say. */
+.sheet-scroll:not(.at-start) .sheet tbody th,
+.sheet-scroll:not(.at-start) .sheet thead th:first-child {
+  box-shadow: 6px 0 6px -6px var(--scrollfade);
+}
+
+/* ------------------------------------------------------- what the file marked -- */
+
+/* A column the file froze is pinned to the left of the grid, beside the row numbers: the
+   offset is set by sheet.js, which is the only thing that knows how wide the page came out.
+   Like the row numbers it needs a ground of its own, or the cells sliding behind it read
+   through it — the file's own fill, where it gave the cell one, is written on the cell and
+   wins over this. */
+.sheet [data-freeze] {
+  background-color: var(--card);
+}
+
+.sheet tbody [data-freeze] {
+  z-index: 1;
+}
+
+/* and above the cells sliding under it, which is the same corner the row numbers hold on
+   the other edge */
+.sheet thead [data-freeze] {
+  z-index: 3;
+}
+
+.sheet-scroll:not(.at-start) .sheet [data-freeze] {
+  box-shadow: 6px 0 6px -6px var(--scrollfade);
+}
+
+/* A column the file hides is shown rather than hidden, and says so: its letter struck
+   through and its cells held back a shade. A hidden column is often where the numbers that
+   were taken out of the summary still live, and someone reading a file has more use for them
+   than the file's author had. A hidden row says the same thing on its number. */
+.sheet thead tr.sheet-letters th.hid,
+.sheet tbody th.hid {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  color: var(--muted);
+}
+
+.sheet td.hid,
+.sheet th.hid,
+.sheet tr.hid > * {
+  color: var(--muted);
+}
+
+/* A picture sits where the file anchored it, over the cells it covers — the file drew it
+   over them — and takes no pointer: a word under a photograph can still be selected and
+   looked up, and the picture itself is not something to drag. */
+.sheet-pictures {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sheet-pictures img {
+  position: absolute;
+  display: block;
+  max-width: none;
+  user-select: none;
+}
+
+/* ---------------------------------------------------------------- the bar -- */
+
+.sheet-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+/* The strip of tabs is one line that scrolls rather than a block that wraps. A workbook
+   with twenty-two sheets in it wraps into four ragged rows and moves the button that
+   ends the header row down with them; a strip that scrolls stays one line for any
+   number of sheets, and the sheet being shown is scrolled into view by sheet.js. */
+.sheet-tabs {
+  display: flex;
+  gap: 0.2rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  /* so a tab's rounded corner and its focus ring are not shaved off by the scroller */
+  padding: 2px;
+}
+
+/* a workbook's tabs are named by whoever wrote it, so one of them is longer than the
+   window: a name is cut with an ellipsis rather than pushing the strip out of the bar */
+.sheet-tab {
+  flex: 0 0 auto;
+  font: inherit;
+  font-size: 0.95em;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 0.3em 0.7em;
+  cursor: pointer;
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sheet-tab:hover {
+  color: var(--ink);
+  background: var(--fence);
+}
+
+/* after the hover rule on purpose: hovering the sheet you are already on must not take
+   the fill off it */
+.sheet-tab.on {
+  color: var(--ink);
+  background: var(--accenttint);
+  border-color: var(--accentline);
+  font-weight: 600;
+}
+
+/* A sheet the workbook hides is shown like the rest, and marked: it is part of the file,
+   and a reader should be able to tell that it is not in the author's own view of it. The
+   border rather than the name, so the name is still the file's and still reads as itself. */
+.sheet-tab.hid-sheet {
+  border-style: dashed;
+  border-color: var(--muted);
+}
+
+.sheet-tab.hid-sheet.on {
+  border-color: var(--accentline);
+}
+
+.sheet-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex: 0 0 auto;
+  /* a .csv has no strip of tabs to take the space on the left, and the tools still
+     belong at the end of the bar rather than under the first tab */
+  margin-left: auto;
+  padding-right: 0.4rem;
+}
+
+.sheet-toggle {
+  font: inherit;
+  font-size: 0.9em;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.25em 0.6em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sheet-toggle:hover {
+  color: var(--ink);
+  border-color: var(--accentline);
+}
+
+.sheet-toggle.on {
+  color: var(--accent);
+  border-color: var(--accentline);
+  background: var(--accenttint);
+}
+
+.sheet-status {
+  color: var(--faint);
+  font-size: 0.88em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------------- the notes -- */
+
+.sheet-note {
+  margin: 0;
+  padding: 0.7rem 0.9rem;
+  color: var(--muted);
+  font-size: 0.92em;
+}
+
+.sheet-note.bad {
+  color: var(--callout-caution, var(--muted));
+}
+
+/* ------------------------------------------------------------ the window -- */
+
+/* A narrow window has no room for a sticky row number and a table at once, and the
+   numbers are the part that can be given up. The shadow goes with them: it is the pinned
+   edge being explained, and there is no pinned edge left to explain. */
+@media (max-width: 40rem) {
+  .sheet tbody th {
+    position: static;
+    min-width: 2.4em;
+  }
+  .sheet-scroll:not(.at-start) .sheet tbody th {
+    box-shadow: none;
+  }
+}
+
+/* Printed, a sheet is read on paper, where nothing scrolls and the window-sized grid is
+   the one screenful that happens to be showing: the whole table is laid out instead, and
+   the header row stops floating over the top of it. */
+@media print {
+  html[data-mdview-page="sheet"] body {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+  #sheet,
+  .sheet-view,
+  .sheet-box {
+    display: block;
+    padding: 0;
+  }
+  .sheet-scroll {
+    overflow: visible;
+    border: 0;
+  }
+  .sheet-bar {
+    display: none;
+  }
+  .sheet thead th,
+  .sheet tbody th {
+    position: static;
+    box-shadow: none;
+  }
+  /* a pinned cell is pinned by a style of its own, which outranks a stylesheet: on paper
+     there is one page and nothing slides under anything, so the pinning comes off here */
+  .sheet [data-freeze] {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    box-shadow: none !important;
+  }
+}

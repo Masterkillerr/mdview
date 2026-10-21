@@ -1,0 +1,91 @@
+@startuml
+' Class diagram (design) — the objects the code holds, and what they are given
+' Sources: ../../specification/01-architecture.md, ../../specification/03-features.md
+
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  ArrowColor #333
+}
+skinparam interface {
+  BackgroundColor White
+  BorderColor #666
+}
+
+class "Workspace\n(workspace.js)" as WS {
+  - state : State
+  - folders : Map<path, Folder>
+  - frames : Map<id, Frame>
+  + openFile(path, name, kind) : void
+  + activate(id) : void
+  + closeTab(id) : void
+  + goTo(path) : void
+  + paint() : void
+}
+
+class "State\n(localStorage)" as ST {
+  + root : Path
+  + tabs : List<Tab>
+  + active : String
+  + side : bool
+  + kind : String
+  + ext : String
+  + size : String
+  + when : String
+  + save() : void
+  + load() : void
+}
+
+class "Folder\n(the tree's answer)" as FLD {
+  + path : Path
+  + name : String
+  + up : Path
+  + entries : List<File>
+}
+
+class "Tab" as TAB {
+  + id : String
+  + path : Path
+  + name : String
+  + kind : Kind
+  + src : String
+}
+
+class "Frame" as FRM {
+  + src : String
+  + hidden : bool
+}
+
+interface "The reader's\nHTTP interface" as API {
+  + tree(path) : Folder
+  + view(path) : String
+  + library() : String
+  + write(action, payload) : Object
+}
+
+interface "A file's own page" as PAGE {
+  + renders itself at a URL
+}
+
+WS *-- ST
+WS --> API : asks and reads
+API --> FLD : the names of one folder
+WS o-- TAB
+TAB *-- FRM
+FLD --> TAB : a file becomes one
+
+note bottom of WS
+  A-3: the workspace composes; it does
+  not draw a document. A tab is the
+  reader's own page in a frame.
+end note
+
+note bottom of ST
+  A-4: the state has one owner. The
+  disk belongs to the reader; the
+  choices and the places belong to
+  the browser's storage.
+end note
+@enduml

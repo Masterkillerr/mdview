@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>mdview popup</title>
+</head>
+<body>
+<script>
+  // The real popup, rendered against a stubbed WebExtension API so both states
+  // can be looked at without installing anything.
+  //   ?access=on | off | unknown      (default: off — the state worth checking)
+  const mode = new URLSearchParams(location.search).get("access") || "off";
+  const access = mode === "on" ? true : mode === "unknown" ? null : false;
+  const report = { badge: null, badgeColor: null, title: null, reloaded: [] };
+  window.__popupReport = report;
+  window.browser = {
+    browser_action: {
+      setBadgeText: (o) => (report.badge = o.text),
+      setBadgeBackgroundColor: (o) => (report.badgeColor = o.color),
+      setTitle: (o) => (report.title = o.title),
+    },
+    extension: { isAllowedFileSchemeAccess: () => Promise.resolve(access) },
+    runtime: { getManifest: () => ({ version: "harness" }) },
+    tabs: {
+      query: (_q, cb) => {
+        const tabs = [
+          { id: 1, url: "file:///notes/lesson.md" },
+          { id: 2, url: "file:///notes/lesson.md" },
+          { id: 3, url: "https://example.com/" },
+        ];
+        if (typeof cb === "function") {
+          cb(tabs);
+          return;
+        }
+        return Promise.resolve(tabs);
+      },
+      reload: (id) => report.reloaded.push(id),
+    },
+  };
+</script>
+<script>
+  // Fetch the shipped markup, point its stylesheet here, and run its script: the
+  // panel the reader gets, in the page, instead of trusting that it looks right.
+  fetch("../../mdview-ext/popup.html")
+    .then((r) => r.text())
+    .then((html) => {
+      const parsed = new DOMParser().parseFromString(html, "text/html");
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "../../mdview-ext/mdview.css?t=" + Date.now();
+      document.head.appendChild(link);
+      // the popup's own <style> too, or this renders an unstyled panel that
+      // looks nothing like the one the reader gets
+      for (const style of parsed.head.querySelectorAll("style")) {
+        const copy = document.createElement("style");
+        copy.textContent = style.textContent;
+        document.head.appendChild(copy);
+      }
+      document.body.className = parsed.body.className;
+      document.body.innerHTML = parsed.body.innerHTML;
+      const script = document.createElement("script");
+      script.src = "../../mdview-ext/popup.js";
+      document.body.appendChild(script);
+    });
+</script>
+</body>
+</html>

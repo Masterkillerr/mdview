@@ -1,0 +1,79 @@
+@startuml
+' Component diagram — the components and the interfaces between them
+' Sources: ../../specification/01-architecture.md, ../../specification/02-interfaces.md
+
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam component {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+skinparam interface {
+  BackgroundColor #fbfbfc
+  BorderColor #666
+}
+
+package "The browser" {
+  [Extension\n(background script)] as EXT
+  [Extension\n(content script)] as PAGE
+  [Storage\n(localStorage)] as STORE
+}
+
+package "The reader (process)" {
+  [Workspace\n(the window)] as WS
+  [Library\n(organise)] as LIB
+  [Router\n(the routes)] as ROUTER
+  [Files\n(kinds, roots, writes)] as FILES
+}
+
+package "The engines" {
+  [Markdown renderer] as MD
+  [PDF view] as PDF
+  [Picture view] as IMG
+  [Sheet view] as XLS
+  [Word card] as CARD
+}
+
+package "Outside" {
+  [Dictionaries] as DICT
+  [The disk] as DISK
+}
+
+interface "The reader's\nHTTP interface" as API
+interface "The extension's\nmessages" as MSG
+interface "A file's own page\n(a URL and its bytes)" as PAGEIF
+
+EXT --> API : the file, named in the address\n(ADR-0002)
+WS --> API : /api/tree, /view/<path>
+LIB --> API : /library, /api/…
+ROUTER --> FILES : the kind decides the page
+FILES --> DISK : the only writer (D5)
+
+ROUTER ..> PAGEIF : the page of a file
+MD ..> PAGEIF : renders it
+PDF ..> PAGEIF : renders it
+IMG ..> PAGEIF : renders it
+XLS ..> PAGEIF : renders it
+
+CARD --> MSG : mdview:fetch (F-11)
+PAGE ..> MSG : the card is placed on the page
+EXT --> MSG : answers it, for three hosts only (S-2)
+MSG --> DICT : the word, and nothing else (S-10)
+
+WS --> STORE : the window's state (S-6)
+MD --> STORE : the place, the choices (S-6)
+PDF --> STORE : the place (S-6)
+
+note bottom of FILES
+  A-1: the reader serves,
+  the engines render.
+end note
+
+note bottom of EXT
+  A-5: the extension knows
+  the reader's address.
+  The reader does not know
+  the extension exists.
+end note
+@enduml

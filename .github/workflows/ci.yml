@@ -1,0 +1,53 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    name: the renderer, the stylesheet and the assets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: the corpus
+        run: node dev/test/run.js
+      - name: the stylesheet's invariants
+        run: node dev/check-css.js
+      - name: the vendored assets
+        run: node dev/check-vendor.js --quiet
+      - name: the package
+        run: bash dev/build.sh
+
+  interface:
+    name: the window, in a browser
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: the browser
+        run: pip install playwright && playwright install --with-deps chromium
+      - name: the interface
+        run: python3 dev/test/ui.py
+
+  model:
+    name: the drawings
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: the renderer of the diagrams
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y plantuml librsvg2-bin
+      - name: every diagram renders
+        run: bash docs/model/render.sh
+      - name: the drawings are unchanged
+        run: |
+          git diff --exit-code docs/model/img || \
+            (echo "the drawings are out of date: run docs/model/render.sh" && exit 1)

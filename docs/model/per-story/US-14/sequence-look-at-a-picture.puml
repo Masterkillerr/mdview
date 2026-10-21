@@ -1,0 +1,59 @@
+@startuml
+' US-14 — Look at a picture closely.
+' Sequence — the picture at its own pixels, the zoom, and the hand
+' Sources: ../../../analysis/stories.md (US-14), ../../../specification/03-features.md (F-19, F-20, F-21, F-28)
+
+skinparam shadowing false
+skinparam ArrowColor #333
+autonumber
+
+actor Reader
+participant "The picture's page" as PAGE
+participant "The stage" as STAGE
+participant "The image" as IMG
+participant "The tools" as BAR
+
+Reader -> PAGE : opens the file
+activate PAGE
+PAGE -> IMG : the picture
+activate IMG
+IMG -> PAGE : its own size — 1536 by 1024
+deactivate IMG
+PAGE -> STAGE : the picture is drawn at its own pixels (F-19)
+deactivate PAGE
+PAGE -> Reader : the picture, sharp
+
+Reader -> BAR : zooms in
+activate BAR
+BAR -> STAGE : zoom about the pointer (F-20)
+activate STAGE
+STAGE -> IMG : the scale changes, and what is\nunder the pointer stays under it
+deactivate STAGE
+deactivate BAR
+
+Reader -> STAGE : drags the picture
+activate STAGE
+STAGE -> STAGE : the picture moves with the pointer (F-21)
+deactivate STAGE
+
+Reader -> BAR : fits it, or puts it back to 1:1
+activate BAR
+BAR -> STAGE : the scale changes
+deactivate BAR
+
+Reader -> PAGE : clicks a picture in a note
+activate PAGE
+PAGE -> PAGE : the picture opens in this view,\nin a tab of the window above (F-28)
+deactivate PAGE
+
+note right
+  F-19: a picture is shown at its own pixels
+  and is not shrunk to fit the window: a
+  shrunk picture is a soft one.
+
+  F-20: the zoom is about the pointer.
+
+  F-21: a picture bigger than the window is
+  moved with the hand.
+end note
+@enduml

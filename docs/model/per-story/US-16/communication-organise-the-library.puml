@@ -1,0 +1,55 @@
+@startuml
+' US-16 — Organise the library, and set the reader's preferences.
+' Communication — the objects that take part, and what each one is asked
+' Sources: ../../../analysis/stories.md (US-16), ../../../specification/03-features.md (F-23, F-27)
+'
+' A sequence would answer "in what order". This one answers "between whom":
+' the page asks, the reader decides, the disk holds, and the browser's storage
+' keeps the choices.
+
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam component {
+  BackgroundColor White
+  BorderColor #333
+  ArrowColor #333
+}
+
+[Library page] as LIB
+[Settings panel] as SET
+[Reader\n(server.py)] as SRV
+[Files\n(kinds, roots, writes)] as FILES
+[The disk] as DISK
+[Storage\n(localStorage)] as STORE
+
+LIB --> SRV : GET /library
+SRV --> FILES : the kinds of a folder
+FILES --> DISK : the names
+SRV --> LIB : the folders, the notes, the kinds
+
+Reader -> LIB : picks a change
+LIB --> SRV : POST /api/rename, /api/delete,\n/api/mkdir, /api/upload
+SRV --> FILES : the change
+FILES --> DISK : the change is made (D5)
+DISK --> SRV : the answer
+SRV --> LIB : the answer, or the reason
+
+Reader -> SET : picks a choice
+SET --> STORE : the choice, under the reader's key (F-27)
+STORE --> SET : the choices, when the page opens
+
+note bottom of FILES
+  F-23: the library keeps notes, pictures and
+  spreadsheets. The refusal names the kinds
+  it keeps.
+
+  D5: the reader is the only writer. Nothing
+  else writes to the disk.
+end note
+
+note bottom of STORE
+  S-6: the state lives in the browser's storage
+  and nowhere else. The reader keeps nothing
+  about the person who reads.
+end note
+@enduml

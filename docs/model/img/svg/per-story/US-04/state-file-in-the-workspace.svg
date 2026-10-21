@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="786px" preserveAspectRatio="none" style="width:931px;height:786px;" version="1.1" viewBox="0 0 931 786" width="931px" zoomAndPan="magnify"><defs/><g><ellipse cx="882.92" cy="522.5" fill="#000000" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><path d="M692.42,139.5 L692.42,167 L467.09,171 L692.42,175 L692.42,202.618 A0,0 0 0 0 692.42,202.618 L919.42,202.618 A0,0 0 0 0 919.42,202.618 L919.42,149.5 L909.42,139.5 L692.42,139.5 A0,0 0 0 0 692.42,139.5 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M909.42,139.5 L909.42,149.5 L919.42,149.5 L909.42,139.5 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="203" x="698.42" y="158.397">A tab is the reader's own page in a</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="206" x="698.42" y="176.103">frame (ADR-0003). Eight frames are</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="192" x="698.42" y="193.809">kept alive. The oldest is let go of.</text><path d="M155.92,491 L155.92,518.5 L120.8,522.5 L155.92,526.5 L155.92,554.118 A0,0 0 0 0 155.92,554.118 L375.92,554.118 A0,0 0 0 0 375.92,554.118 L375.92,501 L365.92,491 L155.92,491 A0,0 0 0 0 155.92,491 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M365.92,491 L365.92,501 L375.92,501 L365.92,491 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="193" x="161.92" y="509.897">The window's state is kept in the</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="199" x="161.92" y="527.603">browser's storage under one key,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="168" x="161.92" y="545.309">and nowhere else (F-10, S-6).</text><path d="M597.92,711 L597.92,738.5 L562.62,742.5 L597.92,746.5 L597.92,774.118 A0,0 0 0 0 597.92,774.118 L821.92,774.118 A0,0 0 0 0 821.92,774.118 L821.92,721 L811.92,711 L597.92,711 A0,0 0 0 0 597.92,711 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M811.92,711 L811.92,721 L821.92,721 L811.92,711 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="203" x="603.92" y="729.897">The file is not in the window, but it</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="181" x="603.92" y="747.603">is on the disk, and the reader's</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="130" x="603.92" y="765.309">place in it is kept (F-4).</text><rect fill="#FEFECE" height="50" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="65" x="497.42" y="717.5"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="497.42" x2="562.42" y1="746.5679" y2="746.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="45" x="507.42" y="737.4659">Closed</text><rect fill="#FEFECE" height="326.0679" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="246" x="220.92" y="8"/><rect fill="#FFFFFF" height="291" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="240" x="223.92" y="40.0679"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="220.92" x2="466.92" y1="37.0679" y2="37.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="37" x="325.42" y="27.9659">Open</text><ellipse cx="268.92" cy="60.0679" fill="#000000" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><rect fill="#FEFECE" height="50" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="74" x="231.92" y="107.0679"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="231.92" x2="305.92" y1="136.1358" y2="136.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="54" x="241.92" y="127.0339">Loading</text><rect fill="#FEFECE" height="50" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="65" x="236.42" y="212.0679"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="236.42" x2="301.42" y1="241.1358" y2="241.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="45" x="246.42" y="232.0339">Shown</text><ellipse cx="268.92" cy="309.0679" fill="none" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"/><ellipse cx="269.42" cy="309.5679" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"/><!--MD5=[cea7e3aa40a58b4e74ed965f8f612d86]
+link *start*Open to Loading--><path d="M268.92,70.2179 C268.92,78.2579 268.92,90.3979 268.92,101.7179 " fill="none" id="*start*Open-&gt;Loading" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="268.92,106.8479,272.92,97.8479,268.92,101.8479,264.92,97.8479,268.92,106.8479" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[090c54d1134d1d4cab8d899b9915fc13]
+link Loading to Shown--><path d="M268.92,157.2179 C268.92,171.9579 268.92,190.9179 268.92,206.5479 " fill="none" id="Loading-&gt;Shown" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="268.92,211.7179,272.92,202.7179,268.92,206.7179,264.92,202.7179,268.92,211.7179" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="163" x="269.92" y="189.9649">the file's own page answers</text><!--MD5=[38d75105755839be9cb4aa8e3ef87c1d]
+link Shown to *end*Open--><path d="M268.92,262.1579 C268.92,272.6379 268.92,284.5679 268.92,293.6379 " fill="none" id="Shown-&gt;*end*Open" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="268.92,298.8779,272.92,289.8779,268.92,293.8779,264.92,289.8779,268.92,298.8779" style="stroke: #333333; stroke-width: 1.0;"/><rect fill="#FEFECE" height="219.0679" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="95" x="25.42" y="413"/><rect fill="#FFFFFF" height="184" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="89" x="28.42" y="445.0679"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="25.42" x2="120.42" y1="442.0679" y2="442.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="31" x="57.42" y="432.9659">Held</text><ellipse cx="61.92" cy="465.0679" fill="#000000" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><rect fill="#FEFECE" height="50" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="51" x="36.42" y="511.0679"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="36.42" x2="87.42" y1="540.1358" y2="540.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="31" x="46.42" y="531.0339">Kept</text><ellipse cx="61.92" cy="607.0679" fill="none" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"/><ellipse cx="62.42" cy="607.5679" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"/><!--MD5=[8756a5652ed16cd25cb199b68b6728e2]
+link *start*Held to Kept--><path d="M61.92,475.0879 C61.92,482.9479 61.92,494.7879 61.92,505.8779 " fill="none" id="*start*Held-&gt;Kept" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="61.92,510.8979,65.92,501.8979,61.92,505.8979,57.92,501.8979,61.92,510.8979" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[9201d1a5fbe6d999ec8a4edf14562afc]
+link Kept to *end*Held--><path d="M61.92,561.1979 C61.92,571.3679 61.92,582.8679 61.92,591.6779 " fill="none" id="Kept-&gt;*end*Held" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="61.92,596.7779,65.92,587.7779,61.92,591.7779,57.92,587.7779,61.92,596.7779" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[51ad14c1b253b1d0cbc31b222ac7a4ed]
+link *start to Closed--><path d="M882.53,532.53 C881.12,553.2 874.76,604.27 845.92,632 C757.35,717.2 693.42,661.52 580.92,711 C576.32,713.02 571.62,715.38 567.03,717.88 " fill="none" id="*start-&gt;Closed" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="562.48,720.41,572.29,719.5358,566.8508,717.9818,568.4048,712.5426,562.48,720.41" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="110" x="805.92" y="676.897">the window opens</text><!--MD5=[1b4252becab7cdd8d8afae175d06429c]
+link Closed to Open--><path d="M538.08,717.44 C555.57,661.78 591.97,520.69 551.92,413 C534.55,366.27 503.59,322.54 470.77,285.51 " fill="none" id="Closed-&gt;Open" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="467.18,281.49,470.1897,290.8677,470.5098,285.2199,476.1576,285.5401,467.18,281.49" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="126" x="618.92" y="518.897">the reader clicks a file</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="222" x="570.92" y="536.603">in the tree, or the address names one</text><!--MD5=[01fe80a698398e945f2b8859289ddee2]
+link Open to Closed--><path d="M404.06,334.16 C406.94,344.19 409.59,354.19 411.92,364 C439.68,480.81 400.25,520.96 445.92,632 C458.71,663.08 482.7,692.98 501.78,713.65 " fill="none" id="Open-&gt;Closed" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="505.29,717.41,502.0734,708.1012,501.8784,713.7547,496.2249,713.5598,505.29,717.41" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="96" x="446.92" y="527.897">the tab is closed</text><!--MD5=[464c02672582e6cb71e9d2ecb06c1bf0]
+link Open to Open--><path d="M467.14,135.8 C487.72,140.72 501.92,152.46 501.92,171 C501.92,187.95 490.06,199.21 472.3,204.78 " fill="none" id="Open-&gt;Open" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="467.14,206.2,476.8798,207.6617,471.9598,204.8699,474.7516,199.9499,467.14,206.2" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="160" x="507.92" y="176.397">a second file (a second tab)</text><!--MD5=[4e4a707611359f7078c9c9d783dc1eda]
+link Open to Held--><path d="M220.64,209.06 C146.8,238.33 58.97,287.29 14.92,364 C-1.26,392.18 7.67,425.7 22.9,454.56 " fill="none" id="Open-&gt;Held" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="25.39,459.15,24.5785,449.3346,22.9897,454.7638,17.5606,453.1751,25.39,459.15" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="182" x="15.92" y="378.897">the reader reloads the window</text><!--MD5=[00091ebe0a02c8e963275f8e135f9bfc]
+link Held to Open--><path d="M120.55,431.59 C125.92,424.89 131.72,418.58 137.92,413 C161.6,391.74 178.73,403.67 202.92,383 C218.36,369.81 232.82,354.53 246.13,338.33 " fill="none" id="Held-&gt;Open" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="249.49,334.2,240.7201,338.6821,246.3457,338.0876,246.9402,343.7131,249.49,334.2" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="179" x="223.92" y="378.897">the window comes back (F-10)</text><!--MD5=[aba6d54f8922c7cc8e268b9dee64fd15]
+link Held to Closed--><path d="M120.49,613.48 C125.87,620.17 131.69,626.46 137.92,632 C241.19,723.82 415.43,739.25 491.96,741.42 " fill="none" id="Held-&gt;Closed" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="497.29,741.56,488.3958,737.33,492.2917,741.4315,488.1902,745.3273,497.29,741.56" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="171" x="211.92" y="676.897">the file is not there any more</text><!--MD5=[6a0120e955106c3c4a200726973d82ea]
+@startuml
+
+skinparam shadowing false
+skinparam ArrowColor #333
+
+[*] - -> Closed : the window opens
+
+state Closed {
+}
+
+state Open {
+  [*] - -> Loading
+  Loading - -> Shown : the file's own page answers
+  Shown - -> [*]
+}
+
+state Held {
+  [*] - -> Kept
+  Kept - -> [*]
+}
+
+Closed - -> Open : the reader clicks a file\nin the tree, or the address names one
+Open - -> Open : a second file (a second tab)
+Open - -> Closed : the tab is closed
+Open - -> Held : the reader reloads the window
+Held - -> Open : the window comes back (F-10)
+Held - -> Closed : the file is not there any more
+
+note right of Open
+  A tab is the reader's own page in a
+  frame (ADR-0003). Eight frames are
+  kept alive. The oldest is let go of.
+end note
+
+note right of Held
+  The window's state is kept in the
+  browser's storage under one key,
+  and nowhere else (F-10, S-6).
+end note
+
+note right of Closed
+  The file is not in the window, but it
+  is on the disk, and the reader's
+  place in it is kept (F-4).
+end note
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 05:22:07 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

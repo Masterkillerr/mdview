@@ -1,0 +1,59 @@
+@startuml
+' Use case diagram — the actors and the goals
+' Sources: ../../analysis/use-case-descriptions.md
+'
+' The use cases are in a column, because thirteen of them in a row is a diagram
+' nobody can read: the column is 660 pixels wide and fits the reader's own
+' measure, and the arrows from the reader cross nothing.
+
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  ArrowColor #333
+}
+
+actor Reader as R
+actor "Browser\n(Firefox, Edge)" as B
+actor "Dictionaries" as D
+actor "Disk" as K
+
+rectangle "The reader" {
+  usecase "UC-01\nOpen a local file\nin the workspace" as UC01
+  usecase "UC-02\nRead a note" as UC02
+  usecase "UC-03\nBrowse the folders" as UC03
+  usecase "UC-04\nOpen a file\nin a tab" as UC04
+  usecase "UC-05\nLook a word up" as UC05
+  usecase "UC-06\nRead a PDF" as UC06
+  usecase "UC-07\nLook at a picture" as UC07
+  usecase "UC-08\nRead a spreadsheet" as UC08
+  usecase "UC-09\nOrganise the library" as UC09
+  usecase "UC-10\nFind a note" as UC10
+  usecase "UC-11\nAdd a folder\nto the reader" as UC11
+  usecase "UC-12\nOpen a file from\noutside the folders" as UC12
+  usecase "UC-13\nSet the reader's\npreferences" as UC13
+}
+
+R -- UC01
+R -- UC02
+R -- UC03
+R -- UC04
+R -- UC05
+R -- UC06
+R -- UC07
+R -- UC08
+R -- UC09
+R -- UC10
+R -- UC11
+R -- UC12
+R -- UC13
+
+B --> UC01 : the tab's address
+B --> UC04 : the frame
+UC05 --> D : the word
+UC02 --> K : the bytes
+UC03 --> K : the names
+UC09 --> K : the change
+@enduml

@@ -1,0 +1,674 @@
+/* The reader's workspace: the folders on the left, the open files along the top and the
+   document in the middle. The chrome is the reader's own — the same light, dark and warm
+   desks the notes are read on — so the window and the page inside it are one thing
+   rather than a frame around a stranger.
+
+   The rules here are for the chrome only. A document brings its own stylesheet: the
+   notes bring mdview.css, and nothing in this file reaches inside an opened file. */
+
+:root {
+  color-scheme: light;
+  --ws-bg: #ffffff;
+  --ws-panel: #fafbfc;
+  --ws-ink: #1b2027;
+  --ws-muted: #5f6a79;
+  --ws-faint: #8b95a3;
+  --ws-line: #e5e8ec;
+  --ws-soft: #f1f3f6;
+  --ws-accent: #0369a1;
+  --ws-accent-soft: rgba(3, 105, 161, 0.09);
+  --ws-shadow: 0 1px 2px rgba(16, 24, 40, 0.05), 0 6px 16px -8px rgba(16, 24, 40, 0.16);
+  --ws-bar: 52px;
+  --ws-side: 302px;
+  --ws-radius: 9px;
+}
+
+/* The dark desk. Declared twice on purpose, as mdview.css does: once for a system in
+   dark mode, once for the reader's own choice. Keep the two in step. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mdview-theme="light"]) {
+    color-scheme: dark;
+    --ws-bg: #0d1117;
+    --ws-panel: #10161d;
+    --ws-ink: #e4e8ee;
+    --ws-muted: #9aa5b4;
+    --ws-faint: #78828f;
+    --ws-line: #242b34;
+    --ws-soft: #171d25;
+    --ws-accent: #58a6ff;
+    --ws-accent-soft: rgba(88, 166, 255, 0.14);
+    --ws-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 16px -8px rgba(0, 0, 0, 0.6);
+  }
+}
+
+:root[data-mdview-theme="dark"] {
+  color-scheme: dark;
+  --ws-bg: #0d1117;
+  --ws-panel: #10161d;
+  --ws-ink: #e4e8ee;
+  --ws-muted: #9aa5b4;
+  --ws-faint: #78828f;
+  --ws-line: #242b34;
+  --ws-soft: #171d25;
+  --ws-accent: #58a6ff;
+  --ws-accent-soft: rgba(88, 166, 255, 0.14);
+  --ws-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 16px -8px rgba(0, 0, 0, 0.6);
+}
+
+/* The warm desk: paper, for reading in the evening. */
+:root[data-mdview-theme="warm"] {
+  color-scheme: light;
+  --ws-bg: #fbf6ec;
+  --ws-panel: #f4ecdd;
+  --ws-ink: #2b2419;
+  --ws-muted: #6b6151;
+  --ws-faint: #8a7f6d;
+  --ws-line: #e5dbc6;
+  --ws-soft: #f0e7d4;
+  --ws-accent: #0969da;
+  --ws-accent-soft: rgba(9, 105, 218, 0.1);
+  --ws-shadow: 0 1px 2px rgba(74, 56, 28, 0.06), 0 6px 16px -8px rgba(74, 56, 28, 0.2);
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--ws-bg);
+  color: var(--ws-ink);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The window: a bar on top, the folders on the left, the document in the middle. */
+.ws {
+  display: grid;
+  grid-template-rows: var(--ws-bar) 1fr;
+  height: 100vh;
+}
+
+.ws-body {
+  display: grid;
+  grid-template-columns: var(--ws-side) 1fr;
+  min-height: 0;
+  transition: grid-template-columns 0.18s ease;
+}
+.ws-body.side-off { grid-template-columns: 0 1fr; }
+.ws-body.side-off .ws-side { opacity: 0; pointer-events: none; }
+
+/* ── The bar ─────────────────────────────────────────────────────────────── */
+
+.ws-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px 0 14px;
+  background: var(--ws-panel);
+  border-bottom: 1px solid var(--ws-line);
+  min-width: 0;
+}
+
+.ws-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ws-ink);
+  padding-right: 6px;
+  flex: 0 0 auto;
+  user-select: none;
+}
+.ws-brand .mark {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: var(--ws-accent);
+  color: #fff;
+  font: 700 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* The tabs. The open files sit along the top, the way an editor keeps them: each one
+   says which file it is, and the one being read is the only one with a card behind it. */
+.ws-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 6px 0;
+}
+.ws-tabs::-webkit-scrollbar { height: 0; }
+
+.ws-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  max-width: 240px;
+  height: 34px;
+  padding: 0 7px 0 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ws-muted);
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.ws-tab:hover { background: var(--ws-soft); color: var(--ws-ink); }
+.ws-tab.on {
+  background: var(--ws-bg);
+  border-color: var(--ws-line);
+  color: var(--ws-ink);
+  font-weight: 550;
+  box-shadow: var(--ws-shadow);
+}
+.ws-tab .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ws-tab .x {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--ws-faint);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s ease, background 0.12s ease, color 0.12s ease;
+}
+.ws-tab:hover .x, .ws-tab.on .x { opacity: 1; }
+.ws-tab .x:hover { background: var(--ws-soft); color: var(--ws-ink); }
+
+.ws-add {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ws-muted);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.ws-add:hover { background: var(--ws-soft); color: var(--ws-ink); }
+
+/* ── The buttons on the right of the bar ────────────────────────────────── */
+
+.ws-actions { display: flex; align-items: center; gap: 4px; flex: 0 0 auto; }
+
+.ws-btn {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ws-muted);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.ws-btn:hover { background: var(--ws-soft); color: var(--ws-ink); }
+.ws-btn.on { background: var(--ws-bg); border-color: var(--ws-line); color: var(--ws-ink); }
+.ws-btn svg { display: block; }
+
+.ws-pop {
+  position: absolute;
+  right: 10px;
+  top: calc(var(--ws-bar) - 4px);
+  z-index: 40;
+  min-width: 232px;
+  padding: 6px;
+  background: var(--ws-bg);
+  border: 1px solid var(--ws-line);
+  border-radius: 12px;
+  box-shadow: var(--ws-shadow);
+}
+.ws-pop h3 {
+  margin: 6px 8px 4px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ws-faint);
+}
+.ws-pop hr { border: 0; border-top: 1px solid var(--ws-line); margin: 6px 4px; }
+.ws-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ws-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.ws-menu-item:hover { background: var(--ws-soft); }
+.ws-menu-item .path {
+  display: block;
+  font-size: 11.5px;
+  color: var(--ws-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ws-menu-item.on { background: var(--ws-accent-soft); color: var(--ws-accent); }
+
+/* The settings the library holds, reused here: the same panel, the same keys. */
+.ws-pop .panel {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0 8px 4px;
+  margin: 0;
+}
+.ws-pop .panel .row { padding: 7px 0; }
+.ws-pop .panel .note { padding: 6px 0 2px; }
+.ws-pop select { max-width: 140px; }
+
+/* ── The folders on the left ────────────────────────────────────────────── */
+
+.ws-side {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  min-height: 0;
+  background: var(--ws-panel);
+  border-right: 1px solid var(--ws-line);
+  transition: opacity 0.15s ease;
+  overflow: hidden;
+}
+
+.ws-side-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 12px 8px;
+  min-width: 0;
+}
+.ws-side-head .btn { flex: 0 0 auto; }
+.ws-root {
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--ws-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+/* The folder's name is also the way to point the tree somewhere else. */
+.ws-root-name {
+  display: block;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ws-root-name:hover { color: var(--ws-accent); }
+.ws-root .where {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ws-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  direction: rtl;
+  text-align: left;
+}
+
+.ws-search {
+  position: relative;
+  margin: 0 12px 10px;
+}
+.ws-search svg {
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ws-faint);
+  pointer-events: none;
+}
+.ws-search input {
+  width: 100%;
+  height: 32px;
+  padding: 0 30px 0 30px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--ws-soft);
+  color: var(--ws-ink);
+  font: inherit;
+  outline: none;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+.ws-search input::placeholder { color: var(--ws-faint); }
+.ws-search input:focus {
+  border-color: var(--ws-accent);
+  background: var(--ws-bg);
+}
+/* The funnel: the rest of the filter. */
+.ws-more-btn {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ws-faint);
+  cursor: pointer;
+}
+.ws-more-btn:hover, .ws-more-btn[aria-expanded="true"] { background: var(--ws-panel); color: var(--ws-accent); }
+/* The rest of the filter: extension, size, when. Said with controls, not with words. */
+.ws-more {
+  padding: 0 12px 12px;
+  display: grid;
+  gap: 7px;
+}
+.ws-field {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  align-items: center;
+  gap: 8px;
+}
+.ws-field > span {
+  color: var(--ws-muted);
+  font-size: 11.5px;
+}
+.ws-field select {
+  width: 100%;
+  height: 28px;
+  padding: 0 6px;
+  border: 1px solid var(--ws-line);
+  border-radius: 7px;
+  background: var(--ws-bg);
+  color: var(--ws-ink);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.ws-field select:focus { border-color: var(--ws-accent); outline: none; }
+.ws-clear {
+  justify-self: start;
+  margin-top: 2px;
+  padding: 4px 9px;
+  border: 1px solid var(--ws-line);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--ws-muted);
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+.ws-clear:hover { color: var(--ws-ink); border-color: var(--ws-accent); }
+
+/* The kinds of file the tree shows: all of them, or one at a time. Folders are never
+   filtered out — they are the way to the files. */
+.ws-kinds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  padding: 0 12px 10px;
+}
+.ws-chip {
+  font: inherit;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: .03em;
+  padding: 3px 5px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--ws-soft);
+  color: var(--ws-muted);
+  cursor: pointer;
+  transition: background .12s ease, color .12s ease, border-color .12s ease;
+}
+.ws-chip:hover { color: var(--ws-ink); border-color: var(--ws-line); }
+.ws-chip.on { background: var(--ws-accent-soft); border-color: var(--ws-accent); color: var(--ws-accent); }
+
+.ws-tree {
+  overflow-y: auto;
+  padding: 0 6px 20px;
+  min-height: 0;
+}
+
+.ws-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: 28px;
+  padding: 0 8px 0 0;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--ws-muted);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ws-row:hover { background: var(--ws-soft); color: var(--ws-ink); }
+.ws-row.on { background: var(--ws-accent-soft); color: var(--ws-accent); }
+.ws-row.open .name { color: var(--ws-ink); font-weight: 550; }
+.ws-row.open.on .name { color: var(--ws-accent); }
+.ws-row .chev {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  color: var(--ws-faint);
+  transition: transform 0.14s ease;
+}
+.ws-row .chev.open { transform: rotate(90deg); }
+.ws-row .chev.leaf { visibility: hidden; }
+.ws-row .ico { flex: 0 0 auto; display: grid; place-items: center; width: 16px; color: currentColor; opacity: 0.85; }
+.ws-row .name { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.ws-row.dir .name { color: var(--ws-ink); }
+
+/* The three dots on a folder's row: the things one can do with that folder. */
+.ws-row .dots {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 20px;
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--ws-faint);
+  font: 700 13px/1 system-ui, sans-serif;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .12s ease, background .12s ease, color .12s ease;
+}
+.ws-row:hover .dots, .ws-row .dots:focus-visible { opacity: 1; }
+.ws-row .dots:hover { background: var(--ws-soft); color: var(--ws-ink); }
+
+/* The menu that comes out of those dots. */
+.ws-menu {
+  position: fixed;
+  z-index: 60;
+  min-width: 214px;
+  padding: 5px;
+  background: var(--ws-bg);
+  border: 1px solid var(--ws-line);
+  border-radius: 11px;
+  box-shadow: var(--ws-shadow);
+}
+.ws-menu .ws-menu-item { justify-content: flex-start; }
+
+/* The way up: the folder above the one the tree is showing. */
+.ws-row.up { color: var(--ws-faint); }
+.ws-row.up .name { color: var(--ws-muted); font-style: italic; }
+.ws-row.up:hover .name { color: var(--ws-ink); }
+
+.ws-glyph {
+  font: 700 9.5px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0;
+}
+.ws-glyph.md { color: var(--ws-accent); }
+.ws-glyph.html { color: #b06a1c; }
+.ws-glyph.pdf { color: #b3392f; }
+.ws-glyph.sheet { color: #2c7a4b; }
+
+.ws-note {
+  padding: 10px 14px;
+  color: var(--ws-faint);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+/* ── The document ───────────────────────────────────────────────────────── */
+
+.ws-main {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  background: var(--ws-bg);
+}
+.ws-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--ws-bg);
+}
+
+.ws-empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 4px;
+  text-align: center;
+  color: var(--ws-muted);
+}
+.ws-empty .glyph {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 10px;
+  border-radius: 14px;
+  background: var(--ws-soft);
+  color: var(--ws-faint);
+}
+.ws-empty h2 { margin: 0; font-size: 16px; font-weight: 600; color: var(--ws-ink); text-transform: none; letter-spacing: 0; }
+.ws-empty p { margin: 0; font-size: 13.5px; color: var(--ws-faint); }
+
+/* A file that cannot be drawn — a binary one, or a kind the reader has no engine for —
+   says so in the middle of the pane rather than showing nothing at all. */
+.ws-nothing {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 6px;
+  text-align: center;
+  padding: 24px;
+}
+.ws-nothing h2 { margin: 0; font-size: 15px; font-weight: 600; }
+.ws-nothing p { margin: 0; max-width: 42ch; color: var(--ws-muted); font-size: 13.5px; }
+.ws-nothing a { color: var(--ws-accent); }
+
+/* The window's own dialogs: the folder to add, and what went wrong with it. */
+.ws-dialog {
+  width: min(440px, calc(100vw - 32px));
+  padding: 0;
+  border: 1px solid var(--ws-line);
+  border-radius: 14px;
+  background: var(--ws-bg);
+  color: var(--ws-ink);
+  box-shadow: 0 18px 48px -20px rgba(16, 24, 40, 0.45);
+}
+.ws-dialog::backdrop { background: rgba(15, 23, 42, 0.28); }
+.ws-dialog form { padding: 20px 22px 16px; }
+.ws-dialog h2 { margin: 0 0 4px; font-size: 15px; font-weight: 650; text-transform: none; letter-spacing: 0; }
+.ws-dialog .note { margin: 0 0 14px; color: var(--ws-muted); font-size: 12.5px; line-height: 1.5; }
+.ws-dialog input {
+  width: 100%;
+  height: 36px;
+  padding: 0 11px;
+  border: 1px solid var(--ws-line);
+  border-radius: 9px;
+  background: var(--ws-soft);
+  color: var(--ws-ink);
+  font: 13px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  outline: none;
+}
+.ws-dialog input:focus { border-color: var(--ws-accent); background: var(--ws-bg); }
+.ws-dialog .bad { margin: 9px 0 0; color: #b42318; font-size: 12.5px; }
+.ws-dialog menu { display: flex; justify-content: flex-end; gap: 8px; margin: 16px 0 0; padding: 0; }
+.ws-dialog menu button {
+  font: inherit;
+  font-size: 13px;
+  padding: 7px 14px;
+  border: 1px solid var(--ws-line);
+  border-radius: 9px;
+  background: var(--ws-bg);
+  color: var(--ws-ink);
+  cursor: pointer;
+}
+.ws-dialog menu button:hover { border-color: var(--ws-accent); }
+.ws-dialog menu button#ws-folder-go { background: var(--ws-accent); border-color: var(--ws-accent); color: #fff; font-weight: 600; }
+.ws-dialog menu button#ws-folder-go:hover { filter: brightness(1.06); }
+/* Whichever of the two was asked for is the one that carries the colour. */
+.ws-dialog.prefer-add #ws-folder-add { background: var(--ws-accent); border-color: var(--ws-accent); color: #fff; font-weight: 600; }
+.ws-dialog.prefer-add #ws-folder-add:hover { filter: brightness(1.06); }
+.ws-dialog.prefer-add #ws-folder-go { background: var(--ws-bg); border-color: var(--ws-line); color: var(--ws-ink); font-weight: inherit; }
+
+/* ── Keyboard and small screens ─────────────────────────────────────────── */
+
+:focus-visible { outline: 2px solid var(--ws-accent); outline-offset: 1px; border-radius: 6px; }
+
+@media (max-width: 720px) {
+  .ws-body { grid-template-columns: 0 1fr; }
+  .ws-body.side-on { grid-template-columns: min(78vw, var(--ws-side)) 1fr; }
+  .ws-body:not(.side-on) .ws-side { opacity: 0; pointer-events: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

@@ -1,0 +1,3320 @@
+/* mdview — reading styles for local .md files.
+ *
+ * Structure: tokens -> page shell -> typography -> inline -> lists -> tables ->
+ * quotes/breaks -> code -> frontmatter -> allowlisted HTML -> media queries.
+ * Everything is scoped under .mdview, the wrapper the content script mounts.
+ */
+
+/* --------------------------------------------------------------- tokens -- */
+
+/* :root, not .mdview — `body` below needs --bg to paint the page itself. */
+:root {
+  /* The furniture the browser draws itself — the scrollbar, the task-list
+     checkboxes, the `details` triangle — follows the palette. Without this it
+     keeps the operating system's light colours, and a light scrollbar on a dark
+     page is the single brightest thing on the screen, running the full height of
+     the document. `light`/`dark` rather than `light dark`: mdview chooses the
+     palette, so the page and the browser must not disagree about it. */
+  color-scheme: light;
+  /* typography (override these to change the reading feel) */
+  --md-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --md-font-body: var(--md-font);
+  --md-font-head: var(--md-font);
+  /* The reading face, for the reader who asks for one (the Type control in the
+     bar). Noto Serif first because it is the one face here that both engines
+     agree on — Chrome does not match "Bitstream Charter" by that name, so
+     leading with Charter would show one face in the Firefox extension and a
+     different one in any Chromium preview of the same file, which is exactly the
+     kind of difference that costs an hour of arguing about a screenshot. Behind
+     it: Charter (drawn for screens, sturdy serifs, the same face under two
+     names), then the text faces a desktop is most likely to have, in the order
+     they are worth having. Every one of them is a *text* face with a real
+     italic, so the chain only ever lands on something meant to be read at
+     length. */
+  --md-font-serif: "Noto Serif", "Bitstream Charter", Charter, "Iowan Old Style",
+    "Source Serif 4", "Source Serif Pro", Georgia, "TeX Gyre Schola",
+    "Palatino Linotype", "Book Antiqua", "Liberation Serif", "DejaVu Serif", serif;
+  /* Metrics that belong to the face rather than to the layout, so the two can
+     be set independently: a serif is set a touch larger (its x-height reads
+     smaller at the same `font-size`) and a touch looser (its shorter ascenders
+     and serifs close the line gap up), and inline code grows with it, because
+     0.855em of a mono face beside a serif reads smaller than beside a sans. */
+  --type-size: 1;
+  --type-leading: 1.62;
+  /* the height of a bar the page is shown under (the reader's own), 0 when none */
+  --reader-bar: 0px;
+  --code-size: 0.855em;
+  /* The page's type size, in one place. The two pills fixed to the corners of the
+     window live outside `.mdview`, so they cannot reach the page's `em` or the
+     face's `--type-size` correction; they carried their own px sizes and were the
+     only chrome that did not follow the reader's Type control. Both now come off
+     this number, and so does the page's own font-size. */
+  --type-base: clamp(16px, 15.1px + 0.2vw, 18px);
+  --ui-size: calc(var(--type-base) * var(--type-size));
+  /* The heading ladder, named. The values are the ones the rules below already
+     used, so this is the same page; it is only that a level's size is now one
+     place to change instead of a number buried in that level's own rule. Like
+     every other type token it is theme-independent, so it lives here once and
+     not in the dark or warm blocks. */
+  --h1-size: 1.95em;
+  --h2-size: calc(var(--ui-size) * 1.45);
+  --h3-size: calc(var(--ui-size) * 1.2);
+  --h4-size: 1em;
+  --h5-size: 0.9em;
+  --h6-size: 0.86em;
+  --md-font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", "Cascadia Code",
+    Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* palette — light. The dark block below re-declares the same names. */
+  --bg: #f4f4f4;
+  --ink: #1a1a1a;
+  --muted: #555555;
+  --faint: #666666;
+  --line: #e2e2e2;
+  --line-strong: #c8c8c8;
+  --card: #ffffff;
+  --fence: #f6f6f6;
+  /* The one token the reader page itself never uses: the popup's help box takes
+     its fill from here, so a dark or warm reader gets that box in the room's own
+     colour rather than a white card. */
+  --zebra: #fafafa;
+  /* the row under the pointer, one step past the zebra so the two read as the
+     same gesture at two strengths rather than as two different greys */
+  --rowof: #efefef;
+  --codebg: #f0f0f0;
+  --thbg: #f2f2f2;
+  --accent: #0969da;
+  --accenttint: rgba(9, 105, 218, 0.08);
+  --accentline: rgba(9, 105, 218, 0.3);
+  /* What the reader's own drag paints. Selection is an act — the sentence is
+     about to be copied, quoted, kept — and the ambient wash (8%, what a
+     targeted heading and a hovered control get) measured 1.12:1 against the
+     page: a mark the reader cannot see. One step up, and derived from
+     `--accent` rather than restated, so one declaration holds in both palettes
+     and the selection can never disagree with the accent it belongs to. */
+  --select-bg: color-mix(in srgb, var(--accent) 20%, transparent);
+
+  /* The semantic set: five meanings, one colour each — and a value per palette
+     rather than one value shared between them. The 3px rule and the small-caps
+     label are the same colour, and the label is *text*, so each is held to
+     4.5:1 against its own 11% wash (the callout rules below). The mid-tones
+     these replace were measured only on the dark page (1.5.1); on the light
+     page they came out at 2.26:1 (warning), 2.64 (tip), 3.23 (caution), 3.69
+     (important) — and a warning label that has to be squinted at is a warning
+     the reader misses. Hue says what kind of note it is, temperature says how
+     urgent: the two cool notes inform, the two warm ones warn. */
+  --callout-note: var(--accent);
+  --callout-tip: #2a795d;
+  --callout-important: #7a45f5;
+  --callout-warning: #8a6416;
+  --callout-caution: #cd271e;
+
+  --mark-bg: #fde68a;
+  --mark-ink: #422006;
+  --rule: rgba(0, 0, 0, 0.07);
+  --scrollfade: rgba(0, 0, 0, 0.13);
+
+  /* shape + rhythm */
+  --radius: 10px;
+  --radius-sm: 6px;
+  /* the small washes and boxes — a `mark`, a targeted heading, a task checkbox,
+     a focus ring. Four literals (3px, 4px, 5px) were doing this one job. */
+  --radius-xs: 4px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  /* The level above `--shadow`: a control that has left the page and is covering
+     what is under it — the two pills fixed to the corners of the window. One
+     value, because they are the same control in two corners, and because a 1px
+     resting shadow vanishes completely against text that is moving past it.
+     `--shadow` is for surfaces and for things that are physically standing off
+     the page (a card, the page itself, a key cap); a control sitting on a
+     surface carries only its hairline. */
+  --float-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 12px 28px -18px rgba(0, 0, 0, 0.45);
+  /* and the height the two of them agree on: the round one is this square, the
+     text one is this tall */
+  --float-h: calc(var(--ui-size) * 1.9);
+  /* The page surface's own shadow, as a token, so the sheet has one definition
+     wherever it is drawn — the text column, or the wider page that carries the
+     outline in its margin — and the dark palettes only override a value. */
+  --page-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 24px 48px -32px rgba(0, 0, 0, 0.35);
+
+  /* Layout. The page is fluid: it fills the window the way a hosted markdown
+     file does, and only a cap keeps a line from growing past what an eye can
+     sweep back from. The reading measure is a mode the reader opts into from the
+     header (see the `data-mdview-width` rules after this block), not the shape
+     of the page — as the default it left a 646px column in a 1440px window,
+     which is a phone layout on a desktop.
+
+       --read-measure  the reading measure: 62ch, ~75 characters, a book column
+       --measure-cap   how far the fluid column may grow — 74rem (≈1180px of
+                       text), about what a code host gives a README
+
+     62ch, not 68: `ch` is the width of a zero, and a zero is wider than the
+     average character, so 68ch of prose measured 90 characters a line in the
+     documents this was built for — a web measure, not a reading one. The cap is
+     in `rem`, so it does not move with the font; the reading measure is in `ch`,
+     so it does, and it is the one thing here that depends on the body's type.
+
+     --bleed is how far the blocks where width actually helps — code, tables,
+     diagrams — may reach into the margin on a wide window. It belongs to the
+     narrow reading column, where the column is the thing that is too small; in
+     the fluid page those blocks already have the whole page. */
+  --read-measure: 62ch;
+  --measure-cap: 74rem;
+  /* the text column's width: the one knob the width modes turn */
+  --measure: var(--measure-cap);
+  --bleed: 0px;
+  /* The space between blocks is one scale, in `em` of the body text. It used to
+     be a per-block number — 1.15 for a paragraph, 1.3 under a table, 1.35 under
+     a code block, 1.5 around a diagram — and nothing but the author could see
+     where each came from. A page with four near-misses in its rhythm reads as
+     uneven even when no single gap is wrong, so the flow takes one step:
+       --rhythm       blocks in the flow: paragraph, list, quote, table, code
+       --rhythm-rule  around a thematic break, which is a section, not a block
+     A boxed block deliberately gets no extra room for being boxed: it already
+     carries a border, and its own padding stands its text further from the box
+     than the box stands from the paragraph beside it.
+
+     One body-`em`: the density of the tool a markdown file is usually written
+     next to (a code host, a wiki) rather than the density of a printed page.
+     What these documents are is notes — read down and scanned, not read
+     end-to-end the way a chapter is — and the airier setting made a screen's
+     worth of them fit about two thirds as much text. */
+  --rhythm: 1em;
+  --rhythm-rule: 1.6em;
+  /* the document panel: how much air the page surface gives its content, and
+     the shape of that surface (wide windows only — see "page surface" below) */
+  --page-pad: clamp(28px, 3.2vw, 48px);
+  --page-pad-x: clamp(26px, 3vw, 52px);
+  --page-radius: 16px;
+  /* How wide the term column of a definition list may get. The column is the
+     longest term in the document — one shared width, so every description in the
+     file starts at the same x — and one label that is really a sentence then sets
+     that width for every row. `0x61694f` is the case: 66 terms, a median of
+     5.4em, and one at 14.4em (`How it relates to earlier terms:`), which pushed
+     the descriptions 260px right of the terms on all 66 rows. Past this cap the
+     stray label wraps inside its own cell: one row gets taller, the columns stay
+     aligned, and the other 65 rows keep their space. */
+  --def-term-cap: 10em;
+  --pad-y: clamp(28px, 3.6vw, 56px);
+  --pad-x: clamp(20px, 5vw, 56px);
+  --check-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.4 8.6l3 3 6.2-6.4'/%3E%3C/svg%3E");
+}
+
+/* The reader's width, cycled from the header and remembered (`mdview:width`).
+   `narrow` is the default: the reading measure. `fluid` fills the window up to
+   --measure-cap, and `narrow` is for reading a
+   document end to end — the wide-screen apparatus below (the bleed, the extra
+   air) is tuned for it. `full` lifts the cap: the column becomes the window,
+   which is what to read a document beside the thing it came from. */
+:root[data-mdview-width="narrow"] {
+  --measure: var(--read-measure);
+}
+
+/* 200rem is "no cap" that is still a length: `--page-w` has to stay computable
+   as a length (see below) and no screen is 3200px of text. */
+:root[data-mdview-width="full"] {
+  --measure: 200rem;
+}
+
+/* The reader's face, cycled from the header and remembered (`mdview:font`). Sans
+   is the default and the absence of the attribute: the face of the tool these
+   notes are written next to. Serif is the same page set as a book, for the
+   reader who wants the document to look like one — and it is a *feature* choice
+   rather than a taste one, because it changes the measurements: a text face at
+   the same `font-size` reads smaller and sits tighter, so the size steps up a
+   little, the leading opens a little, and inline code grows with them. The
+   headings follow the body face, and lose some of the optical tightening a
+   grotesque needs at display sizes (a serif is already tight).
+
+   Charter, Schola and Palatino all have real italics and old-style capitals, so
+   nothing here is synthesised — which matters more than it sounds: a faux
+   italic on a 150-character line is the one thing that always looks wrong. */
+:root[data-mdview-font="serif"] {
+  --md-font-body: var(--md-font-serif);
+  --md-font-head: var(--md-font-serif);
+  --type-size: 1.02;
+  --type-leading: 1.66;
+  --code-size: 0.89em;
+}
+
+:root[data-mdview-font="serif"] .mdview h1 {
+  letter-spacing: -0.012em;
+}
+
+:root[data-mdview-font="serif"] .mdview h2 {
+  letter-spacing: 0;
+}
+
+/* `--page-w` is the page's total width, and it has to mean one thing everywhere
+   that uses it: the app bar mirrors the page's geometry, and the bar's font is
+   smaller than the body's, so the reading measure's `62ch` inside it resolved to
+   a narrower width on the bar than on the page — a `ch` follows the font of
+   whichever element consumes the value, not the one that declared it. Registering
+   it as a <length> makes it compute once, where the page's font applies, and
+   inherit as a length. Without `@property` support the bar's contents sit
+   off-centre by the width of the measure's font difference and nothing else
+   changes. (The fluid and full modes would not notice: `rem` does not follow the
+   font. It is the reading measure that needs this.) */
+@property --page-w {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+/* Dark palette. Declared twice on purpose: once for "follow the system" and once
+   for an explicit choice from the masthead toggle. Keep the two in sync. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mdview-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0d1117;
+    --ink: #e4e8ee;
+    --muted: #9aa5b4;
+    --faint: #808b9a;
+    --line: #30363d;
+    --line-strong: #30363d;
+    --card: #161b22;
+    --fence: #161b22;
+    --zebra: #12161c;
+    --rowof: #1e2631;
+    --codebg: #161b22;
+    --thbg: #161b22;
+    --accent: #58a6ff;
+    --accenttint: rgba(88, 166, 255, 0.13);
+    --accentline: rgba(88, 166, 255, 0.38);
+    /* `note` follows the accent above; these four are the semantic set's dark
+       values, each measured to the same 4.5:1 bar as the light ones */
+    --callout-tip: #3aa981;
+    --callout-important: #9c74f7;
+    --callout-warning: #d29922;
+    --callout-caution: #e75d55;
+    --mark-bg: #4a3a12;
+    --mark-ink: #fde68a;
+    --rule: rgba(255, 255, 255, 0.05);
+    --scrollfade: rgba(0, 0, 0, 0.55);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --page-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 24px 48px -30px rgba(0, 0, 0, 0.6);
+    --float-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 28px -18px rgba(0, 0, 0, 0.75);
+    --check-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%230f1216' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.4 8.6l3 3 6.2-6.4'/%3E%3C/svg%3E");
+  }
+}
+
+:root[data-mdview-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0d1117;
+  --ink: #e4e8ee;
+  --muted: #9aa5b4;
+  --faint: #808b9a;
+  --line: #30363d;
+  --line-strong: #30363d;
+  --card: #161b22;
+  --fence: #161b22;
+  --zebra: #12161c;
+  --rowof: #1e2631;
+  --codebg: #161b22;
+  --thbg: #161b22;
+  --accent: #58a6ff;
+  --accenttint: rgba(88, 166, 255, 0.13);
+  --accentline: rgba(88, 166, 255, 0.38);
+  /* `note` follows the accent above; these four are the semantic set's dark
+     values, each measured to the same 4.5:1 bar as the light ones */
+  --callout-tip: #3aa981;
+  --callout-important: #9c74f7;
+  --callout-warning: #d29922;
+  --callout-caution: #e75d55;
+  --mark-bg: #4a3a12;
+  --mark-ink: #fde68a;
+  --rule: rgba(255, 255, 255, 0.05);
+  --scrollfade: rgba(0, 0, 0, 0.55);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --page-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 24px 48px -30px rgba(0, 0, 0, 0.6);
+  --float-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 28px -18px rgba(0, 0, 0, 0.75);
+  --check-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%230f1216' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.4 8.6l3 3 6.2-6.4'/%3E%3C/svg%3E");
+}
+
+/* The reader's fourth palette: paper. A warm sheet for long evening sessions —
+   a reading-comfort choice, not a dark mode. It is declared after the dark
+   blocks on purpose: the `prefers-color-scheme` block matches every explicit
+   theme except `light`, so on a dark system this block has to come later in the
+   sheet to win — and it has to restate everything that block declares. Two of
+   those are easy to forget and obvious when forgotten: `color-scheme` (a warm
+   page with dark scrollbars is the one thing this palette must not be) and the
+   checkbox tick, drawn white here because the accent it sits on is dark.
+
+   The values are the light palette's relationships on warm paper rather than
+   the light palette's values: the card is `#fbf6ec`, so everything that is
+   *read* on it — ink, muted, the accent, the four callout colours — was
+   re-measured against it and moved by the step the darker paper costs (muted
+   5.64:1 on the card, the accent 5.11:1 on the card and 4.51:1 on its own wash,
+   the callouts 4.5:1 on theirs). The highlighter is unchanged: a pen is a pen
+   on any paper, and its ink still reads at 11.7:1. */
+:root[data-mdview-theme="warm"] {
+  color-scheme: light;
+  --bg: #f1e9db;
+  --ink: #2b2419;
+  --muted: #6b6151;
+  --faint: #6f6456;
+  --line: #e5dbc6;
+  --line-strong: #cfc2a6;
+  --card: #fbf6ec;
+  --fence: #f3ecdc;
+  --zebra: #f8f2e6;
+  --rowof: #f0e7d4;
+  --codebg: #f2ebdb;
+  --thbg: #f6efdf;
+  --accent: #0969da;
+  --accenttint: rgba(9, 105, 218, 0.09);
+  --accentline: rgba(9, 105, 218, 0.32);
+  --callout-tip: #287458;
+  --callout-important: #733cf5;
+  --callout-warning: #856216;
+  --callout-caution: #c5241c;
+  --mark-bg: #fde68a;
+  --mark-ink: #422006;
+  --rule: rgba(74, 56, 28, 0.08);
+  --scrollfade: rgba(74, 56, 28, 0.16);
+  --shadow: 0 1px 2px rgba(74, 56, 28, 0.06);
+  --page-shadow: 0 1px 2px rgba(74, 56, 28, 0.05), 0 24px 48px -32px rgba(74, 56, 28, 0.4);
+  --float-shadow: 0 1px 2px rgba(74, 56, 28, 0.08), 0 12px 28px -18px rgba(74, 56, 28, 0.5);
+  --check-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.4 8.6l3 3 6.2-6.4'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------- page shell -- */
+
+html {
+  /* Anchors move rather than teleport. A reader who sees the page travel keeps
+     their sense of where the paragraph they left is, and a jump that arrives with
+     no motion reads as a different page — which is why the back-to-top button has
+     scrolled smoothly from the start; this makes following a link do the same.
+     Turned off at the end of the file for readers who asked for less motion. */
+  scroll-behavior: smooth;
+  /* `scrollbar-gutter: stable` was tried here and taken back out. It does stop
+     the page shifting half a scrollbar sideways when the scrollbar appears, but
+     a *reserved* gutter is not part of the containing block a fixed element is
+     sized by, while the body it centres the page in is: on a document too short
+     to scroll the page sat at 77px and the app bar's row at 85px — the bar's
+     contents 7px right of the text column on every short document, to fix a
+     7.5px shift on a rare one. The mirror is the more valuable of the two. */
+}
+
+body {
+  background: var(--bg) !important;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mdview {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: var(--pad-y) var(--pad-x) 30vh;
+  color: var(--ink);
+  font-family: var(--md-font-body);
+  /* fluid: a desktop window gets larger text, not just wider lines — and
+     `--type-size` is the face's own correction on top of that (see the fonts
+     above), so the two decisions stay separate. Both live in `--ui-size`, so the
+     chrome that sits outside this element is sized from the same number. */
+  font-size: var(--ui-size);
+  line-height: var(--type-leading);
+  text-rendering: optimizeLegibility;
+  overflow-wrap: break-word;
+}
+
+/* the reader's own mark — see `--select-bg` in the tokens */
+.mdview ::selection {
+  background: var(--select-bg);
+  color: var(--ink);
+}
+
+.mdview a:focus-visible,
+.mdview summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+/* --------------------------------------------------------- typography -- */
+
+.mdview p {
+  margin: 0 0 var(--rhythm);
+}
+
+/* a run the author marked `***...***` is bold and italic at once; at full weight a
+   whole paragraph of them shouts louder than the title. 600 keeps the emphasis and
+   takes the shout out. */
+.mdview strong em,
+.mdview em strong {
+  font-weight: 600;
+}
+
+/* justified text (the author's `align="justify"`) opens wide gaps between words at a
+   reading measure, and on a phone the gaps are most of the line. The reader sets it
+   flush-left; the `align` stays in the markup, only the justify is set aside. */
+.mdview [align="justify"] {
+  text-align: start;
+}
+
+.mdview h1,
+.mdview h2,
+.mdview h3,
+.mdview h4,
+.mdview h5,
+.mdview h6 {
+  font-family: var(--md-font-head);
+  color: var(--ink);
+  font-weight: 650;
+  line-height: 1.3;
+  /* A heading avoids a one-word last line; a paragraph avoids a lone last word
+     instead (see `p`). Both are progressive: a browser without support simply
+     breaks the line the way it always did. */
+  text-wrap: balance;
+  scroll-margin-top: 1.5rem;
+}
+
+.mdview h1 {
+  font-size: var(--h1-size);
+  font-weight: 700;
+  letter-spacing: -0.026em;
+  margin: 0 0 0.65em;
+}
+
+/* The opening paragraph is a lede — the one editorial signal that says this was
+   written as a document rather than dumped out of a text file — and the hairline
+   under it closes the title block the way a standfirst does in print. A document
+   that goes straight from `#` to `##` simply has no title block to close. */
+.mdview .doc > h1 + p {
+  font-size: 1.075em;
+  line-height: var(--type-leading);
+  /* the standfirst is the first thing read: at full ink it leads, rather than dimming
+     into the page's secondary colour */
+  color: var(--ink);
+  padding-bottom: 1.1em;
+  margin-bottom: 1.35em;
+  border-bottom: 1px solid var(--line);
+}
+
+/* A document that goes straight from its title to a section — `# gait / bear /
+   convenient` then `## Gait`, the shape of a note written to be looked things up
+   in — has no lede, and so no title block: the page opens with one bold line
+   and then a heading, and the two read as siblings. Closing the title with the
+   same hairline the lede gets gives the shape a block of its own, and it is the
+   rule the h2s below already use, so the page gains the rule rather than a new
+   kind of ornament. */
+.mdview .doc > h1:has(+ :is(h2, h3, h4, h5, h6)) {
+  padding-bottom: 0.3em;
+  margin-bottom: 0.7em;
+  border-bottom: 1px solid var(--line);
+}
+/* A blockquote directly under the title is a standfirst — a translation note, a
+   provenance line, the document describing itself — so it closes the title block
+   the way the lede does, instead of reading as a quotation of the first
+   paragraph. A callout is exempt: `> [!NOTE]` keeps its own card. */
+.mdview .doc > h1 + blockquote:not(.callout) {
+  margin: 0 0 1.9em;
+  padding: 0 0 1.35em;
+  border-left: none;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.02em;
+  line-height: var(--type-leading);
+  color: var(--muted);
+}
+
+/* `**Topics and subtopics:**` — a paragraph that is one short bold label with a
+   colon on the end (marked after render in `markLabelParagraphs`). Tracked and
+   quiet, so it names the block it introduces instead of competing with it, and
+   set closer to that block than the paragraph rhythm would put it. */
+.mdview p.label {
+  margin: 1.32em 0 0.5em;
+  font-size: 0.76em;
+  font-weight: 640;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.mdview p.label > strong {
+  font-weight: inherit;
+}
+/* under a heading the heading has already done the spacing */
+.mdview :is(h1, h2, h3, h4, h5, h6) + p.label {
+  margin-top: 0.9em;
+}
+.mdview p.label:first-child {
+  margin-top: 0;
+}
+.mdview p.label + :is(ul, ol, p) {
+  margin-top: 0;
+}
+
+/* The transcriber's bracket — `[Illegible… omitted.]` — is a hole in the source
+   rather than a sentence in the argument, so it is set as one. */
+.mdview p.gap {
+  font-size: 0.95em;
+  font-style: italic;
+  color: var(--faint);
+}
+
+/* A definition and an illustration of it are not the same kind of thing, and in
+   one ink the reader has to read both to find out which is which — which is the
+   cost of a glossary, where the illustrations outnumber the terms. The writer
+   has already drawn the boundary, with the word `Example:` (marked after render
+   in `markExamples`), so the illustration steps back to the muted ink the notes
+   are already set in, and the definition keeps the ink it is being read for.
+   One step, on the text only: the marker, the size and the leading are what the
+   list is, and moving them would make the line look broken rather than quiet. */
+.mdview .eg {
+  color: var(--muted);
+}
+/* An item that is only the signpost and then a list is *introducing* that list,
+   not illustrating anything, and the cases under it are what the entry is for —
+   so the signpost steps back and the list keeps the ink. */
+.mdview li.eg > :is(ul, ol) {
+  color: var(--ink);
+}
+
+/* The heading ladder, in body-`em` rather than in each heading's own size —
+   which is what the numbers below are chosen for and why they look strange. A
+   heading set 1.6 body-`em` above itself is 27px at 18px type, near enough to
+   the 24px every wiki and code host uses; expressed in the heading's own `em`
+   that is `1.6 / 1.38`, hence `1.16em`. Before this the same value was `2.1em`,
+   52px, and a document's sections sat twice as far apart as the same document
+   rendered anywhere else. Below each heading is 0.85 body-`em`, so a heading
+   stays closer to the text it introduces than two paragraphs are to each other. */
+.mdview h2 {
+  /* a multiple of the page's own type size, not of the heading's parent (which is smaller
+     than the paragraph and made the ratio drift): 1.45 of the paragraph */
+  font-size: var(--h2-size);
+  letter-spacing: -0.012em;
+  margin: 1.16em 0 0.62em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--accentline);
+  color: var(--accent);
+}
+.mdview h3 {
+  /* 1.2 of the paragraph (was barely above it): a page of level-three heads read as one
+     flat list at the old size */
+  font-size: var(--h3-size);
+  margin: 1.33em 0 0.71em;
+  color: var(--accent);
+  font-weight: 650;
+}
+/* A subtitle right under its heading (the `## TITLE` / `### subtitle` pair in the
+   handouts) reads as one heading, so it sits close to the one above it. */
+.mdview h2 + h3 {
+  margin-top: 0.35em;
+}
+.mdview h4 {
+  font-size: var(--h4-size);
+  margin: 1.4em 0 0.7em;
+}
+.mdview h5 {
+  font-size: var(--h5-size);
+  margin: 1.44em 0 0.72em;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+.mdview h6 {
+  font-size: var(--h6-size);
+  margin: 1.4em 0 0.7em;
+  color: var(--muted);
+}
+
+/* Two headings in a row are a hierarchy, not two sections, and the air between
+   them was the air of the latter. The whole heading rhythm is built for a
+   heading with text under it; when the writer used one as a label — `## Page 4`
+   over `# Introduction`, an h2 over its h3s — the page was spending 23px of
+   separation and a hairline on nothing between them. Both classes are added
+   after render by `markBareHeadings()`; the selectors are kept here so the
+   difference between a label and a section is a typesetting decision. */
+.mdview :is(h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6) {
+  margin-top: 0.45em;
+}
+
+.mdview :is(h2, h3, h4, h5, h6).is-bare {
+  margin-bottom: 0.35em;
+}
+
+/* A heading that closes nothing loses the rule it would close with */
+.mdview :is(h2, h3, h4, h5, h6).is-marker {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.mdview .doc > :first-child {
+  margin-top: 0;
+}
+.mdview .doc > :last-child {
+  margin-bottom: 0;
+}
+
+/* a heading reached by #anchor gets a soft highlight, without shifting layout */
+/* The place the reader just arrived at — a link followed, a shared section
+   opened, the resume pill taken. Not `:target`: the browser resolves the
+   fragment while the document loads, before `decorate()` has made the headings,
+   so in Chromium the first one matches nothing at all, and in Firefox it can be
+   left pointing at a section the reader has already passed. `land()` puts this
+   mark on by hand — on load and on every in-page jump — and takes it off on a
+   timer, because a mark that outlives the moment it announces stops meaning
+   "you are here" and starts meaning "this row is selected".
+
+   The wash is the mark; the 3px bar is drawn *outside* the heading's box, in the
+   margin the `#` anchor does not use, so its arrival shifts no text. The heading
+   keeps its own rule: the old style turned that hairline off for the duration,
+   which left the section head looking unfinished at the one moment the reader
+   was looking straight at it. And there is no halo — 0.35em of bleed turned a
+   heading into a full-measure slab that read as a selected row and pushed its
+   left edge out past the column the rest of the page is set on. */
+.mdview .is-landed {
+  background-color: var(--accenttint);
+  box-shadow: -3px 0 0 var(--accent);
+  border-radius: var(--radius-xs);
+}
+
+/* A landing rather than a location: it holds, then fades, and the class comes
+   off with the fade's own clock. Where the reader asked for less motion the wash
+   is simply there and then simply gone — a fade is motion, a highlight is not. */
+@media (prefers-reduced-motion: no-preference) {
+  .mdview .is-landed {
+    animation: mdview-land 2.6s ease-out forwards;
+  }
+}
+
+@keyframes mdview-land {
+  0%,
+  45% {
+    background-color: var(--accenttint);
+    box-shadow: -3px 0 0 var(--accent);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: -3px 0 0 transparent;
+  }
+}
+
+/* A thematic break, drawn the way every markdown renderer draws it: a rule
+   across the text.
+
+   It was three dots — a scene break, quieter than a line, chosen so a document
+   that uses `---` between every section wouldn't stack rules. It read as a
+   fragging fault instead: `---` in the source and nothing recognisable in the
+   output. A break nobody can see is not a quieter break, it is a missing one, and
+   the space around it is then just space. The air is `--rhythm-rule`, under two
+   body blocks: a break is a pause in the text, not a new chapter. */
+.mdview hr {
+  border: none;
+  height: 0.25em;
+  margin: var(--rhythm-rule) 0;
+  background: var(--line-strong);
+}
+
+/* The break announces the section, so a heading directly under it does not
+   announce it a second time. Without this the heading's own opening margin —
+   larger than the break's on purpose, since a heading opens a section
+   everywhere else in the document — wins the collapse against the break and
+   pushes the rule off centre. */
+.mdview hr + :is(h2, h3, h4, h5, h6) {
+  margin-top: 0;
+}
+
+/* --------------------------------------------------------------- inline -- */
+
+.mdview strong {
+  font-weight: 640;
+}
+
+.mdview em {
+  font-style: italic;
+  color: inherit;
+}
+
+.mdview a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accentline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color 120ms ease, color 120ms ease;
+}
+
+.mdview a:hover {
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1.5px;
+}
+
+.mdview del {
+  color: var(--faint);
+  text-decoration-thickness: 1px;
+}
+
+.mdview code {
+  font-family: var(--md-font-mono);
+  font-size: var(--code-size);
+  font-variant-ligatures: none;
+  background: var(--codebg);
+  color: var(--ink);
+  padding: 0.15em 0.38em;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  white-space: break-spaces;
+}
+
+.mdview img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--rule);
+  background: var(--card);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 10px 28px -14px rgba(15, 23, 42, 0.22);
+}
+
+/* a paragraph that is only an image reads better centred */
+.mdview p > img:only-child {
+  display: block;
+  margin: var(--rhythm) auto;
+}
+
+/* Pictures as figures (see `markFigures()` in mdview.js). A run of them is a grid
+   that fills the column; a lone one is centred at its own size. Each caption is
+   numbered by CSS, and only a figure with a caption takes a number, so the sequence
+   the reader sees has no gaps. */
+.mdview {
+  counter-reset: fig;
+}
+.mdview .figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: 18px 16px;
+  /* the same rhythm as the text around it, so a picture is not spaced differently
+     from a paragraph */
+  margin: var(--rhythm) 0;
+}
+.mdview .figures.single {
+  display: block;
+}
+.mdview figure.pic {
+  margin: 0;
+  min-width: 0;
+}
+.mdview .figures.single figure.pic {
+  margin: 0 auto;
+  max-width: 100%;
+  text-align: center;
+}
+.mdview figure.pic img {
+  display: block;
+  /* a tall picture (a portrait slide, a phone screen) is limited by the window's height,
+     not only by the column's width, so one picture cannot fill several screens */
+  width: auto;
+  max-width: 100%;
+  max-height: min(70vh, 720px);
+  margin: 0 auto;
+  cursor: zoom-in;
+}
+.mdview .figures.single figure.pic img {
+  width: auto;
+  max-width: 100%;
+  max-height: min(78vh, 900px);
+  margin: 0 auto;
+}
+.mdview figure.pic:has(> figcaption) {
+  counter-increment: fig;
+}
+
+/* On paper a figure stays whole, and the reader's own controls do not print. */
+@media print {
+  .mdview figure.pic,
+  .mdview img {
+    break-inside: avoid;
+  }
+  .mdview .fold,
+  .mdview .anchor,
+  .mdview .copy,
+  .mdview-zoom-step {
+    display: none !important;
+  }
+}
+.mdview figure.pic figcaption {
+  margin-top: 0.5em;
+  font-size: 0.84em;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.mdview figure.pic figcaption::before {
+  content: "Fig. " counter(fig) " · ";
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- lists -- */
+
+.mdview ul,
+.mdview ol {
+  margin: 0 0 var(--rhythm);
+  padding-left: 1.45em;
+}
+
+.mdview ul {
+  list-style: disc;
+}
+.mdview ul ul {
+  list-style: circle;
+}
+.mdview ul ul ul {
+  list-style: square;
+}
+
+.mdview li {
+  margin-top: 0.3em;
+}
+.mdview li:first-child {
+  margin-top: 0;
+}
+.mdview li::marker {
+  color: var(--faint);
+}
+.mdview ol > li::marker {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.92em;
+  color: var(--accent);
+  font-weight: 650;
+}
+
+/* Depth reads off the marker. `1.` inside `a.` inside `i.` is how a printed
+   outline has numbered itself for a century, and it means the depth of a list is
+   legible from the marker alone instead of by counting indents — which is the
+   only other thing indentation is telling you. Most renderers leave every level
+   decimal, so this is also the one place mdview differs from a code host on
+   purpose. */
+.mdview ol ol {
+  list-style-type: lower-alpha;
+}
+.mdview ol ol ol {
+  list-style-type: lower-roman;
+}
+
+.mdview li > ul,
+.mdview li > ol {
+  margin: 0.35em 0 0.15em;
+}
+
+/* a list item holding block content should not double-space it */
+.mdview li > p {
+  margin: 0 0 0.7em;
+}
+.mdview li > p:last-child {
+  margin-bottom: 0;
+}
+.mdview li > p:first-child {
+  margin-top: 0;
+}
+
+/* A bibliography (marked after render in `markReferenceLists`): the bullet goes,
+   because between two citations a marker is noise, and a hanging indent puts the
+   entry itself at the start of the line so the eye can find the next one. The
+   italic titles carry the ink; the rest of the entry steps back. */
+.mdview ul.refs {
+  list-style: none;
+  padding-left: 0;
+}
+.mdview ul.refs > li {
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+  margin-top: 0.45em;
+  color: var(--muted);
+}
+.mdview ul.refs > li:first-child {
+  margin-top: 0;
+}
+.mdview ul.refs em {
+  color: var(--ink);
+}
+
+/* GFM task lists */
+.mdview ul.task-list {
+  list-style: none;
+  padding-left: 0.15em;
+}
+.mdview li.task-list-item {
+  list-style: none;
+  display: list-item;
+}
+.mdview input[type="checkbox"] {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  vertical-align: -0.14em;
+  /* A tick you have to aim at is not a tick. 1em measured 13px — the smallest
+     thing on the page, on the one control that is meant to be pressed — so it is
+     1.18em with a pointer cursor and no tap delay, which together make it a
+     target rather than a decoration. */
+  width: 1.18em;
+  height: 1.18em;
+  margin: 0 0.45em 0 0;
+  padding: 0;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-xs);
+  background: var(--card);
+  opacity: 1;
+  cursor: pointer;
+  /* no 300ms wait before a tap counts, on a control with no double-tap meaning */
+  touch-action: manipulation;
+  transition: background-color 120ms ease, border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+/* The one box in the document that answers back: a hover and a press that say
+   so before it is ticked. */
+.mdview input[type="checkbox"]:hover {
+  border-color: var(--accentline);
+  box-shadow: 0 0 0 3px var(--accenttint);
+}
+
+.mdview input[type="checkbox"]:active {
+  box-shadow: 0 0 0 1px var(--accenttint);
+}
+
+.mdview input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.mdview input[type="checkbox"]:checked {
+  background: var(--accent) var(--check-mark) center / 78% no-repeat;
+  border-color: var(--accent);
+}
+
+/* A box the document had already ticked is the author's statement, not a
+   control the reader is invited to change — so it keeps the small, quiet
+   square and says so, rather than offering a press that would contradict the
+   file. */
+/* A box the document had already ticked is the author's statement, not a
+   control the reader is invited to change. It keeps the small square and the
+   default cursor, and nothing else changes about it: it stays at full ink,
+   because dimming it would alter how the document itself reads, and this is a
+   reader for documents someone has to study. The size is the whole signal. */
+.mdview input[type="checkbox"]:disabled {
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5em;
+  cursor: default;
+}
+
+/* A checked box is a fact the document is recording — `- [x]` — so the line
+   should read as done: struck through and stepped back, the way every issue
+   tracker draws it. `--line-strong` for the rule rather than the ink, because
+   the strike is a mark *over* the words and not part of them.
+
+   The box keeps its accent: it is the state, not the line. Text decorations do
+   not propagate into replaced elements, so the checkbox is unaffected even
+   though the declaration is on the item — and if a browser ever did draw it
+   through, the fix is here, not in the markup. */
+.mdview li.task-list-item:has(input[type="checkbox"]:checked),
+.mdview li.task-list-item:has(input[type="checkbox"]:checked) > p {
+  color: var(--faint);
+  text-decoration: line-through;
+  text-decoration-color: var(--line-strong);
+  text-decoration-thickness: 1px;
+}
+
+/* ------------------------------------------------------ definition lists -- */
+
+/* A list that is nothing but bolded terms and their descriptions (marked in
+   `markDefinitionLists`) reads as a specification, so it is set as rows rather
+   than bullets. From 768px the terms form a real column, which is the point: the
+   eye scans the left edge for the term it wants instead of reading every line.
+   Below that the two parts simply flow as one sentence, exactly as written. */
+.mdview ul.defs {
+  list-style: none;
+  padding-left: 0;
+}
+
+.mdview ul.defs > li {
+  margin-top: 0;
+  padding: 0.62em 0;
+}
+
+.mdview ul.defs > li + li {
+  border-top: 1px solid var(--line);
+}
+
+.mdview ul.defs > li:first-child {
+  padding-top: 0.1em;
+}
+
+.mdview ul.defs > li:last-child {
+  padding-bottom: 0.1em;
+}
+
+/* the term keeps the ink; the description is a step softer, so a column of
+   terms reads as the document's index at a glance */
+.mdview .def-term strong {
+  font-weight: 640;
+  color: var(--ink);
+}
+
+/* A step below the ink rather than all the way down to `--muted`: these lines
+   are the bulk of a specification, and grey is a poor place for the text someone
+   actually has to read. Mixed from the palette tokens so it follows the theme. */
+.mdview .def-desc {
+  color: color-mix(in srgb, var(--muted) 68%, var(--ink));
+}
+
+@media (min-width: 768px) {
+  /* The grid belongs to the *list*, not the item: a `max-content` column
+     resolved per item gives every row its own width, which is precisely not the
+     alignment this is for. `display: contents` lifts the term and the
+     description into the shared grid, so one `max-content` column serves them
+     all — and the row's hairline moves onto the cells, where the gap between
+     them is padding rather than `column-gap`, so the line stays unbroken. */
+  .mdview ul.defs {
+    display: grid;
+    /* the shared term width, never past `--def-term-cap` (a label longer than
+       that is a sentence, and one of them should not set the width of every row)
+       and never past 40% of the page however long the terms are. `100%` is the
+       fallback for when the measurement never happened: the caps then decide,
+       and the rows still line up with each other. */
+    grid-template-columns: minmax(0, min(var(--def-term-w, 100%), var(--def-term-cap), 40%)) minmax(0, 1fr);
+    align-items: baseline;
+  }
+
+  .mdview ul.defs > li {
+    display: contents;
+  }
+
+  .mdview ul.defs :is(.def-term, .def-desc) {
+    padding: 0.62em 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .mdview ul.defs .def-desc {
+    padding-left: 1.7em;
+  }
+
+  .mdview ul.defs > li:first-child > :is(.def-term, .def-desc) {
+    padding-top: 0.1em;
+    border-top: none;
+  }
+}
+
+/* -------------------------------------------------------------- footnotes -- */
+
+/* The citation marker is a number and nothing else. Brackets around it would be a
+   second piece of punctuation after the sentence's own, and the accent colour
+   says "this is not the text" on its own. `line-height: 0` keeps a raised
+   numeral from opening up the line it sits in. */
+.mdview sup.fnref {
+  font-size: 0.72em;
+  line-height: 0;
+  /* a back-reference should land with the line it points at still in view */
+  scroll-margin-top: 4rem;
+}
+
+.mdview sup.fnref a {
+  color: var(--accent);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  padding: 0 0.08em;
+}
+
+.mdview sup.fnref a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* The notes are apparatus: the page's own argument ended above the rule, and
+   everything below it is the fine print that supports it. So the whole section
+   steps back — a rule instead of a heading's underline, a tracked uppercase
+   section name, muted entries — while the numbers stay in full ink, because they
+   are what ties a note to its place in the text. */
+.mdview .notes {
+  margin-top: var(--rhythm-rule);
+  padding-top: 1.5em;
+  border-top: 1px solid var(--line);
+  font-size: 0.94em;
+  color: var(--muted);
+}
+
+.mdview .notes > h2 {
+  margin: 0 0 0.95em;
+  padding: 0;
+  border-bottom: none;
+  font-size: 1em;
+  font-weight: 620;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.mdview .notes ol {
+  margin: 0;
+  padding-left: 1.9em;
+}
+
+.mdview .notes > ol > li {
+  margin-top: 0.7em;
+  padding-left: 0.15em;
+  scroll-margin-top: 4rem;
+}
+
+.mdview .notes > ol > li::marker {
+  color: var(--faint);
+  font-size: 0.9em;
+  font-variant-numeric: tabular-nums;
+}
+
+.mdview .notes li > :last-child {
+  margin-bottom: 0;
+}
+
+/* Following a citation is a jump, and the highlight says where you landed — the
+   same one a heading gets, because it is the same problem. */
+/* A note the reader was sent to by a citation wears the same landing mark (see
+   `.is-landed` above) and has no rule of its own: even under that wash the note
+   reads in `--muted`, so it does not have to change colour on arrival and change
+   back when the mark fades. */
+
+.mdview .notes .fnback {
+  margin-left: 0.2em;
+  color: var(--faint);
+  font-size: 0.95em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mdview .notes .fnback:hover {
+  color: var(--accent);
+}
+
+.mdview .notes .fnback sup {
+  font-size: 0.72em;
+}
+
+/* --------------------------------------------------------------- tables -- */
+
+.mdview .tablewrap {
+  box-sizing: border-box;
+  margin: 0 0 var(--rhythm);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  overflow: auto;
+}
+
+.mdview table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9em;
+  line-height: 1.55;
+}
+
+.mdview th,
+.mdview td {
+  padding: 0.6em 0.95em;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+  /* A table is read down its columns and compared across its rows, and
+     proportional digits make that the one thing the eye cannot do: 1111 is
+     narrower than 9999, so a column of figures wanders left and right and every
+     comparison costs a re-read. Tabular figures give it a ruled edge. */
+  font-variant-numeric: tabular-nums;
+}
+
+.mdview th {
+  background: var(--thbg);
+  font-weight: 620;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line-strong);
+  white-space: nowrap;
+}
+
+/* Zebra rows. In a table several columns wide it is the row, not the cell, that
+   the eye has to carry from one side to the other, and that is why every tool
+   that renders markdown for a living strokes its table bodies. `--zebra` sits
+   barely off the card colour in both palettes on purpose: it should register as
+   a texture, not as a stripe. The sticky first column already paints the same
+   two values for its own cells, so the two agree by construction. */
+.mdview tbody tr:nth-child(even) {
+  background: var(--zebra);
+}
+.mdview td:first-child {
+  font-weight: 520;
+}
+
+.mdview tbody tr:last-child > td {
+  border-bottom: none;
+}
+.mdview tbody tr:nth-child(even) > td {
+  background: var(--zebra);
+}
+
+.mdview .ta-center {
+  text-align: center;
+}
+.mdview .ta-right {
+  text-align: right;
+}
+.mdview th.ta-center,
+.mdview td.ta-center {
+  font-variant-numeric: tabular-nums;
+}
+
+/* A two-column table that is really a label/value sheet (marked after render in
+   `markKeyValueTables`). Nothing moves and no cell is rewritten: the sheet simply
+   stops pretending to be a data grid — it shrinks to its content instead of
+   stretching across the measure, the labels step back, every value starts at the
+   same x, figures line up in a column, and the rows tighten to a reading
+   rhythm. */
+.mdview .tablewrap.kv table {
+  width: max-content;
+  max-width: 100%;
+  font-size: 0.92em;
+}
+
+.mdview .tablewrap.kv th {
+  font-size: 0.85em;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.mdview .tablewrap.kv :is(th, td) {
+  padding-block: 0.44em;
+}
+
+.mdview .tablewrap.kv td:first-child {
+  padding-right: 1.7em;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* One row, one line: a label that wraps breaks the column that the whole
+   treatment exists to create. Safe to demand from tablet width up because the
+   class is only applied when the longest label still fits in 48 characters. */
+@media (min-width: 768px) {
+  .mdview .tablewrap.kv td:first-child {
+    white-space: nowrap;
+  }
+}
+
+.mdview .tablewrap.kv td.num {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* A table wider than its card is given its fitting moves first (`fitTables` in
+   mdview.js): the header row, and the label column of a spec sheet, are allowed
+   to wrap. Both are set on one line when they can be — a wrapped header is the
+   smaller price, but only when it is a price at all, so the class is applied
+   only where wrapping actually bought width. */
+.mdview .tablewrap.autofit th {
+  white-space: normal;
+}
+
+@media (min-width: 768px) {
+  .mdview .tablewrap.kv.autofit td:first-child {
+    white-space: normal;
+  }
+}
+
+/* And if it is still wider than its card, the hidden columns at least stop being
+   a secret: a soft shadow at each edge, drawn over the table but pinned to the
+   card — `--sx` is the card's `scrollLeft`, kept up to date in `fitTables` — so
+   it stays put while the table moves under it. Each shadow fades out at the end
+   it points at: a shadow that stays when there is nothing left to see is just a
+   smudge. */
+.mdview .tablewrap.scroll-x {
+  position: relative;
+}
+
+.mdview .tablewrap.scroll-x::before,
+.mdview .tablewrap.scroll-x::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2.7em;
+  /* above the pinned label column, which paints above the rest of the table */
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.16s ease;
+}
+
+.mdview .tablewrap.scroll-x::before {
+  left: var(--sx, 0px);
+  background: linear-gradient(to right, var(--scrollfade), transparent);
+}
+
+.mdview .tablewrap.scroll-x::after {
+  left: calc(var(--sx, 0px) + 100% - 2.7em);
+  background: linear-gradient(to left, var(--scrollfade), transparent);
+}
+
+.mdview .tablewrap.scroll-x:not(.at-start)::before,
+.mdview .tablewrap.scroll-x:not(.at-end)::after {
+  opacity: 1;
+}
+
+/* A table taller than the window loses the one line that says which column is
+   which, and loses it to the page scroll — so its head is pinned to the top of
+   the window instead, under the app bar, and stays there for as long as any of
+   the table is in view. Rows slide beneath it. `fitTables` sets the class only
+   for a table taller than the space under the bar: over four rows a head that
+   detaches is a flicker, not a feature, and only a table with an end you cannot
+   see has anything to lose.
+
+   The offset is the bar itself, not the bar plus the air: air between the bar
+   and a pinned head is a slot the rows show through. Below 1024px there is no
+   bar and the token is unset, so the fallback is the progress line's own
+   height — the one other thing fixed to the top of the window. */
+.mdview .tablewrap.tall {
+  /* A card that scrolls is a scroll container, and a scroll container is what a
+     sticky head pins to — so a head inside one could never stay in view while
+     the page scrolls. `clip` still hides what does not fit, but it is not a
+     scroll container, and it is the one value that pairs with `visible` on the
+     other axis (any other combination turns `visible` into `auto`); the page is
+     left as the head's scrollport. Said only for cards whose table fits across,
+     which is why nothing is ever hidden by it. */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+.mdview .tablewrap.tall thead th {
+  position: sticky;
+  top: var(--appbar-h, 2px);
+  /* above the rows sliding under it */
+  z-index: 4;
+  /* Under `border-collapse: collapse` the rule below a header belongs to the
+     table's border grid and does not travel with the cell, so a pinned head is
+     a head with no bottom edge. Drawn inside the cell instead: same place, and
+     it moves with it. */
+  border-bottom: 0;
+  box-shadow: inset 0 -1px 0 var(--line-strong);
+}
+
+/* The label column is the key to the rows, so on a table that scrolls it stays
+   put while the columns it labels slide past. `fitTables` only says so when the
+   column is a label rather than a block of content (under 42% of the card); the
+   cells are then made opaque, because a pinned column you can see the table
+   through is worse than one that moves. The shadow it casts arrives with the
+   content it is cast on. */
+.mdview .tablewrap.sticky-col :is(th, td):first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+
+.mdview .tablewrap.sticky-col td:first-child {
+  background: var(--card);
+}
+
+.mdview .tablewrap.sticky-col tbody tr:nth-child(even) > td:first-child {
+  background: var(--zebra);
+}
+
+.mdview .tablewrap.sticky-col:not(.at-start) :is(th, td):first-child {
+  box-shadow: 6px 0 6px -6px var(--scrollfade);
+}
+
+/* A table of prose is read row by row, and a row is not a line: three wrapped
+   lines in the second column and two in the third have to be carried across the
+   width of the card and back. So the row under the pointer is lit, and the one
+   being read is never in question.
+
+   Last in the section on purpose. The two rules it has to beat — the zebra, and
+   the opaque background a pinned label column paints over the zebra — match the
+   row at the same weight, so what wins is the order they are written in; and the
+   pinned column is the case that shows it, because it is painted by two rules
+   further down the stylesheet, one of which is more specific than the zebra. */
+.mdview tbody tr:hover > td {
+  background: var(--rowof);
+}
+.mdview .tablewrap.sticky-col tbody tr:hover > td:first-child {
+  background: var(--rowof);
+}
+
+/* ------------------------------------------------------- quotes + rules -- */
+
+.mdview blockquote {
+  margin: 0 0 var(--rhythm);
+  padding: 0.15em 0 0.15em 1.15em;
+  border-left: 3px solid var(--accentline);
+  color: var(--muted);
+}
+.mdview blockquote > :first-child {
+  margin-top: 0;
+}
+.mdview blockquote > :last-child {
+  margin-bottom: 0;
+}
+.mdview blockquote blockquote {
+  margin: 0.6em 0 0.2em;
+  border-left-width: 2px;
+  border-left-color: var(--line-strong);
+}
+.mdview blockquote code {
+  background: var(--codebg);
+}
+
+/* ----------------------------------------------------------------- code -- */
+
+.mdview pre.fence {
+  /* border-box so the 1px border can't push a card 2px past the prose width */
+  box-sizing: border-box;
+  position: relative;
+  margin: 0 0 var(--rhythm);
+  padding: 0.95em 1.1em;
+  /* A code block hides the same thing a wide table hides, and until now the
+     table said so and the fence did not. This is the no-JS way to draw that
+     shadow: two opaque layers and two shadow layers, with `background-attachment:
+     local` on the inside pair and `scroll` on the outside pair, so the shadows
+     are painted over the opaque ones and travel with the text — a shadow is
+     visible on a side only while there is still something to reach on that side,
+     and gone at the end, which is what the table's scrolled pseudo-elements do
+     with `--sx` from JavaScript. Same 2.7em of shade as the table. */
+  background-color: var(--fence);
+  background-image: linear-gradient(to right, var(--fence) 40%, transparent),
+    linear-gradient(to left, var(--fence) 40%, transparent),
+    radial-gradient(farthest-side at 0 50%, var(--scrollfade), transparent),
+    radial-gradient(farthest-side at 100% 50%, var(--scrollfade), transparent);
+  background-position: 0 0, 100% 0, 0 0, 100% 0;
+  background-repeat: no-repeat;
+  background-size: 4em 100%, 4em 100%, 2.7em 100%, 2.7em 100%;
+  background-attachment: local, local, scroll, scroll;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  box-shadow: var(--shadow);
+}
+
+.mdview pre.fence code {
+  display: block;
+  overflow-wrap: normal;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--ink);
+  font-size: var(--code-size);
+  line-height: 1.6;
+  white-space: pre;
+  tab-size: 4;
+}
+
+/* the info string, printed in the block's top-right corner */
+.mdview pre.fence[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0.5em;
+  right: 0.85em;
+  font-family: var(--md-font-mono);
+  font-size: 0.68em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--faint);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* mermaid: show the source while it renders, then just the diagram */
+.mdview pre.mermaid {
+  box-sizing: border-box;
+  margin: var(--rhythm) 0;
+  padding: 0.95em 1.1em;
+  background: var(--fence);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-size: var(--code-size);
+  text-align: center;
+  overflow-x: auto;
+}
+.mdview pre.mermaid[data-processed="true"] {
+  background: none;
+  border-color: transparent;
+  color: inherit;
+  padding: 0;
+}
+.mdview pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ----------------------------------------------------------- frontmatter -- */
+
+.mdview .meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45em 0.5em;
+  margin: 0 0 2em;
+  padding-bottom: 1.1em;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.78em;
+}
+.mdview .meta span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45em;
+  padding: 0.28em 0.7em;
+  border-radius: 99px;
+  background: var(--accenttint);
+  color: var(--accent);
+  white-space: nowrap;
+}
+.mdview .meta b {
+  font-family: var(--md-font-mono);
+  font-size: 0.85em;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* ------------------------------------------------- allowlisted raw HTML -- */
+
+.mdview kbd {
+  font-family: var(--md-font-mono);
+  font-size: 0.8em;
+  padding: 0.15em 0.4em;
+  border: 1px solid var(--line-strong);
+  border-bottom-width: 2px;
+  /* one radius with inline `code`: both are the same small bordered box */
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+}
+
+.mdview mark {
+  background: var(--mark-bg);
+  color: var(--mark-ink);
+  border-radius: var(--radius-xs);
+  padding: 0 0.15em;
+}
+
+.mdview sub,
+.mdview sup {
+  font-size: 0.72em;
+  line-height: 0;
+}
+
+.mdview abbr[title] {
+  text-decoration: underline dotted var(--faint);
+  text-underline-offset: 0.2em;
+  cursor: help;
+}
+
+.mdview small {
+  font-size: 0.85em;
+  color: var(--muted);
+}
+
+.mdview details {
+  box-sizing: border-box;
+  margin: 0 0 var(--rhythm);
+  padding: 0.7em 1.05em;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.mdview details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin: -0.1em 0;
+}
+.mdview details[open] > summary {
+  margin-bottom: 0.7em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid var(--line);
+}
+.mdview details > :last-child {
+  margin-bottom: 0;
+}
+
+.mdview [align="center"] {
+  text-align: center;
+}
+.mdview [align="right"] {
+  text-align: right;
+}
+.mdview p[align="center"] img,
+.mdview div[align="center"] img {
+  display: inline-block;
+  margin: 0.2em;
+}
+.mdview input:disabled,
+.mdview button:disabled {
+  cursor: default;
+}
+
+/* -------------------------------------------------------------- scrollbar -- */
+
+.mdview pre.fence,
+.mdview pre.mermaid,
+.mdview .tablewrap {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+.mdview pre.fence::-webkit-scrollbar,
+.mdview pre.mermaid::-webkit-scrollbar,
+.mdview .tablewrap::-webkit-scrollbar {
+  height: 9px;
+  width: 9px;
+}
+.mdview pre.fence::-webkit-scrollbar-thumb,
+.mdview pre.mermaid::-webkit-scrollbar-thumb,
+.mdview .tablewrap::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 99px;
+}
+
+/* ----------------------------------------------------------- wide screens -- */
+
+/* A browser tab has no sidebar to fill the sides, so on a desktop window the
+   reading column would sit alone in a sea of background. Rather than stretching
+   the text past a comfortable line length, let the blocks that genuinely want
+   width take some of that space back. */
+@media (min-width: 1024px) {
+  /* A page surface. On a desktop window a bare column of text reads as a strip
+     floating in the background; giving the document its own surface — hairline,
+     radius, soft shadow — makes it read as a page. The surface is this element,
+     not the document inside it, and it is fluid: as wide as the window up to
+     `--page-w`. A hosted markdown file expands with the window; a fixed 646px
+     column in a 1440px window reads as a phone.
+
+     `box-sizing: border-box` is load-bearing twice over: it makes `--page-w`
+     mean the page's real width, padding included, and it lets the app bar mirror
+     these declarations — same width, same padding, same auto margins — so the
+     bar's contents and the text column agree by construction rather than by an
+     inset computed from the page's width, which broke the moment the page could
+     be wider than the window.
+
+     The hairline is a ring rather than a border so that the padding box stays
+     the whole `--page-w` and the mirror stays exact. */
+  .mdview {
+    --bleed: 0px;
+    /* The page's total width, in one place: the measure *plus* its own padding
+       (sizing the container to the measure alone would make the surface eat into
+       the text instead of framing it — 682px of prose in a 770px card), and the
+       outline's margin column when there is an outline to put in it. The app bar
+       lines its contents up with this, so the bar and the page agree about where
+       the text starts. */
+    --page-w: calc(var(--measure) + 2 * var(--page-pad-x));
+    /* the window bar: its height, the air under it, and the two together — which
+       is what the page has to sit below */
+    --appbar-h: 3rem;
+    --appbar-air: clamp(10px, 1.2vw, 18px);
+    --appbar-clear: calc(var(--appbar-h) + var(--appbar-air));
+    box-sizing: border-box;
+    /* as wide as the window, up to the page's own cap; `max-width: none` because
+       the base rule's `max-width: var(--measure)` is the *text* column, and a
+       border-box page has to be wider than the text inside it */
+    width: min(100%, var(--page-w));
+    max-width: none;
+    /* the header above it is the window's bar, out of flow */
+    margin: var(--appbar-clear) auto 0;
+    padding: var(--page-pad) var(--page-pad-x) clamp(40px, 7vh, 110px);
+    background: var(--card);
+    border: 0;
+    border-radius: var(--page-radius);
+    box-shadow: 0 0 0 1px var(--line), var(--page-shadow);
+  }
+
+  /* The surface is the page, so the document inside it is just its content:
+     no second card inside the card, and no width of its own. */
+  .mdview .doc {
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    /* Grid items default to min-width: auto, and a table asked for `max-content`
+       reports that full width as its min-content contribution — which inflated
+       the prose column (and left the text indented relative to its tables). */
+    min-width: 0;
+  }
+
+  /* a heading reached by #anchor lands below the bar, not under it */
+  .mdview :is(h1, h2, h3, h4, h5, h6),
+  .mdview sup.fnref,
+  .mdview .notes > ol > li {
+    scroll-margin-top: calc(var(--appbar-h) + 1.5rem);
+  }
+}
+
+/* The reading measure opens up a *little* on big windows. A fixed column in a
+   1920px window reads as a strip, but filling the glass is worse: widening the
+   measure is the one way to make a page harder to read, and 76ch here put the
+   body at ~90 characters a line, well past the ~75 where the eye starts losing
+   its place on the return sweep. The fluid page takes the code host's answer
+   instead — a cap, and long lines under it; this is the other answer, for the
+   reader who asked for a book column. The extra room still goes to air. In `ch`,
+   so it stays proportional to the (fluid) font size. */
+@media (min-width: 1400px) {
+  :root {
+    --read-measure: 64ch;
+  }
+}
+
+/* Ascending order matters: these all match at once on a 1920px window, and the
+   last one wins. */
+@media (min-width: 1600px) {
+  :root {
+    --page-pad-x: clamp(44px, 4vw, 72px);
+  }
+  /* The bleed belongs to the narrow reading column: there the column is what is
+     too small, and giving code and tables part of the margin is what stops them
+     from being cramped. In the fluid and full pages those blocks already have
+     the whole page, and reaching past it would push a card out through the
+     page's own edge — which is what the extra air in the page padding is for. */
+  :root[data-mdview-width="narrow"] {
+    --bleed: min(14vw, 15rem);
+  }
+}
+
+@media (min-width: 1800px) {
+  :root {
+    /* The measure stops here: on a monitor this wide the page takes the extra
+       room as air, not as longer lines — the cap on the fluid page is a cap, and
+       the reading measure is a reading measure. The air has to grow with the
+       window or a capped page turns back into a strip; at 3840px this was a
+       96px margin around a 648px column, which reads as a padded box rather than
+       a page. Margins are what scale. */
+    --page-pad-x: clamp(52px, 6vw, 150px);
+    --page-pad: clamp(28px, 3.2vw, 48px);
+    --pad-y: clamp(28px, 3.6vw, 56px);
+  }
+}
+
+@media (min-width: 1920px) {
+  :root[data-mdview-width="narrow"] {
+    --bleed: min(18vw, 20rem);
+  }
+}
+
+.mdview .doc > pre.fence,
+.mdview .doc > pre.mermaid {
+  margin-inline: calc(-1 * var(--bleed));
+}
+
+/* tables sit in their own card, so they can shrink to their content and grow
+   into the margin rather than stretching a three-column table across the page */
+.mdview .doc > .tablewrap {
+  /* Tables size to their content and stay left-aligned with the text flow
+     (what GitHub does: `width: max-content; max-width: 100%`), instead of
+     stretching: a two-column Field/Value table across the full measure leaves
+     the value half a screen away from its label. A table that needs more than
+     the measure fills it (up to the bleed) and scrolls inside its own card
+     beyond that. */
+  width: max-content;
+  max-width: calc(100% + 2 * var(--bleed));
+  margin-inline: 0;
+}
+
+/* -------------------------------------------------------------- outline -- */
+
+/* The heading outline lives in the right margin from 1280px, which is what
+   makes a desktop-width tab look like a document rather than a strip of text.
+   Below the breakpoint, and for documents too short to have an outline, the
+   layout is just the centred column with the wide-block bleed. */
+.mdview > .toc {
+  display: none;
+  font-size: 0.78em;
+  line-height: 1.5;
+}
+
+@media (min-width: 1280px) {
+  /* A document with an outline gets a *page*, not a text column with a list
+     floating beside it: the outline sits in the page's own right margin — where
+     a margin note belongs — and the text is the page's left column. The page is
+     the same surface as above (its width, padding, ring and shadow are declared
+     with it), plus the margin column the outline sits in, which moves the cap
+     out by that much. */
+  .mdview:has(> .toc) {
+    /* the outline owns the right margin, so nothing needs to bleed into it */
+    --bleed: 0px;
+    /* the same page, plus the margin column the outline sits in */
+    --page-w: calc(var(--measure) + 15rem + clamp(2rem, 4vw, 4.5rem) + 2 * var(--page-pad-x));
+    display: grid;
+    /* The measure + the margin column + the gap between them, written out rather
+       than left to the page's intrinsic sizing: tracks sized from content
+       contributions collapsed the text column to 437px of a 649px measure,
+       because a track's max-content contribution is whatever the widest child
+       happens to be, and a table in the document is narrower than the measure.
+       `minmax(0, …)` lets the column shrink with the window instead of holding
+       its width and pushing the page into a horizontal scrollbar. */
+    grid-template-columns: minmax(0, var(--measure)) 15rem;
+    column-gap: clamp(2rem, 4vw, 4.5rem);
+    align-items: start;
+  }
+  .mdview:has(> .toc) > .toc {
+    display: block;
+    grid-column: 2;
+    position: sticky;
+    /* the bar, and a little air under it */
+    top: calc(var(--reader-bar, 0px) + var(--appbar-h) + 1rem);
+    max-height: calc(100vh - var(--reader-bar, 0px) - var(--appbar-h) - 2rem);
+    overflow: auto;
+    /* an outline long enough to scroll is a scroll region, and it got the
+       platform's own scrollbar where the code blocks and tables in the page got
+       the page's thin one */
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+    /* both columns start at the page's own top margin, so the outline's first
+       line lines up with the document's first line */
+    padding-top: 0.1em;
+  }
+}
+
+.mdview .toc-title {
+  margin: 0 0 0.7em;
+  font-family: var(--md-font-mono);
+  font-size: 0.82em;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.mdview .toc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--line);
+}
+
+.mdview .toc li {
+  margin: 0;
+}
+
+/* A row rather than a line: the name on the left, how long the section is on the
+   right, so the outline reads as a set of next steps rather than a list of links. */
+.mdview .toc a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6em;
+  padding: 0.28em 0 0.28em 0.8em;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.mdview .toc-label {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.mdview .toc-min {
+  flex: 0 0 auto;
+  font-family: var(--md-font-mono);
+  font-size: 0.75em;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.mdview .toc li.toc-h3 a {
+  padding-left: 1.6em;
+}
+
+.mdview .toc a:hover {
+  color: var(--ink);
+  border-left-color: var(--line-strong);
+}
+
+/* a section that is behind the reader: dimmed and ticked, so the outline is a
+   record of the work done as well as a list of what is left. The tick is a
+   pseudo-element on the label so no text node is added to a link. */
+.mdview li.is-read > a .toc-label::after {
+  content: " ✓";
+  color: var(--accent);
+  font-size: 0.9em;
+}
+
+/* the UI's pull: a section just finished flashes its row, and the next unread one
+   keeps a dot that breathes, so the eye always has somewhere to go. Both are motion,
+   so they stop where the reader asked for less; the dot stays, still, as a marker. */
+.mdview li.is-next > a .toc-label::before {
+  content: "";
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  margin-right: 0.5em;
+  border-radius: 50%;
+  vertical-align: middle;
+  background: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mdview li.just-read > a {
+    animation: mdview-flash 1.2s ease-out;
+  }
+
+  .mdview li.is-next > a .toc-label::before {
+    animation: mdview-breathe 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes mdview-flash {
+  0% {
+    background-color: var(--accenttint);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes mdview-breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.mdview .toc li.is-read a:not([aria-current]) {
+  color: var(--faint);
+}
+
+.mdview .contents li.is-read a {
+  color: var(--faint);
+}
+
+.mdview .toc a[aria-current] {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+
+.mdview .toc a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* --------------------------------------------------------------- narrow -- */
+
+@media (max-width: 640px) {
+  /* The phone step is the *base*, not the page's own font-size: written on the
+     page it re-decided a number the tokens had already decided, so the serif's
+     corrections — and anything else meant to multiply `--type-base` — never
+     reached a narrow window, and the fixed controls stayed at the desktop size
+     beside text that had stepped down. One number, and the page and every
+     control that hangs off it follow. */
+  :root {
+    --type-base: 16.5px;
+  }
+  .mdview {
+    --pad-y: 22px;
+    --pad-x: 18px;
+  }
+  .mdview h1 {
+    font-size: 1.65em;
+  }
+  .mdview h2 {
+    /* a narrow window steps the level-two head down a little, from the paragraph's size */
+    font-size: calc(var(--ui-size) * 1.3);
+  }
+  .mdview table {
+    font-size: 0.85em;
+  }
+  .mdview th,
+  .mdview td {
+    padding: 0.5em 0.7em;
+  }
+
+}
+
+/* -------------------------------------------------------- reader chrome -- */
+
+/* Added after the markdown is rendered (see `decorate()` in mdview.js): the
+   document header, code copy buttons, heading anchors, the progress line and the
+   back-to-top control. All of it hidden in print — the markdown is the document,
+   this is the reader around it. */
+
+/* The header is a row of small type — the file, what is in it, the reader's
+   controls — inside a wrapper that carries the hairline under it. On a desktop
+   window the wrapper becomes the window's bar and the row inside it is what
+   lines up with the page, so the row is its own element: the bar's frame and the
+   bar's contents have different jobs. */
+.mdview .doc > .mast {
+  margin: 0 0 clamp(1.5em, 2.6vw, 2.4em);
+  padding-bottom: 0.75em;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.8em;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.mdview .mast-in {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55em 0.9em;
+}
+
+.mdview .mast-file {
+  font-family: var(--md-font-mono);
+  font-size: 0.94em;
+  /* The row's reading colour, not its fine-print one: this chip names the file
+     being studied, and at `--faint` it measured 2.85:1 against the bar — the
+     quietest thing in the row, under the 3:1 floor, while the section count
+     beside it sat at 6:1. Identity should not be the hardest thing to read. */
+  color: var(--muted);
+  /* One geometry for the row: the buttons beside it take `0.25em` too, so the
+     chip and the three pills are one height, and neither carries a shadow — the
+     bar is the surface, and every control on it sits on the bar. (The chip had
+     `--shadow` and the buttons did not: two materials in one row.) */
+  padding: 0.25em 0.6em;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: var(--card);
+}
+
+.mdview .mast-meta {
+  margin-inline-end: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The reader's own state beside the document's. The separator belongs to the
+   second item, so it appears only when there is a second thing to say. */
+.mdview .mast-meta > span + span::before {
+  content: " · ";
+  color: var(--faint);
+}
+
+.mdview .mast-read {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.mdview .mast-read.is-done {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.mdview .mast-read.is-empty {
+  display: none;
+}
+
+.mdview .mast-actions {
+  display: inline-flex;
+  gap: 0.35em;
+}
+
+.mdview .mast-btn {
+  /* a label is one unit: "Font: Sans" wraps as a whole pill, never inside itself */
+  white-space: nowrap;
+  font: inherit;
+  font-size: 0.96em;
+  padding: 0.25em 0.75em;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.mdview .mast-btn:hover {
+  color: var(--accent);
+  border-color: var(--accentline);
+  background: var(--accenttint);
+}
+
+.mdview .mast-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* On a desktop window the header is not the page's first row any more: it is the
+   window's bar. It belongs to the reader rather than to the document, and it is
+   the one thing on screen that uses the full width — which is what stops a page
+   floating in the middle of a large window from reading as an island.
+
+   Declared here, after the header's own rules rather than in the wide-screens
+   section above: same specificity, and a rule that comes later wins, so the
+   base `flex-wrap: wrap` and `padding-bottom` were quietly beating the bar's
+   declarations however they were written up there.
+
+   `position: fixed` with `left`/`right` rather than `width: 100vw`: a fixed box
+   is sized by the viewport, where `100vw` counts the scrollbar and would put a
+   horizontal scrollbar on a page that has none. */
+@media (min-width: 1024px) {
+  .mdview .doc > .mast {
+    position: fixed;
+    /* below the reader's own bar, when the reader is the one showing the page */
+    top: var(--reader-bar, 0px);
+    left: 0;
+    right: 0;
+    z-index: 15;
+    box-sizing: border-box;
+    display: block;
+    height: var(--appbar-h);
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* The bar's contents line up with the page's text column, not with the window:
+     the row gets the page's own geometry — the same width, the same cap, the
+     same padding inside it — and centres itself, so the two land on the same
+     column because they are the same rule rather than because an inset was
+     computed from the page's width. (That inset went negative as soon as the
+     page could be wider than the window, which the fluid default makes routine.)
+     The padding box is the mirror, so the page's hairline is a ring, not a
+     border: a border would sit inside `--page-w` and pull the text 1px right of
+     the bar. */
+  .mdview .mast-in {
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    width: min(100%, var(--page-w));
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 var(--page-pad-x);
+  }
+
+  /* a long filename gives way instead of pushing the buttons off the bar */
+  .mdview .mast-file {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* the copy button, in the corner of every code card. Always in sight: one that only
+   appears on hover is invisible to a touch screen, and at the old faint tone it read
+   as broken. Muted rather than faint, so it holds its contrast on the card. */
+.mdview pre.fence .copy {
+  position: absolute;
+  top: 0.45em;
+  right: 0.5em;
+  font: inherit;
+  font-family: var(--md-font-mono);
+  font-size: 0.68em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.28em 0.6em;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.mdview pre.fence .copy:hover,
+.mdview pre.fence .copy.done {
+  color: var(--accent);
+  border-color: var(--accentline);
+}
+
+.mdview pre.fence .copy:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* the info string moves left so the two never overlap */
+.mdview pre.fence[data-lang]::before {
+  right: 4.9em;
+}
+
+/* heading anchors: in the margin where there is one, invisible otherwise */
+.mdview .anchor {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .mdview .doc > :is(h2, h3, h4) {
+    position: relative;
+  }
+  .mdview .anchor {
+    display: inline-block;
+    position: absolute;
+    left: -1.4em;
+    top: 0;
+    color: var(--faint);
+    text-decoration: none;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 0.15s ease, color 0.15s ease;
+  }
+  .mdview .doc > :is(h2, h3, h4):hover > .anchor,
+  .mdview .anchor:focus-visible,
+  .mdview .anchor.done {
+    opacity: 1;
+  }
+  .mdview .anchor:hover,
+  .mdview .anchor.done {
+    color: var(--accent);
+  }
+}
+
+/* Folding, and the Study mode that is folding used as recall practice. The
+   caret sits after the heading's words, where an accordion puts it; folded is
+   the one state it must show by itself, because the text it hid is not there to
+   say so. `data-mdview-fold` is on the content between a folded heading and the
+   next heading of its level, put there by `addFolds()` — a namespaced attribute
+   rather than a class, because a raw HTML block in the document may carry a
+   class of its own and may not carry this. */
+.mdview .fold {
+  font: inherit;
+  /* Chrome, not type: the caret is one control, so it is one size on an h2 and
+     on an h6 — off the page's own type size, like the corner pills. The 24px
+     box is the target the reader actually clicks; the glyph stays 14px and the
+     box hangs below the baseline, where the air between a heading and its first
+     block is free. */
+  font-size: calc(var(--ui-size) * 0.78);
+  line-height: 1;
+  vertical-align: 0.02em;
+  margin-left: 0.1em;
+  min-width: 1.72em;
+  min-height: 1.72em;
+  /* the glyph sits at the left of its target, close to the word it follows;
+     the slack that makes the target 24px extends to the right, where there is
+     nothing to collide with */
+  text-align: left;
+  padding: 0.1em 0.42em;
+  color: var(--faint);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  /* quiet at rest, so a page of headings is not a page of carets; the hover and focus
+     rules below bring it up, and a folded section keeps its own stronger state */
+  opacity: 0.3;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.mdview :is(h2, h3, h4, h5, h6):hover > .fold,
+.mdview .fold:focus-visible {
+  opacity: 1;
+}
+
+.mdview .fold:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.mdview .fold:hover {
+  color: var(--accent);
+}
+
+.mdview .fold[aria-expanded="false"] {
+  opacity: 0.9;
+  color: var(--muted);
+}
+
+.mdview [data-mdview-fold] {
+  display: none;
+}
+
+/* no hover to reveal it with, so keep it in sight */
+@media (hover: none) {
+  .mdview .fold {
+    opacity: 0.5;
+  }
+}
+
+/* callouts — `> [!NOTE]` and friends, classed after render. Each class takes
+   one colour out of the semantic set (see the tokens), and the wash is that
+   same colour at 11%, derived rather than restated: the rule, the label and
+   the card are one value by construction. */
+.mdview blockquote.callout {
+  position: relative;
+  padding: 1.95em 1.15em 0.8em;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--callout-edge, var(--accent));
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--callout-edge, var(--accent)) 11%, transparent);
+  color: var(--ink);
+}
+
+.mdview blockquote.callout::before {
+  content: attr(data-callout);
+  position: absolute;
+  top: 0.65em;
+  left: 1.15em;
+  font-family: var(--md-font-mono);
+  font-size: 0.7em;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--callout-edge, var(--accent));
+}
+
+.mdview blockquote.callout-note { --callout-edge: var(--callout-note); }
+.mdview blockquote.callout-tip { --callout-edge: var(--callout-tip); }
+.mdview blockquote.callout-important { --callout-edge: var(--callout-important); }
+.mdview blockquote.callout-warning { --callout-edge: var(--callout-warning); }
+.mdview blockquote.callout-caution { --callout-edge: var(--callout-caution); }
+
+/* The outline, as a disclosure, for windows too narrow to have the margin one.
+   It is a `details`, so the generic rule further up gives it 0.7em/1.05em of
+   padding of its own — and this card must not have any: the summary and the list
+   carry the inset themselves. With the card's padding on top of theirs, the
+   title, the open-state rule and the list were inset by two different amounts
+   (15.4px and 13.3px at a 430px window, because `em` padding follows the element
+   it is set on and the title is set smaller than the list) and the rule stopped
+   15px short of the card it divides. With the inset on the two children, the
+   summary's box *is* the card's width, so the top strip is clickable edge to
+   edge and the rule under it reaches both edges. */
+/* contents outline: original mdview design */
+.mdview .doc > .contents {
+  display: none;
+  padding: 0;
+  margin: 0 0 clamp(1.5em, 2.6vw, 2.4em);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  font-size: 0.9em;
+}
+.mdview .doc > .contents > summary {
+  cursor: pointer;
+  --eyebrow: 0.92;
+  padding: 0.65em calc(0.95em / var(--eyebrow));
+  margin: 0;
+  font-family: var(--md-font-mono);
+  font-size: calc(1em * var(--eyebrow));
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.mdview .doc > .contents > summary::-webkit-details-marker { display: none; }
+.mdview .doc > .contents[open] > summary {
+  margin-bottom: 0.7em;
+  border-bottom: 1px solid var(--line);
+}
+.mdview .contents ul {
+  margin: 0.4em 0 0.7em;
+  padding: 0 0.95em;
+  list-style: none;
+}
+.mdview .contents li {
+  margin: 0.2em 0;
+}
+.mdview .contents li.toc-h3 {
+  padding-left: 1.15em;
+  font-size: 0.95em;
+}
+.mdview .contents a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6em;
+  color: var(--muted);
+  text-decoration: none;
+}
+.mdview .contents a:hover,
+.mdview .contents a:focus-visible {
+  color: var(--accent);
+}
+.mdview .contents .toc-min {
+  font-size: 0.8em;
+  color: var(--faint);
+}
+@media (max-width: 1279.98px) {
+  .mdview .doc > .contents {
+    display: block;
+  }
+}
+
+/* click to enlarge: an image that is being downscaled, or a diagram */
+.mdview img.zoomable,
+.mdview pre.mermaid svg.zoomable {
+  cursor: zoom-in;
+}
+.mdview img.zoomable:hover {
+  border-color: var(--line-strong);
+}
+
+.mdview-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 3vmin;
+  background: rgba(9, 12, 17, 0.78);
+  cursor: zoom-out;
+  animation: mdview-zoom-in 0.14s ease-out;
+  /* it takes focus so that Escape belongs to the thing that is open; the ring on
+     the whole backdrop would be a box around the window */
+  outline: none;
+}
+
+/* The way out, on top of what came in. Clicking the backdrop closes this, but
+   the enlarged picture is usually most of the screen, so on a touch screen —
+   where there is no backdrop to aim at — the only way out would have been
+   Escape, which a touch screen has no key for. Same geometry as the corner
+   pills, because it is the same kind of control in the same corner of the
+   window, and `--card` so it reads as the reader's own furniture over the
+   dimmed page rather than as part of the picture. */
+.mdview-zoom-x {
+  position: absolute;
+  top: clamp(12px, 2.2vw, 28px);
+  right: clamp(12px, 2.2vw, 28px);
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: var(--float-h);
+  height: var(--float-h);
+  padding: 0;
+  font: inherit;
+  font-size: calc(var(--ui-size) * 0.83);
+  line-height: 1;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  box-shadow: var(--float-shadow);
+  cursor: pointer;
+}
+
+.mdview-zoom-x:hover {
+  color: var(--accent);
+  border-color: var(--accentline);
+}
+
+.mdview-zoom-x:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.mdview-zoom-inner {
+  max-width: 94vw;
+  max-height: 94vh;
+  overflow: auto;
+  padding: 10px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+}
+
+.mdview-zoom-inner > img,
+.mdview-zoom-inner > svg {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 92vw;
+  max-height: 88vh;
+  border: none;
+  background: none;
+}
+
+/* Previous and next through a note's pictures, with the count between them. They sit
+   at the bottom of the window, below the picture, where a thumb or a pointer reaches
+   them without covering what is being read. */
+.mdview-zoom-step {
+  position: absolute;
+  bottom: clamp(12px, 2.2vh, 26px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  box-shadow: var(--float-shadow);
+  font-size: calc(var(--ui-size) * 0.9);
+}
+.mdview-zoom-prev,
+.mdview-zoom-next {
+  display: grid;
+  place-items: center;
+  width: var(--float-h);
+  height: var(--float-h);
+  padding: 0;
+  font: inherit;
+  font-size: 1.3em;
+  line-height: 1;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  border-radius: 99px;
+  cursor: pointer;
+}
+.mdview-zoom-prev:hover,
+.mdview-zoom-next:hover {
+  color: var(--accent);
+}
+.mdview-zoom-prev:focus-visible,
+.mdview-zoom-next:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.mdview-zoom-count {
+  min-width: 4.2em;
+  text-align: center;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes mdview-zoom-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mdview-zoom {
+    animation: none;
+  }
+}
+
+/* The end of the document, marked. A page that simply stops leaves the reader
+   checking the scrollbar to see whether they are done; a tick here is the reward
+   for finishing, delivered in the one place they are certain to be looking. The
+   space is held before it is earned, so nothing moves when it arrives. */
+.mdview .doc > .endplate {
+  margin: clamp(2.2em, 5vw, 3.6em) 0 0;
+  padding-top: 1.5em;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font-size: 0.86em;
+  color: var(--faint);
+}
+
+.mdview .endplate-mark {
+  display: block;
+  font-size: 1.5em;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.mdview .endplate.is-done .endplate-mark {
+  opacity: 1;
+  transform: none;
+}
+
+.mdview .endplate-note {
+  margin: 0.5em 0 0;
+  font-family: var(--md-font-mono);
+  font-size: 0.85em;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.mdview .endplate-stats {
+  margin: 0.4em 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.mdview .endplate-again {
+  font: inherit;
+  font-size: 0.95em;
+  margin-top: 0.9em;
+  padding: 0.25em 0.85em;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.mdview .endplate-again:hover {
+  color: var(--accent);
+  border-color: var(--accentline);
+  background: var(--accenttint);
+}
+
+.mdview .endplate-again:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* progress line + back-to-top: fixed to the viewport, outside .mdview */
+.mdview-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.12s linear;
+}
+
+.mdview-totop {
+  position: fixed;
+  right: clamp(12px, 2.2vw, 28px);
+  bottom: clamp(12px, 2.2vw, 28px);
+  z-index: 20;
+  /* The corner pair: the round one is `--float-h` square, the text one is
+     `--float-h` tall, and both take the same lift (`--float-shadow`) and the
+     same type size (`--ui-size`), so the two corners are the same control.
+     `border-box` explicitly, and in both: a `<button>` was getting it and a
+     `<div>` was not, so the same `--float-h` came out 34.2px one side and 35.6px
+     the other — the two pills in mirrored corners a pixel and a half apart. */
+  box-sizing: border-box;
+  width: var(--float-h);
+  height: var(--float-h);
+  display: grid;
+  place-items: center;
+  font: inherit;
+  font-size: calc(var(--ui-size) * 0.83);
+  line-height: 1;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  box-shadow: var(--float-shadow);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  /* `opacity: 0` is not absence. A control the reader cannot see was still in
+     the tab order: tabbing along the page landed on an invisible "Back to top"
+     and an invisible "Not now", both of which announced themselves and neither
+     of which could be aimed at. `visibility` is the state that actually removes
+     an element from being focusable, and it is transitioned with a delay so the
+     fade still reads — the delay on the way out, none on the way in. */
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, color 0.15s ease,
+    visibility 0s linear 0.18s;
+}
+
+.mdview-totop.show {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.18s ease, transform 0.18s ease, color 0.15s ease,
+    visibility 0s;
+}
+
+.mdview-totop:hover {
+  color: var(--accent);
+  border-color: var(--accentline);
+}
+
+.mdview-totop:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* beside the reader's top bar rather than over the text: the same control, in the bar */
+.mdview-totop.in-bar {
+  position: static;
+  flex: 0 0 auto;
+  margin-left: auto;
+  width: 30px;
+  height: 30px;
+  box-shadow: none;
+  transform: none;
+}
+
+/* the top bar sits on the card colour, which in Warm is only a whisper off the page;
+   a firmer edge keeps the bar's line visible in every theme */
+nav.bar {
+  border-bottom-color: var(--line-strong);
+}
+
+/* the note's source is in a <pre> until the reader has drawn it; it is read from there
+   and must not be seen first, so it stays out of sight while the page is markdown */
+html[data-mdview-page="markdown"] pre.raw-source {
+  display: none;
+}
+
+/* a bare web address is one line, cut with an ellipsis; it never breaks at the hyphens
+   inside it (see markBareUrls). The full address is the title, shown on hover. */
+.mdview .doc a.bare-url {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+/* a phone has no hover, so the title that carries the full address is out of reach there:
+   on a touch screen the whole address is shown, wrapping wherever it has to */
+@media (hover: none) {
+  .mdview .doc a.bare-url {
+    display: inline;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    word-break: break-all;
+  }
+}
+
+/* a machine's reading of a picture (see markTranscripts): quieter, with a rule, so the
+   columns and breaks read as a transcript and not as the author's own prose */
+.mdview .transcript {
+  margin: 0 0 var(--rhythm);
+  padding: 0.1em 0 0.1em 1.1em;
+  border-left: 3px solid var(--line-strong);
+  color: var(--muted);
+}
+.mdview .transcript li::marker {
+  color: var(--faint);
+}
+
+/* a heading that repeats the title above it: kept for the outline and screen readers,
+   taken out of sight */
+.mdview .is-echo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* a line that has run out of document is the moment the file is finished */
+.mdview-progress.is-done {
+  box-shadow: 0 1px 7px var(--accentline);
+}
+
+/* The way back to the place the reader stopped, in the corner the reading eye is
+   not using — the back-to-top button has the other one. It appears from the
+   bottom, so it reads as arriving rather than as having been there all along. */
+.mdview-resume {
+  position: fixed;
+  left: clamp(12px, 2.2vw, 28px);
+  bottom: clamp(12px, 2.2vw, 28px);
+  z-index: 21;
+  display: flex;
+  align-items: center;
+  /* the other half of the corner pair — see `--float-h`, `--float-shadow` */
+  box-sizing: border-box;
+  min-height: var(--float-h);
+  font-size: calc(var(--ui-size) * 0.75);
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  box-shadow: var(--float-shadow);
+  opacity: 0;
+  pointer-events: none;
+  /* the same absence as the other corner: see `.mdview-totop` */
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+}
+
+.mdview-resume.show {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s;
+}
+
+.mdview-resume-go {
+  font: inherit;
+  /* the pill's height is the pair's, not this button's: with the inherited
+     leading the button measured 35.6px against the round pill's 34.2 and the two
+     corners were visibly out of step */
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.4em 0.8em;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: 99px;
+  cursor: pointer;
+}
+
+.mdview-resume-go:hover {
+  color: var(--accent);
+  background: var(--accenttint);
+}
+
+.mdview-resume-arrow {
+  color: var(--accent);
+}
+
+.mdview-resume-x {
+  font: inherit;
+  font-size: 1.05em;
+  line-height: 1;
+  padding: 0.3em 0.6em;
+  color: var(--faint);
+  background: none;
+  border: 0;
+  border-radius: 99px;
+  cursor: pointer;
+}
+
+.mdview-resume-x:hover {
+  color: var(--ink);
+}
+
+.mdview-resume :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Print is declared last in the file on purpose: it has to beat every screen
+   rule above it — the page surface, the fixed bar, the folds — and it sits
+   after the narrow rules so a phone-width print viewport cannot restyle the
+   paper. This is what the empty "print" banner used to promise and not keep. */
+@media print {
+  :root {
+    --bleed: 0px;
+  }
+  body {
+    background: #fff !important;
+  }
+  /* Paper is the page: no surface, no shadow, no padding of its own — including
+     the wider page that carries the outline on screen, which a wide enough print
+     viewport would otherwise keep. */
+  .mdview,
+  .mdview:has(> .toc) {
+    display: block;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 11pt;
+    color: #000;
+  }
+  /* paper is the page: no surface, no shadow, no padding of its own */
+  .mdview .doc {
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+  .mdview a {
+    color: #000;
+    text-decoration-color: #999;
+  }
+  .mdview pre.fence,
+  .mdview .tablewrap,
+  .mdview blockquote,
+  .mdview details,
+  .mdview .notes > ol > li,
+  .mdview img {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+  /* a pinned head is a screen thing: on paper the head is printed where it is,
+     and it wants its hairline back on the border, not inside the cell */
+  .mdview .tablewrap.tall thead th {
+    position: static;
+    border-bottom: 1px solid var(--line-strong);
+    box-shadow: none;
+  }
+  /* a folded section is a screen state: on paper the document is whole */
+  .mdview [data-mdview-fold] {
+    display: revert !important;
+  }
+  .mdview h1,
+  .mdview h2,
+  .mdview h3 {
+    break-after: avoid;
+  }
+  /* a paragraph never leaves one line alone at the foot of a page, or one line
+     alone at the top of the next */
+  .mdview p {
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mdview * {
+    transition: none !important;
+  }
+  /* "less motion" includes the motion of the page itself */
+  html {
+    scroll-behavior: auto;
+  }
+
+}
+
+/* Checkpoints: a mark on a line of text the reader set to say "stopped here". Its own colour
+   and place, so it is never mistaken for the study ticks in the outline. */
+.mdview .doc {
+  position: relative;
+}
+.mdview .cp-line {
+  position: absolute;
+  left: -0.9rem;
+  right: -0.4rem;
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  pointer-events: none;
+}
+.mdview .cp-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.9rem;
+  margin: 0 0 1.2rem;
+  font-size: 0.85rem;
+  color: var(--faint);
+}
+.mdview .cp-bar button {
+  font: inherit;
+  color: var(--accent);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.mdview .cp-bar button:disabled {
+  color: var(--faint);
+  cursor: default;
+  text-decoration: none;
+}
+@media print {
+  .mdview .cp-line,
+  .mdview .cp-bar {
+    display: none;
+  }
+}
+
+/* Formulas. Until the formula engine has drawn one (or if it cannot), the TeX shows as text. */
+.mdview .math:not(:has(.katex)) {
+  font-family: var(--md-font-mono, ui-monospace, monospace);
+  font-size: 0.9em;
+  color: var(--faint);
+}
+.mdview .math.display {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: center;
+  margin: 0.6em 0;
+  padding: 0.6em 0; /* room for tall parts (fractions, roots): the box would cut them off */
+}
+.mdview .math.display .katex-display {
+  margin: 0;
+}
+/* a formula wider than its box scrolls, and its tag, (1), stays at the end of the formula */
+.mdview .math.display .katex-display > .katex {
+  width: max-content;
+  min-width: 100%;
+}
+
+/* Document style. The look of a technical document rather than a web page: dark headings in
+   sentence case with a thin grey rule under the section ones, flat boxes, tables drawn as a
+   ruled grid with a plain header, no colour except where it carries meaning. It only
+   restates what was blue, uppercase or shadowed; every size, space and palette is the one above.
+
+   The uppercase had a second cause: the reader's own app stylesheet has a bare
+   `h2 { text-transform: uppercase }` for its library page, and it reaches every note, so the
+   note's headings are set back to normal case here. */
+.mdview h2 {
+  text-transform: none;
+  color: var(--ink);
+  border-bottom-color: var(--line-strong);
+}
+.mdview h3 {
+  color: var(--ink);
+}
+.mdview .doc > :is(h2, h3, h4) > .anchor {
+  color: var(--faint);
+}
+
+.mdview .tablewrap {
+  box-shadow: none;
+  border-radius: var(--radius-sm);
+  border-color: var(--line-strong);
+}
+.mdview th,
+.mdview td {
+  border: 1px solid var(--line);
+}
+/* the card already draws the outer edge, so the cells do not draw it a second time */
+.mdview tr > :first-child {
+  border-left: 0;
+}
+.mdview tr > :last-child {
+  border-right: 0;
+}
+.mdview thead tr:first-child > *,
+.mdview table > tr:first-child > * {
+  border-top: 0;
+}
+.mdview tbody tr:last-child > * {
+  border-bottom: 0;
+}
+.mdview th {
+  color: var(--ink);
+  font-weight: 650;
+  border-bottom-color: var(--line-strong);
+}
+.mdview tbody tr:nth-child(even) {
+  background: none;
+}
+.mdview .tablewrap.kv th {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: inherit;
+}
+
+.mdview img {
+  box-shadow: none;
+}
+
+/* the masthead's buttons wrap onto a second line on a narrow window instead of widening the page */
+.mdview .mast-actions {
+  flex-wrap: wrap;
+  row-gap: 0.4em;
+}
+
+/* The rule under a section heading, as in a printed document, is also under the level below it
+   (the notes mostly use `###`), one step lighter so the two levels still read as two. A heading
+   that closes nothing keeps losing it, by the rule above. */
+.mdview h3 {
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--line);
+}
+.mdview h2 + h3 {
+  /* a subtitle right under its heading is part of it: the heading's rule is enough */
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* A section break is a thin rule, as in the printed document, not a 4px slab: the heavy bar
+   outweighed the headings it separated. The air around it stays the same. */
+.mdview hr {
+  height: 2px;
+  background: var(--line-strong);
+}
+
+/* The intro paragraph closes with its own rule; a break right after it is that rule,
+   so the page does not draw two. */
+.mdview .doc > h1 + p:has(+ hr) {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* label colon: kept in the text, not drawn */
+.mdview p.label .label-colon {
+  display: none;
+}
+
+/* rows of a term list: one-line pairs do not need two lines of air each */
+.mdview ul.defs > li {
+  padding: 0.45em 0;
+}
+@media (min-width: 768px) {
+  .mdview ul.defs :is(.def-term, .def-desc) {
+    padding-top: 0.45em;
+    padding-bottom: 0.45em;
+  }
+}
+
+/* The outline's title and reading times in the page's own face; tabular digits keep the times aligned. */
+.mdview .toc-title,
+.mdview .toc-min {
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+/* A break right before a heading: the heading's own rule already marks it, so the break is air only. */
+.mdview hr:has(+ :is(h2, h3)) {
+  background: transparent;
+}
+
+/* a third level in the outline (a numbered entry inside a subsection) */
+.mdview .toc li.toc-h4 a {
+  padding-left: 2.8em;
+  font-size: 0.95em;
+}
+.mdview .contents li.toc-h4 {
+  padding-left: 2.3em;
+  font-size: 0.9em;
+}
+
+/* ============================================================ FLAT PASS ==== *
+ * The previous visual-polish layer (gradients, glass, glows, ambient
+ * animations) has been removed in favour of a cleaner, flatter,
+ * GitHub-style reading surface. The base + "Document style" rules above
+ * already provide the flat boxes, rules and grid; this block now only
+ * holds the small overrides that pass still needs.
+ * ========================================================================== */
+
+/* Links that carry code should still read as links, not as plain code. */
+.mdview a code {
+  color: inherit;
+  background: transparent;
+  text-decoration: underline;
+  text-decoration-color: var(--accentline);
+}
+
+/* A code card's copy control stays out of the way of both the language label
+   and the first line of code. */
+.mdview pre.fence .copy {
+  top: 0.35em;
+  right: 0.45em;
+}
+.mdview pre.fence[data-lang]::before {
+  right: 5.0em;
+}
+
+
+/* A fenced block that is really a box-drawing diagram: framed, scrollable,
+   never wrapped, with a quiet "diagram" caption. */
+.mdview pre.fence.diagram {
+  background: color-mix(in srgb, var(--fence) 92%, var(--accent) 3%);
+  border: 1px dashed color-mix(in srgb, var(--accent) 35%, var(--line));
+  padding: 1em 1.1em;
+  overflow-x: auto;
+}
+.mdview pre.fence.diagram::before {
+  content: "diagram";
+}
+.mdview pre.fence.diagram code {
+  white-space: pre;
+  font-size: 0.82em;
+  line-height: 1.35;
+}
+
+
+/* ASCII box diagrams, promoted to a real node/edge diagram. */
+.mdview .ascii-diagram-wrap {
+  margin: var(--rhythm) 0;
+}
+.mdview .ascii-diagram {
+  display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center; gap: 18px;
+  padding: 24px 20px; border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--line);
+}
+.mdview .ascii-diagram .ad-node {
+  flex: 0 1 200px; display: flex; flex-direction: column; justify-content: center;
+  min-height: 96px; padding: 16px 16px; border-radius: var(--radius-sm); text-align: center;
+  background: var(--fence);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  font-size: 0.95em; line-height: 1.35; font-weight: 500;
+}
+.mdview .ascii-diagram .ad-node:hover {
+  border-top-color: var(--accent);
+}
+.mdview .ascii-diagram .ad-node:first-line { font-weight: 700; font-size: 1.05em; }
+.mdview .ascii-diagram .ad-arrow {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  color: var(--muted); font-size: 0.76em; min-width: 118px; padding: 0 4px;
+}
+.mdview .ascii-diagram .ad-label {
+  font-weight: 600; color: var(--ink); text-align: center; line-height: 1.3;
+  padding: 6px 10px; border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 9%, var(--card));
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--line));
+}
+.mdview .ascii-diagram .ad-line {
+  width: 104px; height: 2px; border-radius: 2px;
+  background: var(--accent);
+  opacity: 0.6;
+}
+@media (max-width: 760px) {
+  .mdview .ascii-diagram { flex-direction: column; gap: 10px; }
+  .mdview .ascii-diagram .ad-arrow { transform: rotate(90deg); min-width: 0; }
+  .mdview .ascii-diagram .ad-node { flex: 1 1 100%; }
+}
+
+
+/* ASCII blocks rendered as a scalable picture (the generic fallback). */
+.mdview .ascii-svg-wrap {
+  margin: var(--rhythm) 0;
+  text-align: center;
+}
+.mdview .ascii-svg {
+  max-width: 100%; height: auto; border-radius: 16px;
+  box-shadow: 0 16px 36px -20px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+
+/* Code blocks: flat, GitHub-style slab. */
+.mdview pre.fence {
+  padding: 1em 1.15em;
+  border-radius: var(--radius-sm);
+  border-color: var(--line);
+  background-color: var(--fence);
+  box-shadow: none;
+}
+.mdview pre.fence code {
+  font-size: 0.93em;
+  line-height: 1.65;
+}
+
+
+/* Code blocks: a clean, structured header with language + copy, no heavy card. */
+.mdview pre.fence {
+  padding: 2.2em 1.1em 0.95em;
+  position: relative;
+}
+.mdview pre.fence[data-lang]::before {
+  top: 0.55em;
+  left: 0.9em;
+  right: auto;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--line);
+  color: var(--muted);
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.mdview pre.fence .copy {
+  top: 0.55em;
+  right: 0.55em;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--line);
+  color: var(--muted);
+  border-color: var(--line);
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.mdview pre.fence .copy:hover,
+.mdview pre.fence .copy.done {
+  background: var(--accenttint);
+  color: var(--accent);
+  border-color: var(--accentline);
+}
+
+
+/* Syntax tokens: a restrained blue/green/gray harmony. */
+.mdview pre.fence code .tok-kw { color: var(--accent); font-weight: 700; }
+.mdview pre.fence code .tok-str { color: var(--callout-tip); }
+.mdview pre.fence code .tok-num { color: var(--callout-warning); font-weight: 600; }
+.mdview pre.fence code .tok-cmt { color: var(--faint); font-style: italic; }
+.mdview pre.fence code .tok-var { color: inherit; }
+.mdview pre.fence code .tok-flag { color: var(--accent); font-weight: 600; }
+.mdview pre.fence code .tok-key { color: var(--accent); font-weight: 600; }
+.mdview pre.fence code .tok-op { color: color-mix(in srgb, var(--accent) 45%, var(--muted)); }
+.mdview pre.fence code .tok-fn { color: color-mix(in srgb, var(--accent) 75%, var(--card)); font-weight: 600; }
+.mdview pre.fence code .tok-type { color: color-mix(in srgb, var(--accent) 40%, var(--callout-important)); }
+.mdview pre.fence code .tok-const { color: var(--callout-warning); font-weight: 600; }
+
+/* Terminal / shell sessions are structured in highlightTerminal() (mdview.js):
+   the prompt and the command are coloured, the captured output is left plain.
+   No blanket override here, so the structured colours survive. */
