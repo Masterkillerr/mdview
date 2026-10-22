@@ -1,0 +1,69 @@
+@startuml
+' Story map - the epics, the stories inside them, and the use cases they serve
+' Package - the shape of the work, and where it comes from
+' Sources: ../../../analysis/epics.md, ../../../analysis/stories.md
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "EP-01  The window" as EP1 {
+  [US-02] as A1
+  [US-05] as A2
+  [US-06] as A3
+  [US-07] as A4
+  [US-08] as A5
+}
+package "EP-02  Getting a file open" as EP2 {
+  [US-01] as B1
+  [US-04] as B2
+  [US-10] as B3
+  [US-18] as B4
+}
+package "EP-03  Reading" as EP3 {
+  [US-03] as C1
+  [US-09] as C2
+  [US-11] as C3
+  [US-13] as C4
+  [US-14] as C5
+  [US-15] as C6
+}
+package "EP-04  Looking a word up" as EP4 {
+  [US-12] as D1
+}
+package "EP-05  Organising and choosing" as EP5 {
+  [US-16] as E1
+  [US-17] as E2
+}
+
+rectangle "UC-03  Browse the folders" as UC03
+rectangle "UC-04  Open a file in a tab" as UC04
+rectangle "UC-01  Open a local file" as UC01
+rectangle "UC-12  A file from outside" as UC12
+rectangle "UC-02  Read a note" as UC02
+rectangle "UC-06  Read a PDF" as UC06
+rectangle "UC-07  Look at a picture" as UC07
+rectangle "UC-08  Read a spreadsheet" as UC08
+rectangle "UC-05  Look a word up" as UC05
+rectangle "UC-09  Organise the library" as UC09
+rectangle "UC-10  Find a note" as UC10
+rectangle "UC-13  Set the preferences" as UC13
+
+EP1 --> UC03
+EP1 --> UC04
+EP2 --> UC01
+EP2 --> UC12
+EP3 --> UC02
+EP3 --> UC06
+EP3 --> UC07
+EP3 --> UC08
+EP4 --> UC05
+EP5 --> UC09
+EP5 --> UC10
+EP5 --> UC13
+@enduml

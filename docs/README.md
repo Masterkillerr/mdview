@@ -30,6 +30,7 @@ disk.
 |---|---|
 | What is true today — the code, the tests, the numbers | [analysis/evidence.md](analysis/evidence.md) |
 | What must it do, and where each requirement is proved | [analysis/requirements.md](analysis/requirements.md) |
+| What the work is, in bodies of work | [analysis/epics.md](analysis/epics.md) |
 | What is a goal, in full | [analysis/use-case-descriptions.md](analysis/use-case-descriptions.md) |
 | What is a slice of work | [analysis/stories.md](analysis/stories.md) |
 | What is next | [analysis/backlog.md](analysis/backlog.md) |

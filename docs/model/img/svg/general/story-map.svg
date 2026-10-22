@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="545px" preserveAspectRatio="none" style="width:2338px;height:545px;" version="1.1" viewBox="0 0 2338 545" width="2338px" zoomAndPan="magnify"><defs/><g><!--MD5=[063dcc551342ab758efb46712a3cfb7c]
+cluster EP1--><polygon fill="#FBFBFC" points="30,77,166,77,173,102.0679,345,102.0679,345,285,30,285,30,77" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="30" x2="173" y1="102.0679" y2="102.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="130" x="34" y="93.9659">EP-01  The window</text><!--MD5=[9308bf000ed9be28c8f6c0591b74801f]
+cluster EP2--><polygon fill="#FBFBFC" points="820,77,1000,77,1007,102.0679,1041,102.0679,1041,285,820,285,820,77" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="820" x2="1007" y1="102.0679" y2="102.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="174" x="824" y="93.9659">EP-02  Getting a file open</text><!--MD5=[2e4bcc6072b609793157c2f858eb8ea8]
+cluster EP3--><polygon fill="#FBFBFC" points="30,325,138,325,145,350.0679,345,350.0679,345,533,30,533,30,325" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="30" x2="145" y1="350.0679" y2="350.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="102" x="34" y="341.9659">EP-03  Reading</text><!--MD5=[58bf3107524440851854737f985dc70d]
+cluster EP4--><polygon fill="#FBFBFC" points="1548,77,1731,77,1738,102.0679,1741,102.0679,1741,186,1548,186,1548,77" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="1548" x2="1738" y1="102.0679" y2="102.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="177" x="1552" y="93.9659">EP-04  Looking a word up</text><!--MD5=[fef8d6b9730eb6dfc287403ba3f25051]
+cluster EP5--><polygon fill="#FBFBFC" points="2005,77,2230,77,2237,102.0679,2240,102.0679,2240,186,2005,186,2005,77" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="2005" x2="2237" y1="102.0679" y2="102.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="219" x="2009" y="93.9659">EP-05  Organising and choosing</text><!--MD5=[23bc7945312e1f0a2e37cebfe503a03b]
+entity A1--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="54.5" y="123"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="49.5" y="128"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="49.5" y="152.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="64.5" y="147.9659">US-02</text><!--MD5=[406a5e0ae180932da9bcb21c819a1904]
+entity A2--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="148.5" y="123"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="143.5" y="128"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="143.5" y="152.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="158.5" y="147.9659">US-05</text><!--MD5=[305b0bf20d1e87c4314d270a9e4e4ae4]
+entity A3--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="242.5" y="123"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="237.5" y="128"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="237.5" y="152.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="252.5" y="147.9659">US-06</text><!--MD5=[b4296d86aafbbd2074f03a740cb37cff]
+entity A4--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="54.5" y="222"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="49.5" y="227"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="49.5" y="251.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="64.5" y="246.9659">US-07</text><!--MD5=[92e12b53097991ea4e702b1584848830]
+entity A5--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="148.5" y="222"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="143.5" y="227"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="143.5" y="251.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="158.5" y="246.9659">US-08</text><!--MD5=[197f37fc296f06c5545716d5891b367b]
+entity B1--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="844.5" y="123"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="839.5" y="128"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="839.5" y="152.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="854.5" y="147.9659">US-01</text><!--MD5=[2495d8b3bb3d36e408f3562b16b52636]
+entity B2--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="938.5" y="123"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="933.5" y="128"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="933.5" y="152.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="948.5" y="147.9659">US-04</text><!--MD5=[b315305f5d163feb1f05d61871a52faa]
+entity B3--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="844.5" y="222"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="839.5" y="227"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="839.5" y="251.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="854.5" y="246.9659">US-10</text><!--MD5=[216f5950d45e1129bdffb34913d14600]
+entity B4--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="938.5" y="222"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="933.5" y="227"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="933.5" y="251.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="948.5" y="246.9659">US-18</text><!--MD5=[55b6f7fe569c88e778889e4a7d46dc6f]
+entity C1--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="54.5" y="371"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="49.5" y="376"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="49.5" y="400.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="64.5" y="395.9659">US-03</text><!--MD5=[2324993324a80522a7091d42b9118e29]
+entity C2--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="148.5" y="371"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="143.5" y="376"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="143.5" y="400.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="158.5" y="395.9659">US-09</text><!--MD5=[05d3c132bed6e058ad55d82af5f30f96]
+entity C3--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="242.5" y="371"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="237.5" y="376"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="237.5" y="400.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="252.5" y="395.9659">US-11</text><!--MD5=[92ed0b7d55449354be29483e00621f1b]
+entity C4--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="54.5" y="470"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="49.5" y="475"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="49.5" y="499.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="64.5" y="494.9659">US-13</text><!--MD5=[0a290dd6561bb81b175e35ca26bbbf0c]
+entity C5--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="148.5" y="470"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="143.5" y="475"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="143.5" y="499.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="158.5" y="494.9659">US-14</text><!--MD5=[217c58744140f3586f22ecd1419b458c]
+entity C6--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="242.5" y="470"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="237.5" y="475"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="237.5" y="499.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="252.5" y="494.9659">US-15</text><!--MD5=[b3ad01ddeee7a8023078597cce53191f]
+entity D1--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="1640.5" y="123"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1635.5" y="128"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1635.5" y="152.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="1650.5" y="147.9659">US-12</text><!--MD5=[45565a74ca8123df0b8413ce5340d40a]
+entity E1--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="2152.5" y="123"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="2147.5" y="128"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="2147.5" y="152.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="2162.5" y="147.9659">US-16</text><!--MD5=[a3c437a7ee715155cf6a0fec80d7cbaf]
+entity E2--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="59" x="2058.5" y="123"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="2053.5" y="128"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="2053.5" y="152.0679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="2068.5" y="147.9659">US-17</text><!--MD5=[970b20c5c1e9cd64fa810c0e7633db00]
+entity UC03--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="194" x="369" y="222"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="174" x="379" y="246.9659">UC-03  Browse the folders</text><!--MD5=[15ceb83d27cb89c0a86040de9ef6493f]
+entity UC04--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="197" x="598.5" y="222"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="177" x="608.5" y="246.9659">UC-04  Open a file in a tab</text><!--MD5=[ce34520da1782ec614b5fa13a5190894]
+entity UC01--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="177" x="1064.5" y="222"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="157" x="1074.5" y="246.9659">UC-01  Open a local file</text><!--MD5=[f36a7c7b7319556be58f40aa0673b881]
+entity UC12--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="192" x="1277" y="222"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="172" x="1287" y="246.9659">UC-12  A file from outside</text><!--MD5=[5e65e10b45b9c05de2c3febb06cc8e8a]
+entity UC02--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="148" x="369" y="470"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="128" x="379" y="494.9659">UC-02  Read a note</text><!--MD5=[71ebd0899fac92f5c3d68fd30433a4a7]
+entity UC06--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="143" x="552.5" y="470"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="123" x="562.5" y="494.9659">UC-06  Read a PDF</text><!--MD5=[b5273c199d56395447f3731a0a060e5b]
+entity UC07--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="179" x="730.5" y="470"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="159" x="740.5" y="494.9659">UC-07  Look at a picture</text><!--MD5=[f457c2869ae05d8a2fc8910bdf2ee33d]
+entity UC08--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="202" x="945" y="470"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="182" x="955" y="494.9659">UC-08  Read a spreadsheet</text><!--MD5=[73d9a47b62cb528634dcc00b89e1521a]
+entity UC05--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="170" x="1504" y="222"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="150" x="1514" y="246.9659">UC-05  Look a word up</text><!--MD5=[4c5c2cfa32c5f262120fa126f80d4dde]
+entity UC09--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="204" x="1709" y="222"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="184" x="1719" y="246.9659">UC-09  Organise the library</text><!--MD5=[9fd5e3654152613323d7649e6dbbdece]
+entity UC10--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="143" x="1948.5" y="222"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="123" x="1958.5" y="246.9659">UC-10  Find a note</text><!--MD5=[1707212056a8158f902c6f5b42d78a1e]
+entity UC13--><rect fill="#FEFECE" height="39.0679" style="stroke: #000000; stroke-width: 1.5;" width="200" x="2127" y="222"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="180" x="2137" y="246.9659">UC-13  Set the preferences</text><!--MD5=[90412f45992e4bf7ccafbfdb11054768]
+link EP1 to UC03--><path d="M345.1323,149.6159 C345.4855,149.8815 345.8488,150.1546 346.2217,150.435 C346.9676,150.9958 347.7522,151.5857 348.5731,152.203 C355.1406,157.1409 364.0325,163.8269 374.0025,171.3238 C393.9425,186.3175 418.195,204.555 436.79,218.54 " fill="none" id="EP1-&gt;UC03" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="441.21,221.86,436.41,213.26,437.21,218.86,431.61,219.66,441.21,221.86" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[d0aaded12a3c5753ef158a7f0f37ef94]
+link EP1 to UC04--><path d="M345.2206,145.715 C345.5434,145.802 345.8751,145.8913 346.2155,145.983 C351.6623,147.4503 359.3458,149.5203 368.7816,152.0625 C387.6531,157.1469 413.5338,164.12 442.5475,171.9375 C500.575,187.5725 571.135,206.585 623.22,220.62 " fill="none" id="EP1-&gt;UC04" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="628.12,221.94,620.4694,215.7378,623.2919,220.6401,618.3896,223.4627,628.12,221.94" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[925649771973b978e75192d345fab4d3]
+link EP2 to UC01--><path d="M1041.0652,150.0199 C1041.2341,150.1564 1041.4052,150.2948 1041.5786,150.435 C1042.2723,150.9958 1043.002,151.5857 1043.7655,152.203 C1049.8734,157.1409 1058.1444,163.8269 1067.4187,171.3238 C1085.9675,186.3175 1108.53,204.555 1125.83,218.54 " fill="none" id="EP2-&gt;UC01" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1129.94,221.86,1125.4579,213.0901,1126.0524,218.7157,1120.4269,219.3102,1129.94,221.86" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[590b8555446137217a4c92602f9c5f3f]
+link EP2 to UC12--><path d="M1041.2073,145.8436 C1041.3637,145.8882 1041.5221,145.9334 1041.6825,145.9792 C1046.8176,147.444 1054.0614,149.5105 1062.9578,152.0486 C1080.7506,157.1247 1105.1538,164.0869 1132.5175,171.8937 C1187.245,187.5075 1253.815,206.5 1303.03,220.54 " fill="none" id="EP2-&gt;UC12" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1307.95,221.94,1300.3952,215.6214,1303.1424,220.5664,1298.1974,223.3136,1307.95,221.94" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[78263e71fa5c02f2ded0b5644e7f61d4]
+link EP3 to UC02--><path d="M345.2238,399.0257 C345.3028,399.098 345.3823,399.1707 345.4622,399.2439 C345.782,399.5366 346.1095,399.8363 346.4444,400.1428 C351.8025,405.0469 359.06,411.6888 367.205,419.1425 C383.495,434.05 403.335,452.205 418.63,466.2 " fill="none" id="EP3-&gt;UC02" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="422.63,469.86,418.708,460.8257,418.9478,466.4775,413.296,466.7173,422.63,469.86" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[52c66f8474cfe49217ec5da62093f8a2]
+link EP3 to UC06--><path d="M345.1202,394.247 C345.4034,394.3427 345.6934,394.4407 345.9902,394.541 C346.5837,394.7415 347.2042,394.9512 347.8508,395.1697 C349.144,395.6068 350.5419,396.0792 352.0385,396.5849 C355.0318,397.5965 358.42,398.7415 362.1555,400.0039 C377.0972,405.0534 397.5944,411.9806 420.5938,419.7537 C466.5925,435.3 522.6,454.23 564.19,468.29 " fill="none" id="EP3-&gt;UC06" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="569.09,469.94,561.8408,463.273,564.3523,468.3417,559.2836,470.8533,569.09,469.94" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[606a3b297a89074dc47d67702fef3217]
+link EP3 to UC07--><path d="M345.1533,393.1381 C345.3433,393.1763 345.5365,393.2151 345.7328,393.2545 C346.1254,393.3333 346.5304,393.4146 346.9477,393.4984 C347.7823,393.6659 348.666,393.8433 349.5975,394.0303 C357.0496,395.5264 367.5608,397.637 380.4597,400.227 C406.2575,405.4072 441.6063,412.5056 481.135,420.4438 C560.1925,436.32 655.97,455.555 725.5,469.52 " fill="none" id="EP3-&gt;UC07" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="730.41,470.51,722.3756,464.8136,725.5082,469.5239,720.7979,472.6565,730.41,470.51" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[24fba9a040fbae35303c39d74ced0955]
+link EP3 to UC08--><path d="M345.2107,392.5262 C345.6577,392.5821 346.1223,392.6401 346.6042,392.7004 C348.5317,392.9413 350.7364,393.2172 353.2067,393.5266 C363.0878,394.7645 377.2169,396.5403 394.8413,398.7706 C430.09,403.2313 479.32,409.51 536.51,416.94 C650.89,431.8 797.11,451.265 927,470 C931.16,470.6 935.41,471.22 939.7,471.85 " fill="none" id="EP3-&gt;UC08" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="944.75,472.6,936.4444,467.3068,939.8055,471.8569,935.2555,475.218,944.75,472.6" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[6a0de0b09d97036e4f64af1163c0d275]
+link EP4 to UC05--><path d="M1589,186.2938 C1589,186.7926 1589,187.2923 1589,187.7926 C1589,189.7937 1589,191.8045 1589,193.8111 C1589,201.8375 1589,209.7975 1589,216.81 " fill="none" id="EP4-&gt;UC05" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1589,221.86,1593,212.86,1589,216.86,1585,212.86,1589,221.86" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[bb2d2cedb08bb2af09f23a68ad37b6e0]
+link EP5 to UC09--><path d="M2004.6967,150.604 C2003.4585,151.1787 2002.1562,151.7831 2000.7938,152.4155 C1989.8944,157.4741 1975.15,164.3169 1958.6675,171.9663 C1925.7025,187.265 1885.785,205.79 1855.77,219.72 " fill="none" id="EP5-&gt;UC09" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1851.16,221.86,1861.0076,221.7026,1855.696,219.7565,1857.6421,214.445,1851.16,221.86" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[98e7f5dca458e90c9c91bbc92815480e]
+link EP5 to UC10--><path d="M2020,186.2938 C2020,186.7926 2020,187.2923 2020,187.7926 C2020,189.7937 2020,191.8045 2020,193.8111 C2020,201.8375 2020,209.7975 2020,216.81 " fill="none" id="EP5-&gt;UC10" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="2020,221.86,2024,212.86,2020,216.86,2016,212.86,2020,221.86" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[11b018833529497fcdf98123c22e5760]
+link EP5 to UC13--><path d="M2030.0926,186.1173 C2030.1401,186.2126 2030.1879,186.3077 2030.2359,186.4027 C2030.3319,186.5926 2030.4288,186.7822 2030.5266,186.9713 C2030.7221,187.3495 2030.9213,187.7258 2031.1242,188.1 C2031.53,188.8485 2031.9506,189.5887 2032.3864,190.3188 C2033.2581,191.779 2034.1911,193.1991 2035.1895,194.5651 C2037.1862,197.297 2039.445,199.8125 2042,202 C2048.86,207.87 2084.01,215.81 2121.86,222.95 " fill="none" id="EP5-&gt;UC13" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="2126.98,223.91,2118.8635,218.3313,2122.0643,222.9955,2117.4002,226.1963,2126.98,223.91" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[caeae694f65dcee578e98ff337972896]
+link A1 to A2--><!--MD5=[77ff4c501d98d148735760b3f3e66250]
+link A2 to A3--><!--MD5=[1ab50474c21f123fb4b576b0312317e7]
+link A1 to A4--><!--MD5=[b40cf5ab0e6f94cc2f0ff07799513812]
+link A4 to A5--><!--MD5=[322897656e14e549faf7729e3bd828c3]
+link B1 to B2--><!--MD5=[fa1a312977047d72f770f52ce820bd07]
+link B1 to B3--><!--MD5=[61ca0c0e9b68cf46f09e3e3b8f026dcb]
+link B3 to B4--><!--MD5=[d43813fc1b63bce67197202a4f0eb2ed]
+link C1 to C2--><!--MD5=[dc377cb8495f93f8f80b5bc211815c35]
+link C2 to C3--><!--MD5=[72b4beda883c899cf7160286a7d6d150]
+link C1 to C4--><!--MD5=[fbeecf234bdc72176f773601df86aac2]
+link C4 to C5--><!--MD5=[882cdfece65b7c32bdac04c9d7a073e3]
+link C5 to C6--><!--MD5=[e4b3b98f2bb5f080cf20990d0ea6036e]
+link A3 to B1--><!--MD5=[eb0bd2ce2969b200faa562c38263fb93]
+link A4 to C1--><!--MD5=[6c9c29389d5c1a3619ecbbabdf3701b1]
+@startuml
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "EP-01  The window" as EP1 {
+  [US-02] as A1
+  [US-05] as A2
+  [US-06] as A3
+  [US-07] as A4
+  [US-08] as A5
+}
+package "EP-02  Getting a file open" as EP2 {
+  [US-01] as B1
+  [US-04] as B2
+  [US-10] as B3
+  [US-18] as B4
+}
+package "EP-03  Reading" as EP3 {
+  [US-03] as C1
+  [US-09] as C2
+  [US-11] as C3
+  [US-13] as C4
+  [US-14] as C5
+  [US-15] as C6
+}
+package "EP-04  Looking a word up" as EP4 {
+  [US-12] as D1
+}
+package "EP-05  Organising and choosing" as EP5 {
+  [US-16] as E1
+  [US-17] as E2
+}
+
+rectangle "UC-03  Browse the folders" as UC03
+rectangle "UC-04  Open a file in a tab" as UC04
+rectangle "UC-01  Open a local file" as UC01
+rectangle "UC-12  A file from outside" as UC12
+rectangle "UC-02  Read a note" as UC02
+rectangle "UC-06  Read a PDF" as UC06
+rectangle "UC-07  Look at a picture" as UC07
+rectangle "UC-08  Read a spreadsheet" as UC08
+rectangle "UC-05  Look a word up" as UC05
+rectangle "UC-09  Organise the library" as UC09
+rectangle "UC-10  Find a note" as UC10
+rectangle "UC-13  Set the preferences" as UC13
+
+EP1 - -> UC03
+EP1 - -> UC04
+EP2 - -> UC01
+EP2 - -> UC12
+EP3 - -> UC02
+EP3 - -> UC06
+EP3 - -> UC07
+EP3 - -> UC08
+EP4 - -> UC05
+EP5 - -> UC09
+EP5 - -> UC10
+EP5 - -> UC13
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 05:22:07 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

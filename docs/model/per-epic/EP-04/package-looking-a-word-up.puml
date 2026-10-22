@@ -1,0 +1,26 @@
+@startuml
+' EP-04 - Looking a word up.  The shape of the epic.
+' Package - the stories it holds, and the parts they touch.
+' Sources: ../../../analysis/epics.md (EP-04)
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "EP-04  Looking a word up" as EP {
+  package "US-12  A word is looked up" as S12
+}
+
+["The word card\n(lookup.js)"] as CARD
+["The extension\n(refresh.js)"] as EXT
+["The dictionaries"] as DICT
+
+S12 --> CARD
+S12 --> EXT
+S12 --> DICT
+@enduml

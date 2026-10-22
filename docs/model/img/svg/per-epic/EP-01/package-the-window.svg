@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="252px" preserveAspectRatio="none" style="width:1303px;height:252px;" version="1.1" viewBox="0 0 1303 252" width="1303px" zoomAndPan="magnify"><defs/><g><!--MD5=[d83f6433aa5c63d05e28e5571aae20c0]
+cluster EP--><polygon fill="#FBFBFC" points="22,24,158,24,165,49.0679,1281,49.0679,1281,139,22,139,22,24" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="22" x2="165" y1="49.0679" y2="49.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="130" x="26" y="40.9659">EP-01  The window</text><!--MD5=[e6420f80511dbbc28fd6835aa2a7c9b2]
+entity S02--><polygon fill="#FBFBFC" points="814,62,844,62,851,87.0679,1022,87.0679,1022,123.1358,814,123.1358,814,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="814" x2="851" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="818" y="79.9659">S02</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="178" x="824" y="109.0339">US-02  The window opens</text><!--MD5=[33b207674cfe8a38aa8a59a6bee50fc8]
+entity S05--><polygon fill="#FBFBFC" points="531,62,561,62,568,87.0679,779,87.0679,779,123.1358,531,123.1358,531,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="531" x2="568" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="535" y="79.9659">S05</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="218" x="541" y="109.0339">US-05  The window comes back</text><!--MD5=[425e7791158e964c6bd62415bcfea67f]
+entity S06--><polygon fill="#FBFBFC" points="1057,62,1087,62,1094,87.0679,1265,87.0679,1265,123.1358,1057,123.1358,1057,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="1057" x2="1094" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="1061" y="79.9659">S06</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="178" x="1067" y="109.0339">US-06  Browse the folders</text><!--MD5=[e85257e695c5b9ab7d85a2bbcb94a8fe]
+entity S07--><polygon fill="#FBFBFC" points="38.5,62,68.5,62,75.5,87.0679,211.5,87.0679,211.5,123.1358,38.5,123.1358,38.5,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="38.5" x2="75.5" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="42.5" y="79.9659">S07</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="143" x="48.5" y="109.0339">US-07  Filter the tree</text><!--MD5=[a335645cc8c8b7cb690df6c85e0e1632]
+entity S08--><polygon fill="#FBFBFC" points="246.5,62,276.5,62,283.5,87.0679,495.5,87.0679,495.5,123.1358,246.5,123.1358,246.5,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="246.5" x2="283.5" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="250.5" y="79.9659">S08</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="219" x="256.5" y="109.0339">US-08  Point the tree at a folder</text><!--MD5=[48558302b29571c46195c4765052fa70]
+entity WS--><rect fill="#FEFECE" height="58.1358" style="stroke: #A80036; stroke-width: 1.5;" width="126" x="356" y="183"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="351" y="188"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="351" y="231.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="106" x="366" y="207.9659">"The workspace</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="100" x="366" y="227.0339">(workspace.js)"</text><!--MD5=[33446b653b931de7fd47471c5a2c3590]
+entity ROUTES--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="957.5" y="192.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="952.5" y="197.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="952.5" y="221.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="143" x="967.5" y="217.4659">"The reader's routes"</text><!--MD5=[e47fa06001d3545761002d272ada9cd9]
+entity STORE--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="181" x="564.5" y="192.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="559.5" y="197.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="559.5" y="221.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="161" x="574.5" y="217.4659">"The browser's storage"</text><!--MD5=[9b84225501d9d6fa05f676c4580a9581]
+link S02 to WS--><path d="M859.81,123.08 C840.27,131.96 818.08,140.95 797,147 C689.1,177.99 657.46,162.99 547,183 C527.67,186.5 506.81,190.83 487.65,195.02 " fill="none" id="S02-&gt;WS" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="482.3,196.2,491.9534,198.1524,487.1809,195.1153,490.218,190.3429,482.3,196.2" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[66a6053d2212e22af2198b0e95ed74f0]
+link S02 to ROUTES--><path d="M948.53,123.15 C969.54,143.55 996.99,170.2 1016.12,188.78 " fill="none" id="S02-&gt;ROUTES" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1019.83,192.38,1016.1648,183.2385,1016.2448,188.8948,1010.5885,188.9748,1019.83,192.38" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[ff169ab417499aa0c25bbe735dbb6440]
+link S05 to WS--><path d="M595.45,123.15 C560.16,140.72 515.55,162.93 480.01,180.62 " fill="none" id="S05-&gt;WS" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="475.28,182.98,485.1198,182.5579,479.7578,180.7553,481.5604,175.3934,475.28,182.98" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[33bd7170e2f5986e397db46a2b7281e5]
+link S05 to STORE--><path d="M655,123.15 C655,143.04 655,168.87 655,187.37 " fill="none" id="S05-&gt;STORE" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="655,192.38,659,183.38,655,187.38,651,183.38,655,192.38" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[bc2ea6f1b6874debda4ed320f792ea30]
+link S06 to ROUTES--><path d="M1130.21,123.15 C1109.04,143.55 1081.36,170.2 1062.07,188.78 " fill="none" id="S06-&gt;ROUTES" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1058.33,192.38,1067.5851,189.0122,1061.9292,188.9093,1062.0321,183.2534,1058.33,192.38" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[cdcdf1a68a6f7a98b3397b41714f98df]
+link S07 to WS--><path d="M178.78,123.11 C194.71,131.35 212.36,139.96 229,147 C268.58,163.73 314.17,179.21 350.77,190.75 " fill="none" id="S07-&gt;WS" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="355.65,192.29,348.2639,185.775,350.8801,190.7905,345.8647,193.4068,355.65,192.29" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[5c5ffab47f4242c578b8a1074bf1241a]
+link S08 to WS--><path d="M383.11,123.15 C389.97,139.93 398.55,160.94 405.61,178.21 " fill="none" id="S08-&gt;WS" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="407.55,182.98,407.8587,173.136,405.6635,178.3495,400.45,176.1544,407.55,182.98" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[6764409dbd14aba391ed9c0dfaa549d4]
+@startuml
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "EP-01  The window" as EP {
+  package "US-02  The window opens" as S02
+  package "US-05  The window comes back" as S05
+  package "US-06  Browse the folders" as S06
+  package "US-07  Filter the tree" as S07
+  package "US-08  Point the tree at a folder" as S08
+}
+
+["The workspace\n(workspace.js)"] as WS
+["The reader's routes"] as ROUTES
+["The browser's storage"] as STORE
+
+S02 - -> WS
+S02 - -> ROUTES
+S05 - -> WS
+S05 - -> STORE
+S06 - -> ROUTES
+S07 - -> WS
+S08 - -> WS
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 05:22:07 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

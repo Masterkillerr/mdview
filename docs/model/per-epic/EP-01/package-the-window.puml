@@ -1,0 +1,34 @@
+@startuml
+' EP-01 - The window.  The shape of the epic.
+' Package - the stories it holds, and the parts they touch.
+' Sources: ../../../analysis/epics.md (EP-01)
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "EP-01  The window" as EP {
+  package "US-02  The window opens" as S02
+  package "US-05  The window comes back" as S05
+  package "US-06  Browse the folders" as S06
+  package "US-07  Filter the tree" as S07
+  package "US-08  Point the tree at a folder" as S08
+}
+
+["The workspace\n(workspace.js)"] as WS
+["The reader's routes"] as ROUTES
+["The browser's storage"] as STORE
+
+S02 --> WS
+S02 --> ROUTES
+S05 --> WS
+S05 --> STORE
+S06 --> ROUTES
+S07 --> WS
+S08 --> WS
+@enduml

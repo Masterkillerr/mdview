@@ -24,7 +24,7 @@ The model names the story each diagram belongs to.
 **As a** reader **I want** the file I opened in the browser to come up in the
 reader's window **so that** I do not have to find it again.
 
-* **Use case**: UC-01 · **Requirements**: RF-01, RNF-04
+* **Epic**: EP-02 · **Use case**: UC-01 · **Requirements**: RF-01, RNF-04
 * **Size**: S
 * **Acceptance criteria**
   1. A tab whose address is a `file://` URL of a kind the reader reads is sent to the reader's workspace, with the file's path named in the address (F-1).
@@ -42,7 +42,7 @@ reader's window **so that** I do not have to find it again.
 **As a** reader **I want** the folders on the left and the open files along the
 top **so that** the window tells me where I am and what I have open.
 
-* **Use case**: UC-03 · **Requirements**: RF-05, RNF-01, RNF-02, RNF-07, RNF-08
+* **Epic**: EP-01 · **Use case**: UC-03 · **Requirements**: RF-05, RNF-01, RNF-02, RNF-07, RNF-08
 * **Size**: L
 * **Acceptance criteria**
   1. The window shows the folders on the left, the open files along the top and the document in the middle (F-5).
@@ -60,7 +60,7 @@ top **so that** the window tells me where I am and what I have open.
 **As a** reader **I want** my notes to be rendered **so that** I can read them
 the way they were written.
 
-* **Use case**: UC-02 · **Requirements**: RF-02, RF-23, RNF-03
+* **Epic**: EP-03 · **Use case**: UC-02 · **Requirements**: RF-02, RF-23, RNF-03
 * **Size**: L
 * **Acceptance criteria**
   1. The renderer agrees with the official CommonMark 0.31.2 corpus on at least 90 % of its 652 examples (RNF-03).
@@ -79,7 +79,7 @@ the way they were written.
 **As a** reader **I want** a file to open in a tab **so that** I can have several
 open at once and come back to them.
 
-* **Use case**: UC-04 · **Requirements**: RF-06
+* **Epic**: EP-02 · **Use case**: UC-04 · **Requirements**: RF-06
 * **Size**: M
 * **Acceptance criteria**
   1. Clicking a file in the tree opens it in a tab, with the mark of its kind and its name.
@@ -97,7 +97,7 @@ open at once and come back to them.
 **As a** reader **I want** the window to be where I left it **so that** a reload
 does not lose my place.
 
-* **Use case**: UC-04 · **Requirements**: RF-07, RF-27
+* **Epic**: EP-01 · **Use case**: UC-04 · **Requirements**: RF-07, RF-27
 * **Size**: S
 * **Acceptance criteria**
   1. After a reload, the same files are open, and the one that was being read is the one shown.
@@ -114,7 +114,7 @@ does not lose my place.
 **As a** reader **I want** the tree to show a folder at a time **so that** a
 folder with a thousand files does not take the window down.
 
-* **Use case**: UC-03 · **Requirements**: RF-08
+* **Epic**: EP-01 · **Use case**: UC-03 · **Requirements**: RF-08
 * **Size**: M
 * **Acceptance criteria**
   1. The tree shows the contents of the folder it is standing in, and nothing else.
@@ -132,7 +132,7 @@ folder with a thousand files does not take the window down.
 **As a** reader **I want** to see only the kinds of file I am looking for
 **so that** a folder of two thousand files is usable.
 
-* **Use case**: UC-03 · **Requirements**: RF-09
+* **Epic**: EP-01 · **Use case**: UC-03 · **Requirements**: RF-09
 * **Size**: M
 * **Acceptance criteria**
   1. The tree can be filtered by name, by kind, by extension, by size and by when the file was last touched.
@@ -150,7 +150,7 @@ folder with a thousand files does not take the window down.
 **As a** reader **I want** to point the tree at any folder **so that** the
 window shows me the part of the disk I am working in.
 
-* **Use case**: UC-11 · **Requirements**: RF-10
+* **Epic**: EP-01 · **Use case**: UC-11 · **Requirements**: RF-10
 * **Size**: M
 * **Acceptance criteria**
   1. The three dots on a folder offer to go to that folder, to add it to the reader's own, to open it in the library, and to copy its path.
@@ -168,7 +168,7 @@ window shows me the part of the disk I am working in.
 **As a** reader **I want** to open any file **so that** the reader is not a
 reader of markdown only.
 
-* **Use case**: UC-02 · **Requirements**: RF-03
+* **Epic**: EP-03 · **Use case**: UC-02 · **Requirements**: RF-03
 * **Size**: M
 * **Acceptance criteria**
   1. A file with no engine of its own is shown as its own text, with its name, its size, its line count and its folder.
@@ -184,7 +184,7 @@ reader of markdown only.
 **As a** reader **I want** to open a file without adding it to my folders
 **so that** I can look at something and leave no trace of it.
 
-* **Use case**: UC-04 · **Requirements**: RF-03
+* **Epic**: EP-02 · **Use case**: UC-04 · **Requirements**: RF-03
 * **Size**: S
 * **Acceptance criteria**
   1. A file picked with the *+* button, or dropped on the window, opens in a tab.
@@ -200,7 +200,7 @@ reader of markdown only.
 **As a** reader **I want** to come back to the words I was reading **so that** a
 long document is not read twice.
 
-* **Use case**: UC-02 · **Requirements**: RF-11, RF-26
+* **Epic**: EP-03 · **Use case**: UC-02 · **Requirements**: RF-11, RF-26
 * **Size**: M
 * **Acceptance criteria**
   1. The place in a note is a page and a fraction of a page, not a pixel offset (F-4).
@@ -217,7 +217,7 @@ long document is not read twice.
 **As a** reader **I want** to double-click a word and see what it means **so
 that** I can read without leaving the page.
 
-* **Use case**: UC-05 · **Requirements**: RF-12, RF-13, RF-21, RF-24, RF-25
+* **Epic**: EP-04 · **Use case**: UC-05 · **Requirements**: RF-12, RF-13, RF-21, RF-24, RF-25
 * **Size**: L
 * **Acceptance criteria**
   1. Double-clicking a word in a note, in a PDF or in a page of the reader's own opens a card with the word's senses.
@@ -236,7 +236,7 @@ that** I can read without leaving the page.
 **As a** reader **I want** to read a PDF in the window **so that** a slide or a
 manual is a document like any other.
 
-* **Use case**: UC-06 · **Requirements**: RF-11, RF-17, RNF-05
+* **Epic**: EP-03 · **Use case**: UC-06 · **Requirements**: RF-11, RF-17, RNF-05
 * **Size**: L
 * **Acceptance criteria**
   1. Every page gets its box at once, and the pages near the reader are painted as the reader reaches them (F-15).
@@ -255,7 +255,7 @@ manual is a document like any other.
 **As a** reader **I want** a picture at its own pixels **so that** a diagram is
 sharp when I look at it.
 
-* **Use case**: UC-07 · **Requirements**: RF-18
+* **Epic**: EP-03 · **Use case**: UC-07 · **Requirements**: RF-18
 * **Size**: M
 * **Acceptance criteria**
   1. The picture is shown at its own pixels, and is not shrunk to fit the window (F-19).
@@ -273,7 +273,7 @@ sharp when I look at it.
 **As a** reader **I want** to read a workbook or a CSV **so that** a table is a
 document like any other.
 
-* **Use case**: UC-08 · **Requirements**: RF-03, RF-19
+* **Epic**: EP-03 · **Use case**: UC-08 · **Requirements**: RF-03, RF-19
 * **Size**: L
 * **Acceptance criteria**
   1. A workbook's sheets are drawn as a grid, and a CSV is drawn the same way (F-22).
@@ -288,7 +288,7 @@ document like any other.
 **As a** reader **I want** to organise my notes and to have the reader look the
 way I want it **so that** the window is mine.
 
-* **Use case**: UC-09, UC-13 · **Requirements**: RF-15, RF-20, RF-27
+* **Epic**: EP-05 · **Use case**: UC-09, UC-13 · **Requirements**: RF-15, RF-20, RF-27
 * **Size**: M
 * **Acceptance criteria**
   1. The library adds, renames and deletes notes and pictures, and makes folders, inside the reader's folders.
@@ -305,7 +305,7 @@ way I want it **so that** the window is mine.
 **As a** reader **I want** to find a note I cannot remember the folder of **so
 that** the folders do not have to be remembered.
 
-* **Use case**: UC-10 · **Requirements**: RF-16
+* **Epic**: EP-05 · **Use case**: UC-10 · **Requirements**: RF-16
 * **Size**: S
 * **Acceptance criteria**
   1. The search finds the notes whose name holds the text, in any folder under the reader's roots.
@@ -321,7 +321,7 @@ that** the folders do not have to be remembered.
 **As a** reader **I want** the reader to offer to show me a file it does not
 have **so that** nothing is refused without a way forward.
 
-* **Use case**: UC-12 · **Requirements**: RF-04, RF-14, RF-22
+* **Epic**: EP-02 · **Use case**: UC-12 · **Requirements**: RF-04, RF-14, RF-22
 * **Size**: M
 * **Acceptance criteria**
   1. A file outside the reader's folders is answered with a page that says where the file is, and offers to add the folder that holds it (F-26).

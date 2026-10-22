@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="252px" preserveAspectRatio="none" style="width:1863px;height:252px;" version="1.1" viewBox="0 0 1863 252" width="1863px" zoomAndPan="magnify"><defs/><g><!--MD5=[d83f6433aa5c63d05e28e5571aae20c0]
+cluster EP--><polygon fill="#FBFBFC" points="22,24,130,24,137,49.0679,1841,49.0679,1841,139,22,139,22,24" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="22" x2="137" y1="49.0679" y2="49.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="102" x="26" y="40.9659">EP-03  Reading</text><!--MD5=[aa52f6c24bdee73bb95ecb050cb5b929]
+entity S03--><polygon fill="#FBFBFC" points="401.5,62,431.5,62,438.5,87.0679,672.5,87.0679,672.5,123.1358,401.5,123.1358,401.5,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="401.5" x2="438.5" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="405.5" y="79.9659">S03</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="241" x="411.5" y="109.0339">US-03  A note is rendered and read</text><!--MD5=[44958f661ae47798ebf4c71acd757bce]
+entity S09--><polygon fill="#FBFBFC" points="707.5,62,737.5,62,744.5,87.0679,1046.5,87.0679,1046.5,123.1358,707.5,123.1358,707.5,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="707.5" x2="744.5" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="711.5" y="79.9659">S09</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="309" x="717.5" y="109.0339">US-09  A file with no engine opens as its text</text><!--MD5=[4e1b7383b4554c57d56db7e615f5163d]
+entity S11--><polygon fill="#FBFBFC" points="37.5,62,67.5,62,74.5,87.0679,366.5,87.0679,366.5,123.1358,37.5,123.1358,37.5,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="37.5" x2="74.5" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="41.5" y="79.9659">S11</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="299" x="47.5" y="109.0339">US-11  The place the reader reached is kept</text><!--MD5=[6fa27f683e551fe50b61968ed01d8c86]
+entity S13--><polygon fill="#FBFBFC" points="1081.5,62,1111.5,62,1118.5,87.0679,1250.5,87.0679,1250.5,123.1358,1081.5,123.1358,1081.5,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="1081.5" x2="1118.5" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="1085.5" y="79.9659">S13</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="139" x="1091.5" y="109.0339">US-13  A PDF is read</text><!--MD5=[39126628f75a0beac590005f47c04182]
+entity S14--><polygon fill="#FBFBFC" points="1285.5,62,1315.5,62,1322.5,87.0679,1562.5,87.0679,1562.5,123.1358,1285.5,123.1358,1285.5,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="1285.5" x2="1322.5" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="1289.5" y="79.9659">S14</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="247" x="1295.5" y="109.0339">US-14  A picture is looked at closely</text><!--MD5=[2338577232c0daf52488d718e7b722dc]
+entity S15--><polygon fill="#FBFBFC" points="1597.5,62,1627.5,62,1634.5,87.0679,1824.5,87.0679,1824.5,123.1358,1597.5,123.1358,1597.5,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="1597.5" x2="1634.5" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="1601.5" y="79.9659">S15</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="197" x="1607.5" y="109.0339">US-15  A spreadsheet is read</text><!--MD5=[e291d5aa2260f5663058080aae2b1552]
+entity MD--><rect fill="#FEFECE" height="58.1358" style="stroke: #A80036; stroke-width: 1.5;" width="115" x="182.5" y="183"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="177.5" y="188"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="177.5" y="231.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="95" x="192.5" y="207.9659">"The renderer</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="192.5" y="227.0339">(mdview.js)"</text><!--MD5=[b33bd656212286946e0f6485ee27f6f9]
+entity PDF--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="1106" y="192.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1101" y="197.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1101" y="221.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="100" x="1116" y="217.4659">"The PDF view"</text><!--MD5=[a0d19e8811d565ca66e32cc4c28ac1ad]
+entity IMG--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="143" x="1352.5" y="192.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1347.5" y="197.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1347.5" y="221.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="123" x="1362.5" y="217.4659">"The picture view"</text><!--MD5=[7dfe3d3c800f879fa06c8e53ec28e54d]
+entity XLS--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="132" x="1645" y="192.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1640" y="197.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1640" y="221.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="112" x="1655" y="217.4659">"The sheet view"</text><!--MD5=[33446b653b931de7fd47471c5a2c3590]
+entity ROUTES--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="795.5" y="192.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="790.5" y="197.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="790.5" y="221.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="143" x="805.5" y="217.4659">"The reader's routes"</text><!--MD5=[e47fa06001d3545761002d272ada9cd9]
+entity STORE--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="181" x="370.5" y="192.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="365.5" y="197.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="365.5" y="221.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="161" x="380.5" y="217.4659">"The browser's storage"</text><!--MD5=[8fd07f46b7a887864e372326bef57fd3]
+link S03 to MD--><path d="M462.05,123.15 C412.71,142.67 348.87,167.93 302.32,186.35 " fill="none" id="S03-&gt;MD" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="297.58,188.22,307.4204,188.6279,302.2292,186.3803,304.4768,181.1891,297.58,188.22" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[c661fee8253794699cef8df242c1d320]
+link S03 to STORE--><path d="M517.82,123.15 C504.85,143.21 487.96,169.31 475.98,187.84 " fill="none" id="S03-&gt;STORE" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="473.04,192.38,481.2845,186.9922,475.7539,188.1806,474.5655,182.65,473.04,192.38" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[e3b4a118e2dfb461e40fede4543546be]
+link S09 to ROUTES--><path d="M877,123.15 C877,143.04 877,168.87 877,187.37 " fill="none" id="S09-&gt;ROUTES" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="877,192.38,881,183.38,877,187.38,873,183.38,877,192.38" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[460644529c33e4cde2f90116e7804062]
+link S11 to MD--><path d="M211.59,123.15 C217.02,139.93 223.81,160.94 229.4,178.21 " fill="none" id="S11-&gt;MD" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="230.94,182.98,231.9683,173.185,229.3975,178.2239,224.3586,175.653,230.94,182.98" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[41f7a52ecbfc6e71bc173908701df267]
+link S11 to STORE--><path d="M267.36,123.15 C313.44,144.06 374.02,171.54 415.05,190.16 " fill="none" id="S11-&gt;STORE" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="419.96,192.38,413.4219,185.0143,415.4082,190.311,410.1115,192.2972,419.96,192.38" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[0dbf3215649e0452d0d8f906475f7110]
+link S13 to PDF--><path d="M1166,123.15 C1166,143.04 1166,168.87 1166,187.37 " fill="none" id="S13-&gt;PDF" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1166,192.38,1170,183.38,1166,187.38,1162,183.38,1166,192.38" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[94c23db6ff9185044a43462f9db3fe23]
+link S14 to IMG--><path d="M1424,123.15 C1424,143.04 1424,168.87 1424,187.37 " fill="none" id="S14-&gt;IMG" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1424,192.38,1428,183.38,1424,187.38,1420,183.38,1424,192.38" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[225d8d901401eb76573efbe3d18e2fc6]
+link S15 to XLS--><path d="M1711,123.15 C1711,143.04 1711,168.87 1711,187.37 " fill="none" id="S15-&gt;XLS" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="1711,192.38,1715,183.38,1711,187.38,1707,183.38,1711,192.38" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[c0493dc1907ea6291c80f6d8facf2480]
+@startuml
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "EP-03  Reading" as EP {
+  package "US-03  A note is rendered and read" as S03
+  package "US-09  A file with no engine opens as its text" as S09
+  package "US-11  The place the reader reached is kept" as S11
+  package "US-13  A PDF is read" as S13
+  package "US-14  A picture is looked at closely" as S14
+  package "US-15  A spreadsheet is read" as S15
+}
+
+["The renderer\n(mdview.js)"] as MD
+["The PDF view"] as PDF
+["The picture view"] as IMG
+["The sheet view"] as XLS
+["The reader's routes"] as ROUTES
+["The browser's storage"] as STORE
+
+S03 - -> MD
+S03 - -> STORE
+S09 - -> ROUTES
+S11 - -> MD
+S11 - -> STORE
+S13 - -> PDF
+S14 - -> IMG
+S15 - -> XLS
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 05:22:07 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

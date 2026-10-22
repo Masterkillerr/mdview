@@ -12,6 +12,7 @@ the way the units are:
 model/
   general/            the system as a whole
   per-use-case/UC-nn/ the drawings of one use case
+  per-epic/EP-nn/     the shape of one epic
   per-story/US-nn/    the drawings of one story
   img/
     svg/…             the vector drawings — the ones the documents link to
@@ -24,12 +25,13 @@ one diagram too many.
 `bash render.sh` renders every source into the mirrored place under `img/`,
 and fails if any of them does not render — the render is a gate.
 
-**Every unit has a drawing of its own.** A use case is a goal and a story is a
-slice of one, and neither is written down without a picture of it: the drawing
-is where the flow, the states or the conversation are visible, and the prose
-points at it. The kind is chosen to suit the unit — a sequence for a
-conversation, an activity for a flow with branches, a state machine for a thing
-that has states, a communication for a collaboration — and the choice is
+**Every unit has a drawing of its own.** A use case is a goal, an epic is a body
+of work, and a story is a slice of one — and none of them is written down
+without a picture of it: the drawing is where the flow, the states or the
+conversation are visible, and the prose points at it. The kind is chosen to
+suit the unit — a sequence for a conversation, an activity for a flow with
+branches, a state machine for a thing that has states, a communication for a
+collaboration, and a package for the shape of an epic — and the choice is
 recorded in the unit's own description.
 
 The **vectors** are the drawings: they are text, and a change in them is a
@@ -52,6 +54,7 @@ in.
 | Component | [general/component.puml](general/component.puml) | The components and the **interfaces** between them: the reader's HTTP interface, the extension's messages, a file's own page |
 | Package | [general/package.puml](general/package.puml) | The **layers**, in the order they may depend on each other, and the dependencies allowed between them |
 | Activity | [general/activity-write-a-change.puml](general/activity-write-a-change.puml) | A change on the disk, and every way it can be refused |
+| Package (story map) | [general/story-map.puml](general/story-map.puml) | The epics, the stories inside them, and the use cases they serve |
 | Deployment | [general/deployment.puml](general/deployment.puml) | The service, the browser, the disk and the three dictionary hosts |
 | Timing | [general/timing.puml](general/timing.puml) | The budget from the tab's address to the note on the screen |
 
@@ -74,6 +77,19 @@ Each use case is a goal, and the drawing is the goal as a whole.
 | **UC-11** Add a folder to the reader | activity | [UC-11/activity-add-a-folder.puml](per-use-case/UC-11/activity-add-a-folder.puml) |
 | **UC-12** Open a file from outside the folders | activity | [UC-12/activity-open-a-file-outside.puml](per-use-case/UC-12/activity-open-a-file-outside.puml) |
 | **UC-13** Set the reader's preferences | activity | [UC-13/activity-set-the-preferences.puml](per-use-case/UC-13/activity-set-the-preferences.puml) |
+
+## The per-epic set
+
+An epic is a body of work, and its drawing is its **shape**: the stories it
+holds and the parts of the system they touch.
+
+| Epic | Diagram | Source |
+|---|---|---|
+| **EP-01** The window | package | [EP-01/package-the-window.puml](per-epic/EP-01/package-the-window.puml) |
+| **EP-02** Getting a file open | package | [EP-02/package-getting-a-file-open.puml](per-epic/EP-02/package-getting-a-file-open.puml) |
+| **EP-03** Reading | package | [EP-03/package-reading.puml](per-epic/EP-03/package-reading.puml) |
+| **EP-04** Looking a word up | package | [EP-04/package-looking-a-word-up.puml](per-epic/EP-04/package-looking-a-word-up.puml) |
+| **EP-05** Organising and choosing | package | [EP-05/package-organising-and-choosing.puml](per-epic/EP-05/package-organising-and-choosing.puml) |
 
 ## The per-story set
 

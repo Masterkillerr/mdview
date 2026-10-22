@@ -1,0 +1,35 @@
+@startuml
+' EP-02 - Getting a file open.  The shape of the epic.
+' Package - the stories it holds, and the parts they touch.
+' Sources: ../../../analysis/epics.md (EP-02)
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "EP-02  Getting a file open" as EP {
+  package "US-01  Send the file the browser opens" as S01
+  package "US-04  A file opens in a tab" as S04
+  package "US-10  A file opened once is kept" as S10
+  package "US-18  A file from outside the folders" as S18
+}
+
+["The extension\n(refresh.js)"] as EXT
+["The workspace\n(workspace.js)"] as WS
+["The reader's routes"] as ROUTES
+["The scratch space"] as TEMP
+
+S01 --> EXT
+S01 --> WS
+S04 --> WS
+S04 --> ROUTES
+S10 --> TEMP
+S10 --> WS
+S18 --> ROUTES
+S18 --> TEMP
+@enduml

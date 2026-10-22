@@ -1,0 +1,39 @@
+@startuml
+' EP-03 - Reading.  The shape of the epic.
+' Package - the stories it holds, and the parts they touch.
+' Sources: ../../../analysis/epics.md (EP-03)
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "EP-03  Reading" as EP {
+  package "US-03  A note is rendered and read" as S03
+  package "US-09  A file with no engine opens as its text" as S09
+  package "US-11  The place the reader reached is kept" as S11
+  package "US-13  A PDF is read" as S13
+  package "US-14  A picture is looked at closely" as S14
+  package "US-15  A spreadsheet is read" as S15
+}
+
+["The renderer\n(mdview.js)"] as MD
+["The PDF view"] as PDF
+["The picture view"] as IMG
+["The sheet view"] as XLS
+["The reader's routes"] as ROUTES
+["The browser's storage"] as STORE
+
+S03 --> MD
+S03 --> STORE
+S09 --> ROUTES
+S11 --> MD
+S11 --> STORE
+S13 --> PDF
+S14 --> IMG
+S15 --> XLS
+@enduml

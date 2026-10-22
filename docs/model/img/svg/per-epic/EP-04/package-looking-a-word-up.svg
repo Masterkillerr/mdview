@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="252px" preserveAspectRatio="none" style="width:470px;height:252px;" version="1.1" viewBox="0 0 470 252" width="470px" zoomAndPan="magnify"><defs/><g><!--MD5=[d83f6433aa5c63d05e28e5571aae20c0]
+cluster EP--><polygon fill="#FBFBFC" points="99.5,24,282.5,24,289.5,49.0679,349.5,49.0679,349.5,139,99.5,139,99.5,24" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="99.5" x2="289.5" y1="49.0679" y2="49.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="177" x="103.5" y="40.9659">EP-04  Looking a word up</text><!--MD5=[05f16afa928e489f6dad2bcf542b41b3]
+entity S12--><polygon fill="#FBFBFC" points="116,62,146,62,153,87.0679,333,87.0679,333,123.1358,116,123.1358,116,62" style="stroke: #333333; stroke-width: 1.5;"/><line style="stroke: #333333; stroke-width: 1.5;" x1="116" x2="153" y1="87.0679" y2="87.0679"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="120" y="79.9659">S12</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="187" x="126" y="109.0339">US-12  A word is looked up</text><!--MD5=[04730345b77229edac70b3723410e69f]
+entity CARD--><rect fill="#FEFECE" height="58.1358" style="stroke: #A80036; stroke-width: 1.5;" width="123" x="6" y="183"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1" y="188"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="1" y="231.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="103" x="16" y="207.9659">"The word card</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="74" x="16" y="227.0339">(lookup.js)"</text><!--MD5=[c6d6d4da8b4a45e2cf2408caa42c2835]
+entity EXT--><rect fill="#FEFECE" height="58.1358" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="164.5" y="183"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="159.5" y="188"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="159.5" y="231.1358"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="100" x="174.5" y="207.9659">"The extension</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="78" x="174.5" y="227.0339">(refresh.js)"</text><!--MD5=[2984e825b318c0bf70ea45447b0e6726]
+entity DICT--><rect fill="#FEFECE" height="39.0679" style="stroke: #A80036; stroke-width: 1.5;" width="140" x="319.5" y="192.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="314.5" y="197.5"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="314.5" y="221.5679"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="120" x="329.5" y="217.4659">"The dictionaries"</text><!--MD5=[9773a8be31bf118ca61457fe461349d7]
+link S12 to CARD--><path d="M184.88,123.15 C161.7,140.5 132.46,162.39 108.96,179.97 " fill="none" id="S12-&gt;CARD" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="104.94,182.98,114.545,180.802,108.9469,179.9892,109.7597,174.391,104.94,182.98" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[9cd09e39a3b33a70b4a2160addb4fc23]
+link S12 to EXT--><path d="M224.5,123.15 C224.5,139.79 224.5,160.58 224.5,177.77 " fill="none" id="S12-&gt;EXT" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="224.5,182.98,228.5,173.98,224.5,177.98,220.5,173.98,224.5,182.98" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[e6cfef0d0f3672561ce4784754b6abeb]
+link S12 to DICT--><path d="M266.14,123.15 C295.14,143.8 333.15,170.87 359.27,189.47 " fill="none" id="S12-&gt;DICT" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="363.36,192.38,358.3501,183.9006,359.2875,189.4792,353.7088,190.4166,363.36,192.38" style="stroke: #333333; stroke-width: 1.0;"/><!--MD5=[30879cabcd9a3ead146e263eda717fe9]
+@startuml
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "EP-04  Looking a word up" as EP {
+  package "US-12  A word is looked up" as S12
+}
+
+["The word card\n(lookup.js)"] as CARD
+["The extension\n(refresh.js)"] as EXT
+["The dictionaries"] as DICT
+
+S12 - -> CARD
+S12 - -> EXT
+S12 - -> DICT
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 05:22:07 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

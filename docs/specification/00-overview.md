@@ -120,6 +120,7 @@ The kind is decided in one place, by the name and — only when a file is opened
 | Question | Document |
 |---|---|
 | What must it do? | [../analysis/requirements.md](../analysis/requirements.md) |
+| What is a body of work? | [../analysis/epics.md](../analysis/epics.md) |
 | What is a slice of work? | [../analysis/stories.md](../analysis/stories.md) |
 | What is next? | [../analysis/backlog.md](../analysis/backlog.md) |
 | How is it shaped? | [01-architecture.md](01-architecture.md) |

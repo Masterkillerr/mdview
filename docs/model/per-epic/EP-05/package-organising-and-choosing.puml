@@ -1,0 +1,30 @@
+@startuml
+' EP-05 - Organising and choosing.  The shape of the epic.
+' Package - the stories it holds, and the parts they touch.
+' Sources: ../../../analysis/epics.md (EP-05)
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #333
+skinparam package {
+  BackgroundColor #fbfbfc
+  BorderColor #333
+  FontColor #333
+}
+
+package "EP-05  Organising and choosing" as EP {
+  package "US-16  The library and the reader's choices" as S16
+  package "US-17  A note is found by name" as S17
+}
+
+["The library"] as LIB
+["The reader's routes"] as ROUTES
+["The browser's storage"] as STORE
+["The index"] as INDEX
+
+S16 --> LIB
+S16 --> ROUTES
+S16 --> STORE
+S17 --> INDEX
+S17 --> ROUTES
+@enduml
